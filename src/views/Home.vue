@@ -6,16 +6,17 @@
 
 <script>
 // @ is an alias to /src
-import FrontPage from "@/components/FrontPage.vue";
+import FrontPage from "../components/FrontPage.vue";
 export default {
  data(){
-   export default {
-  name: "home",
-  components: {
+  return {
+  name: "home"
+}
+ },
+ components: {
     FrontPage
   }
-};
- },
+
 }
 </script>
 
