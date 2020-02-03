@@ -1,20 +1,21 @@
 <template>
-  <v-container class="home">
-   <!-- <h1 style="margin-left=90px">Conntainer</h1> -->
-
-  </v-container>
+  <div class="home">
+    <FrontPage />
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import FrontPage from "@/components/FrontPage.vue";
 export default {
  data(){
-
- },
- components: {
-
- }
-
+   export default {
+  name: "home",
+  components: {
+    FrontPage
+  }
 };
+ },
+}
 </script>
 

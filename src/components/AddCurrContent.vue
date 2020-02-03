@@ -1,6 +1,6 @@
 <template>
   <span width="70%">
-    <v-container text-md-center >
+    <v-container text-md-center>
       <v-card width="100%">
         <v-card-title class="display-1">
           Add a Curriculum Structure
@@ -13,20 +13,32 @@
               v-model="name"
               label="Program Name"
             ></v-text-field>
-            <v-select :items="types" v-model="type" label="Program Type"></v-select>
-            <v-textarea outlined label="Background" v-model="background"></v-textarea>
-            <v-textarea outlined label="Rational" v-model="rational"></v-textarea>
+            <v-select
+              :items="types"
+              v-model="type"
+              label="Program Type"
+            ></v-select>
+            <v-textarea
+              outlined
+              label="Background"
+              v-model="background"
+            ></v-textarea>
+            <v-textarea
+              outlined
+              label="Rational"
+              v-model="rational"
+            ></v-textarea>
             <p outlined class="headline">Program Outcome/s(PO)</p>
             <v-flex class="ml-5">
-              <template v-for="PO in no_of_PO" >
-                <v-flex v-bind:key="PO" >
+              <template v-for="PO in no_of_PO">
+                <v-flex v-bind:key="PO">
                   <v-layout>
                     <p class="title">PO{{ PO }}</p>
                     <v-spacer></v-spacer>
                     <v-icon @click="addPO()">mdi-plus</v-icon>
                   </v-layout>
-                  <v-text-field outlined label="Name of Outcome" ></v-text-field>
-                  <v-text-field outlined label="Description" ></v-text-field>
+                  <v-text-field outlined label="Name of Outcome"></v-text-field>
+                  <v-text-field outlined label="Description"></v-text-field>
                 </v-flex>
               </template>
               <p class="headline">Program Educational Outcome/s(PEO)</p>
@@ -75,7 +87,9 @@
               </v-flex>
             </v-flex>
             <v-flex text-md-center>
-              <v-btn color="green" @click="addCurriculum()">Add Curriculum Structure</v-btn>
+              <v-btn color="green" @click="addCurriculum()"
+                >Add Curriculum Structure</v-btn
+              >
             </v-flex>
           </v-flex>
         </v-card-actions>
@@ -99,17 +113,16 @@ export default {
         "PHD. (PG)",
         "Doctoral (PG)"
       ],
-      name:'',
-      type:'',
-      background:'',
-      rational:'',
-      po:[
+      name: "",
+      type: "",
+      background: "",
+      rational: "",
+      po: [
         {
-          name:'',
-          details:'',
+          name: "",
+          details: ""
         }
-        ],
-
+      ]
     };
   },
   methods: {
@@ -124,7 +137,7 @@ export default {
       this.no_of_CLO++;
     },
     addCurriculum() {
-      this.console.log(this.po)
+      this.console.log(this.po);
     }
   },
   computed: {
