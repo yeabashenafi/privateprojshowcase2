@@ -2,12 +2,12 @@
   <v-layout row>
     <v-flex class="col pa-4 ma-5 align-center">
       <v-card class="mt-5 mx-auto py-5" width="800px" height="501">
-        <v-card-titile class="pa-3">
+        <v-card-title class="pa-3">
           <h1 class="my-3 indigo--text text--lighten-2 text-center">
             Welcome to our page
           </h1>
           <h3 class="my-3 indigo--text text--lighten-2 text-center">Log in</h3>
-        </v-card-titile>
+        </v-card-title>
         <v-card-text>
           <v-form class="px-3">
             <v-text-field label="Username" v-model="Username"> </v-text-field>
@@ -76,6 +76,11 @@
                 v-model="password"
                 :rules="passwordRule"
               ></v-text-field>
+              <v-select
+              :items="items"
+              label="Roles"
+              v-model="role"
+               ></v-select>
               <v-text-field
                 label="nationality"
                 v-model="Nationality"
@@ -138,6 +143,8 @@ export default {
       Educational_status: "",
       gender: "",
       password: "",
+      organization: "",
+      items: ['Departement Head', 'College Dean', 'Teacher','Acadamic commitie'],
       errmessage: "",
       Username: "",
       closeVar: false,
