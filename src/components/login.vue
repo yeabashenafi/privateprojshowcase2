@@ -1,5 +1,7 @@
 <template>
+
   <v-layout row>
+    
     <v-flex class="col pa-4 ma-5 align-center">
       <v-card class="mt-5 mx-auto py-5" width="800px" height="501">
         <v-card-title class="pa-3">
@@ -10,7 +12,7 @@
         </v-card-title>
         <v-card-text>
           <v-form class="px-3">
-            <v-text-field label="Username" v-model="Username"> </v-text-field>
+            <v-text-field label="E-mail" v-model="email"> </v-text-field>
             <v-text-field label="Password" required v-model="password">
             </v-text-field>
             <p class="red--text">{{ errmessage }}</p>
@@ -123,7 +125,23 @@
             </v-form>
           </v-card-text>
         </v-card>
+         <v-dialog  
+          max-width="400px"
+         v-model="ok">
+              <v-card>
+              <v-card-title>
+                <h2>confirmed</h2>
+              </v-card-title>
+              <v-card-text>
+                <h3> Successfully registered</h3>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn @click="okbtn">ok</v-btn>
+              </v-card-actions>
+            </v-card>
+         </v-dialog>
       </v-dialog>
+      
     </v-flex>
   </v-layout>
 </template>
@@ -137,6 +155,7 @@ const api = new apiservice();
 export default {
   data() {
     return {
+      ok: false,
       email: "",
       fullname: "",
       Nationality: "",
@@ -179,7 +198,8 @@ export default {
         if(this.$refs.form.validate()){
             this.snackbar = true;
         }
-      const data = {
+        this.ok = true;
+        const data = {
         fullname: this.fullname,
         email: this.email,
         password: this.password,
@@ -190,9 +210,15 @@ export default {
         Username: this.Username
       };
       api.register(data);
+      this.email = '';
+      this.password = '';
     },
     resetForm(){
             this.$refs.form.reset();
+        },
+        okbtn(){
+        //  this.ok = false;
+          this.closeVar = false;
         }
   }
   //  if(this.email !='' && this.password !=''){
