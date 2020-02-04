@@ -56,15 +56,12 @@
             v-model="organization"
             :rules="nameRule"
           ></v-text-field>
-          <v-layout>
-            <v-flex>
-              <v-select
+        <v-layout>
+           <v-select
               :items="items"
-              label="Role" 
-              ></v-select>
-
-            </v-flex>
-          </v-layout>
+              label="Roles"
+               ></v-select>
+        </v-layout>
           <v-text-field
             label="Nationality"
             v-model="Nationality"
@@ -81,6 +78,7 @@
             <v-radio label="Msc" value="Masters"></v-radio>
             <v-radio label="PHD" value="phd"></v-radio>
           </v-radio-group>
+          
           <!-- <div class="mb-3">
                       <v-file-input label="Upload Document" v-model="file"></v-file-input>
                  </div> -->
@@ -112,7 +110,7 @@ export default {
       closeVar: true,
       Nationality: "",
       gender: "Male",
-      items: ['Departement Head', 'College Dean', 'Teacher'],
+      items: ['Departement Head', 'College Dean', 'Teacher','Acadamic commitie'],
       nameRule: [
         v => !!v || "Name is required",
         v => (v && v.length <= 15) || "Name must be less than 15 characters"
