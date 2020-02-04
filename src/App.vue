@@ -7,7 +7,7 @@
       <v-btn class="ml-3" text rounded to="/view" v-show="logged_in"
         >VIEW</v-btn
       >
-     
+
       <v-spacer></v-spacer>
       <v-btn text rounded to="/login">LOG IN</v-btn>
     </v-app-bar>
@@ -34,8 +34,7 @@ export default {
       //console.log(this.$route)
       this.$router.push({ name: "addCurriculum" });
     }
-    
-  },
+  }
   // computed: {
   //   ishome(){
   //     console.log(this.$route);

@@ -8,15 +8,13 @@
 // @ is an alias to /src
 import FrontPage from "../components/FrontPage.vue";
 export default {
- data(){
-  return {
-  name: "home"
-}
- },
- components: {
+  data() {
+    return {
+      name: "home"
+    };
+  },
+  components: {
     FrontPage
   }
-
-}
+};
 </script>
-
