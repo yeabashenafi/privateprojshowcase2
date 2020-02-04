@@ -33,7 +33,12 @@
         <v-form ref="form" class="px-3" v-model="valid">
           <v-text-field
             label=" Full Name"
-            v-model="name"
+            v-model="fullname"
+            :rules="nameRule"
+          ></v-text-field>
+           <v-text-field
+            label=" Username"
+            v-model="Username"
             :rules="nameRule"
           ></v-text-field>
           <v-text-field
@@ -46,9 +51,14 @@
             v-model="password"
             :rules="passwordRule"
           ></v-text-field>
+           <v-text-field
+            label=" Organization"
+            v-model="organization"
+            :rules="nameRule"
+          ></v-text-field>
           <v-text-field
-            label="nationality"
-            v-model="nationality"
+            label="Nationality"
+            v-model="Nationality"
             :rules="nationalRule"
           ></v-text-field>
           <p class="mx-3 pt-3 title">Gender</p>
@@ -57,7 +67,7 @@
             <v-radio label="Female" value="Female"></v-radio>
           </v-radio-group>
           <p class="mx-3 pt-3 title">Educational status</p>
-          <v-radio-group v-model="radios" :mandatory="true" row class="mx-4">
+          <v-radio-group v-model="Educational_status" :mandatory="true" row class="mx-4">
             <v-radio label="Bsc" value="bachelor"></v-radio>
             <v-radio label="Msc" value="Masters"></v-radio>
             <v-radio label="PHD" value="phd"></v-radio>
@@ -67,7 +77,7 @@
                  </div> -->
           <v-btn
             class="success lighten-1 text-center"
-            @click="rigistered"
+            @click="registered"
             :disabled="!valid"
           >
             Register
@@ -84,14 +94,14 @@
 export default {
   data() {
     return {
-      name: "",
+      fullname: "",
       email: "",
       password: "",
-      file: "",
-      radios: "bachelor",
+      Username: "",
+      Educational_status: "bachelor",
       valid: true,
       closeVar: true,
-      nationality: "",
+      Nationality: "",
       gender: "Male",
       nameRule: [
         v => !!v || "Name is required",
@@ -110,11 +120,23 @@ export default {
     };
   },
   methods: {
-    rigistered() {
+    registered() {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
       }
-      //console.log(this.password);
+      const data = {
+        fullname: this.fullname,
+        email: this.email,
+        password: this.password,
+        Educational_status: this.Educational_status,
+        gender: this.gender,
+        organization: this.organization,
+        Nationality: this.Nationality,
+        Username: this.Username
+
+      };
+      api.register(data);
+ 
     },
     resetForm() {
       this.$refs.form.reset();
