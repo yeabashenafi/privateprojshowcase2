@@ -54,16 +54,12 @@
            <v-text-field
             label=" Organization"
             v-model="organization"
-            :rules="nameRule"
           ></v-text-field>
-        <v-layout>
            <v-select
               :items="items"
               label="Roles"
               v-model="role"
-              :mandatory="true"
                ></v-select>
-        </v-layout>
           <v-text-field
             label="Nationality"
             v-model="Nationality"
@@ -109,11 +105,12 @@ export default {
       Username: "",
       Educational_status: "bachelor",
       valid: true,
+      organization: "",
       closeVar: true,
       Nationality: "",
       gender: "Male",
       items: ['Departement Head', 'College Dean', 'Teacher','Acadamic commitie'],
-      role:'',
+      role:"",
       nameRule: [
         v => !!v || "Name is required",
         v => (v && v.length <= 15) || "Name must be less than 15 characters"
