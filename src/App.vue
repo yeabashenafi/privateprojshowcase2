@@ -3,13 +3,16 @@
     <v-app-bar app color="#607D8B" dark>
       <v-toolbar-title class="lighten-3">Curriculum Management</v-toolbar-title>
       <v-btn text rounded to="/">HOME</v-btn>
-      <v-btn text rounded to="/addcurriculumstructure">ADD</v-btn>
-      <v-btn class="ml-3" text rounded to="/view" v-show="logged_in"
+      <v-btn text rounded to="/addcurriculumstructure" v-show="checkLogging">ADD</v-btn>
+      <v-btn class="ml-3" text rounded to="/view" v-show="checkLogging"
         >VIEW</v-btn
       >
 
+
+
       <v-spacer></v-spacer>
-      <v-btn text rounded to="/login">LOG IN</v-btn>
+      <v-btn text rounded to="/login" v-show="!checkLogging" >LOG IN</v-btn>
+      <v-btn text rounded v-show="checkLogging" @click="logout">LOG OUT</v-btn>
     </v-app-bar>
     <v-content>
       <router-view></router-view>
@@ -22,7 +25,7 @@ export default {
   name: "App",
   data() {
     return {
-      logged_in: false,
+
       is_home: false
     };
   },
@@ -33,6 +36,14 @@ export default {
     addCurriculum() {
       //console.log(this.$route)
       this.$router.push({ name: "addCurriculum" });
+    },
+    logout(){
+      this.$store.commit('change')
+    }
+  },
+  computed:{
+    checkLogging(){
+      return this.$store.getters.logged
     }
   }
   // computed: {

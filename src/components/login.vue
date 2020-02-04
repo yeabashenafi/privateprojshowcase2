@@ -11,8 +11,8 @@
         </v-card-title>
         <v-card-text>
           <v-form class="px-3">
-            <v-text-field label="E-mail" v-model="email"> </v-text-field>
-            <v-text-field label="Password" required v-model="password">
+            <v-text-field label="E-mail" v-model="lemail"> </v-text-field>
+            <v-text-field label="Password" required v-model="lpassword">
             </v-text-field>
             <p class="red--text">{{ errmessage }}</p>
             <v-btn flat class="success text-md-center" @click="logIn">Login</v-btn>
@@ -161,6 +161,8 @@ export default {
       Educational_status: "",
       gender: "",
       password: "",
+      lpassword:"",
+      lemail:"",
       organization: "",
       items: ['Departement Head', 'College Dean', 'Teacher','Acadamic commitie'],
       errmessage: "",
@@ -187,17 +189,19 @@ export default {
   },
   methods: {
     logIn() {
-      if (this.Username == "" || this.password == "") {
+      if (this.lemail == "" || this.lpassword == "") {
         this.errmessage = "you must fill the form";
         return;
       }
       else{
         let data = {
-          email :this.Username,
-          password :this.password,
+          email :this.lemail,
+          password :this.lpassword,
         }
         api.login(data).then( (data) =>{
             console.log(data)
+            this.$store.commit('change')
+            this.$router.push({name:"home"})
         })
 
       }
@@ -220,8 +224,6 @@ export default {
         Username: this.Username
       };
       api.register(data);
-      this.email = '';
-      this.password = '';
     },
     resetForm(){
             this.$refs.form.reset();
