@@ -192,7 +192,7 @@ export default {
         this.errmessage = "you must fill the form";
         return;
       }
-    //  
+    //
     },
     registered() {
         if(this.$refs.form.validate()){
@@ -202,6 +202,7 @@ export default {
         const data = {
         fullname: this.fullname,
         email: this.email,
+        role: this.role,
         password: this.password,
         Educational_status: this.Educational_status,
         organization: this.organization,
