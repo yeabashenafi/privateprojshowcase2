@@ -1,7 +1,7 @@
 <template>
 
   <v-layout row>
-    
+
     <v-flex class="col pa-4 ma-5 align-center">
       <v-card class="mt-5 mx-auto py-5" width="700px" height="501">
         <v-card-title class="pa-3">
@@ -11,13 +11,8 @@
         </v-card-title>
         <v-card-text>
           <v-form class="px-3">
-<<<<<<< HEAD
-            <v-text-field label="Username" v-model="Username"> </v-text-field>
-            <v-text-field label="Password" required type='password' v-model="password">
-=======
             <v-text-field label="E-mail" v-model="email"> </v-text-field>
             <v-text-field label="Password" required v-model="password">
->>>>>>> d9813cd20f1d571f09af7dc9e7bdbe26f7d40798
             </v-text-field>
             <p class="red--text">{{ errmessage }}</p>
             <v-btn flat class="success text-md-center" @click="logIn">Login</v-btn>
@@ -129,7 +124,7 @@
             </v-form>
           </v-card-text>
         </v-card>
-         <v-dialog  
+         <v-dialog
           max-width="400px"
          v-model="ok">
               <v-card>
@@ -145,7 +140,7 @@
             </v-card>
          </v-dialog>
       </v-dialog>
-      
+
     </v-flex>
   </v-layout>
 </template>
