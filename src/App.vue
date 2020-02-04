@@ -38,12 +38,13 @@ export default {
       this.$router.push({ name: "addCurriculum" });
     },
     logout(){
-      this.$store.commit('change')
+      this.$store.commit('change');
+      this.$router.push({name:'home'});
     }
   },
   computed:{
     checkLogging(){
-      return this.$store.getters.logged
+      return this.$store.getters.logged;
     }
   }
   // computed: {
