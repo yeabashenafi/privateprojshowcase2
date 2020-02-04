@@ -60,6 +60,8 @@
            <v-select
               :items="items"
               label="Roles"
+              v-model="role"
+              :mandatory="true"
                ></v-select>
         </v-layout>
           <v-text-field
@@ -111,6 +113,7 @@ export default {
       Nationality: "",
       gender: "Male",
       items: ['Departement Head', 'College Dean', 'Teacher','Acadamic commitie'],
+      role:'',
       nameRule: [
         v => !!v || "Name is required",
         v => (v && v.length <= 15) || "Name must be less than 15 characters"
