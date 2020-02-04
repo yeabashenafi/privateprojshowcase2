@@ -20,6 +20,10 @@ async register(data){
    })
  };
 
+ async login(data){
+   let response = await axios.post(`${API_URL}/Accounts/login`,data);
+   return response;
+ }
 
 };
 

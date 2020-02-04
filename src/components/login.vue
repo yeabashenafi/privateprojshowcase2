@@ -1,23 +1,22 @@
 <template>
   <v-layout row>
     <v-flex class="col pa-4 ma-5 align-center">
-      <v-card class="mt-5 mx-auto py-5" width="800px" height="501">
+      <v-card class="mt-5 mx-auto py-5" width="700px" height="501">
         <v-card-title class="pa-3">
-          <h1 class="my-3 indigo--text text--lighten-2 text-center">
-            Welcome to our page
-          </h1>
-          <h3 class="my-3 indigo--text text--lighten-2 text-center">Log in</h3>
+          <v-container>
+            <h3 class="my-3 indigo--text text--lighten-2 text-center display-3">Log in</h3>
+          </v-container>
         </v-card-title>
         <v-card-text>
           <v-form class="px-3">
             <v-text-field label="Username" v-model="Username"> </v-text-field>
-            <v-text-field label="Password" required v-model="password">
+            <v-text-field label="Password" required type='password' v-model="password">
             </v-text-field>
             <p class="red--text">{{ errmessage }}</p>
-            <v-btn flat class="success" @click="loggedIn">Login</v-btn>
+            <v-btn flat class="success text-md-center" @click="logIn">Login</v-btn>
           </v-form>
           <p class="float-right mt-5 p-3 orange--text ">
-            if you haven't registered here ?
+            if you haven't registered yet ,register here ?
             <v-btn color="green" @click="closeVar = !closevar">Sign Up</v-btn>
           </p>
         </v-card-text>
@@ -168,10 +167,20 @@ export default {
     //      register
   },
   methods: {
-    loggedIn() {
+    logIn() {
       if (this.Username == "" || this.password == "") {
         this.errmessage = "you must fill the form";
         return;
+      }
+      else{
+        let data = {
+          email :this.Username,
+          password :this.password,
+        }
+        api.login(data).then( (data) =>{
+            console.log(data)
+        })
+
       }
     //
     },
