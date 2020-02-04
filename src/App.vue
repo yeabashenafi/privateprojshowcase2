@@ -34,11 +34,11 @@ export default {
   },
   methods: {
     addCurriculum() {
-      //console.log(this.$route)
       this.$router.push({ name: "addCurriculum" });
     },
     logout(){
       this.$store.commit('change')
+      this.$store.commit('setToken','')
     }
   },
   computed:{
