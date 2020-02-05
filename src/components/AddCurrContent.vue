@@ -1,7 +1,7 @@
 <template>
   <span width="70%">
     <v-container text-md-center>
-      <v-card width="100%">
+      <v-card width="100%" ref="cardref">
         <v-card-title class="display-1">
           Add a Curriculum Structure
         </v-card-title>
@@ -98,6 +98,21 @@
           </v-flex>
         </v-card-actions>
       </v-card>
+       <v-dialog
+          max-width="400px"
+         v-model="ok">
+              <v-card>
+              <v-card-title>
+                <h2>confirmed</h2>
+              </v-card-title>
+              <v-card-text>
+                <h3> Successfully submitted the change</h3>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn @click="okbtn">ok</v-btn>
+              </v-card-actions>
+            </v-card>
+         </v-dialog>
     </v-container>
   </span>
 </template>
@@ -108,6 +123,7 @@ const api = new apiservice();
 export default {
   data: () => {
     return {
+      ok: false,
       no_of_PO: 1,
       no_of_PEO: 1,
       no_of_CLO: 1,
@@ -150,6 +166,13 @@ export default {
     };
   },
   methods: {
+     okbtn(){
+      this.ok = !this.ok;
+      this.name ='';
+      this.type = '';
+      this.background = '';
+      this.rational = '';
+    },
     addPO() {
       window.alert("added a program outcome");
       //this.no_of_PO++;
@@ -162,6 +185,7 @@ export default {
       this.clo.push({});
     },
     addCurriculum() {
+      this.ok = true;
       this.setpoID();
       let data={
         program_name:this.name,
@@ -201,7 +225,8 @@ export default {
         y.push("PEO" + j);
       }
       return y;
-    }
+    },
+   
   }
 };
 </script>
