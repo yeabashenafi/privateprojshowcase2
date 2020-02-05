@@ -26,7 +26,7 @@ async register(data){
  }
  async getData(token){
  let response =  await axios.get(`${API_URL}/y?access_token=${token}`);
- console.log(response.data);
+//  console.log(response.data);
  return response.data;
 }
 
