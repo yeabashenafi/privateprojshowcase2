@@ -198,9 +198,11 @@ export default {
           email :this.lemail,
           password :this.lpassword,
         }
-        api.login(data).then( (data) =>{
+        api.login(data).then( (response) =>{
             console.log(data)
             this.$store.commit('change')
+            this.$store.commit('setToken',response.data.id)
+            console.log(this.$store.getters.token)
             this.$router.push({name:"home"})
         })
 

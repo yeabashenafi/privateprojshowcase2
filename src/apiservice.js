@@ -24,6 +24,11 @@ async register(data){
    let response = await axios.post(`${API_URL}/Accounts/login`,data);
    return response;
  }
+ async getData(token){
+ let response =  await axios.get(`${API_URL}/y?access_token=${token}`);
+ console.log(response.data);
+ return response.data;
+}
 
 };
 
