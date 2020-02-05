@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <template v-for="(structure, index) in structures">
-             <v-card v-bind:key="structure.index" class="mb-3">
+             <v-card v-bind:key="structure.index" class="mb-3" @click="viewStructure(structure.id)">
             <v-card-title>
                 <h2 class="grey--text text--darken-1">Structure{{ index+1 }}</h2>
                 <v-card-text>
@@ -28,7 +28,7 @@
             </v-card-title>
         </v-card>
         </template>
-       
+
     </v-container>
 </template>
 
@@ -43,13 +43,17 @@ export default {
   }
     },
     methods: {
-  getStructures(){
+      getStructures(){
         const token2 = this.$store.getters.token;
         api.getData(token2).then((res)=>{
             this.structures = res;
             console.log(this.structures);
         });
-        }
+        },
+      viewStructure(id){
+          this.$router.push({name:'viewStructure',params:{id:':'+id}})
+      }
+
     },
     mounted(){
         this.getStructures();
