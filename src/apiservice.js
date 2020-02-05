@@ -29,6 +29,10 @@ async register(data){
  console.log(response.data);
  return response.data;
 }
+async getStructure(id){
+  let response = await axios.get(`${API_URL}/y/${id}`)
+  return response.data;
+}
 
 };
 
