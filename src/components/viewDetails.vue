@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <template v-for="(structure, index) in structures">
-             <v-card v-bind:key="structure.index">
+             <v-card v-bind:key="structure.index" class="mb-3">
             <v-card-title>
                 <h2 class="grey--text text--darken-1">Structure{{ index+1 }}</h2>
                 <v-card-text>
