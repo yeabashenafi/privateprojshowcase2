@@ -37,6 +37,7 @@
                   <v-layout>
                     <p class="title"> PO {{ index+1 }} </p>
                     <v-spacer></v-spacer>
+                    <v-icon @click="reducePo()">mdi-minus</v-icon>
                     <v-icon @click="addPO()">mdi-plus</v-icon>
                   </v-layout>
                   <v-text-field outlined label="Name of Outcome" v-model="program.name"></v-text-field>
@@ -50,6 +51,7 @@
                     <v-layout>
                       <p class="title">PEO{{ index+1 }}</p>
                       <v-spacer></v-spacer>
+                      <v-icon @click="reducePeo()">mdi-minus</v-icon>
                       <v-icon @click="addPEO()">mdi-plus</v-icon>
                     </v-layout>
                     <v-text-field
@@ -67,20 +69,23 @@
                   </v-flex>
                 </template>
               </v-flex>
-              <p class="headline">Curriculum Learning Outcome</p>
+               <p class="headline">Curriculum Learning Outcome</p>
               <v-flex>
+
+              </v-flex>
                 <template v-for="(CLO,index) in clo">
-                  <v-flex v-bind:key="CLO.index">
-                    <v-layout>
+                  <v-flex  v-bind:key="CLO.index">
+                <v-layout>
                       <p class="title" >CLO{{ index+1 }}</p>
                       <v-spacer></v-spacer>
+                      <v-icon @click="reduceClo()">mdi-minus</v-icon>
                       <v-icon @click="addCLO()">mdi-plus</v-icon>
-                    </v-layout>
-                    <v-text-field
+                </v-layout>
+                 <v-text-field
                       outlined
                       label="Name of Educational Outcome"
                       v-model="CLO.name"
-                    ></v-text-field>
+                 ></v-text-field>
                     <v-text-field outlined label="Description" v-model="CLO.details"></v-text-field>
                     <v-select
                       multiple
@@ -88,6 +93,12 @@
                       label="Mapped PEO/PEOs"
                       v-model="CLO.mappedPEO"
                     ></v-select>
+                  </v-flex>
+                </template>
+              <v-flex>
+                <template >
+                  <v-flex>
+                   
                     <v-text-field label="Cource tile"
                                   v-model="title"></v-text-field>
                     <v-text-field label="Cource Code"
@@ -108,6 +119,7 @@
                       <v-layout>
                         <p class="title"> Chapter  {{ index+1}}</p>
                         <v-spacer></v-spacer>
+                        <v-icon @click="reduceOutline()">mdi-minus</v-icon>
                         <v-icon @click="addOutline()">mdi-plus</v-icon>
                   </v-layout>
                              <v-text-field outlined label="Course Chapter" v-model="outline.chapter"></v-text-field>
@@ -133,6 +145,7 @@
                           <v-layout>
                           <p class="title">Method{{ index+1}}</p>
                           <v-spacer></v-spacer>
+                          <v-icon @click="reduceMethod()">mdi-minus</v-icon>
                           <v-icon @click="addLearningMethod()">mdi-plus</v-icon>
                   </v-layout>
                              <v-text-field outlined label="References" v-model="lmethod.methodName"></v-text-field>
@@ -303,6 +316,30 @@ export default {
       if(this.references.length > 1){
          this.references.pop();
 
+      }
+    },
+    reduceOutline(){
+      if(this.outlines.length > 1){
+         this.outlines.pop();
+      }
+    },
+    reduceMethod(){
+      if(this.learningMethod.length > 1){
+         this.learningMethod.pop();
+      }
+    },
+    reduceClo(){
+      if(this.clo.length > 1){
+         this.clo.pop();
+      }
+    },
+    reducePeo(){
+      if(this.peo.length > 1){
+         this.peo.pop();
+      }
+    },reducePo(){
+      if(this.po.length > 1){
+         this.po.pop();
       }
     }
   },

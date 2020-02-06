@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <FrontPage />
+
   </div>
 </template>
 
@@ -14,7 +15,6 @@ export default {
     };
   },
   components: {
-    FrontPage
-  }
+    FrontPage  }
 };
 </script>
