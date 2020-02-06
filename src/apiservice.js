@@ -33,6 +33,10 @@ async getStructure(id){
   let response = await axios.get(`${API_URL}/y/${id}`)
   return response.data;
 }
+async addOrganization(data){
+  let response = await axios.post(`${API_URL}/Organizations`,data);
+  return response;
+}
 
 };
 
