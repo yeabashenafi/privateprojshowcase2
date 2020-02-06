@@ -31,6 +31,7 @@
          </v-list>
         </v-navigation-drawer>
   </nav>
+
 </template>
 
 <script>
