@@ -1,6 +1,6 @@
 <template>
   <span>
-      <addorganization /
+      <addorganization />
   </span>
 </template>
 
