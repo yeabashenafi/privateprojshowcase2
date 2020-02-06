@@ -1,42 +1,43 @@
 <template>
-  <nav>
-      <v-toolbar>
-          <v-app-bar-nav-icon @click="isMenu = !isMenu"></v-app-bar-nav-icon>
-          <v-toolbar-title>Title</v-toolbar-title>
-          <!-- <v-spacer></v-spacer> -->
-        </v-toolbar>
-        <v-navigation-drawer>
-            
-               <div class="blue-grey lighten-4">
-                    <v-list-item v-if="isMenu" class="text-center">
-                    <v-list-item-content>
-                        <v-list-item-title 
-                        class="title success--text">Profile</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-               </div>
-           <v-divider></v-divider>
-             <v-list v-show="isMenu">
-             <v-list-item
-                v-for="item in items"
-               :key="item.title"
-               link router :to="item.route">
-                 <v-list-item-icon>
-                     <v-icon>{{ item.icon }}</v-icon>
-                 </v-list-item-icon>
-                 <v-list-item-content>
-                     <v-list-item-title>{{item.title}}</v-list-item-title>
-                 </v-list-item-content>
-             </v-list-item>
-         </v-list>
-        </v-navigation-drawer>
-  </nav>
+  <v-card width="256" height="100%" >
+    <v-navigation-drawer permanent>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">
+            Profile
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            subtext
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
 
+      <v-divider></v-divider>
+
+      <v-list
+        nav>
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          link
+          router :to="item.route" >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+     
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+  </v-card>
 </template>
+
 
 <script>
 export default {
-    data () {
+    data() {
       return {
           isMenu: false,
         items: [

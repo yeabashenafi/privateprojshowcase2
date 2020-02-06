@@ -1,7 +1,7 @@
 <template>
   <span width="70%">
     <v-container text-md-center>
-      <v-card width="80%" ref="cardref">
+      <v-card width="60%" ref="cardref">
         <v-card-title class="display-1">
           Add a Curriculum Structure
         </v-card-title>
@@ -121,7 +121,8 @@
                           <v-layout>
                           <p class="title">refs{{ index+1}}</p>
                           <v-spacer></v-spacer>
-                          <v-icon @click="addRefenrence()">mdi-plus</v-icon>
+                          <v-icon @click="reduceReference()">mdi-minus</v-icon>
+                          <v-icon @click="addReference()">mdi-plus</v-icon>
                   </v-layout>
                              <v-text-field outlined label="References" v-model="reference.refers_name"></v-text-field>
                      </v-flex>
@@ -292,11 +293,17 @@ export default {
     addOutline(){
       this.outlines.push({});
     },
-    addRefenrence(){
+    addReference(){
       this.references.push({});
     },
     addLearningMethod(){
       this.learningMethod.push({});
+    },
+    reduceReference(){
+      if(this.references.length > 1){
+         this.references.pop();
+
+      }
     }
   },
   computed: {
