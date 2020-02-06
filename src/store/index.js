@@ -29,7 +29,7 @@ export default new Vuex.Store({
   getters:{
     logged: state => state.logged_in,
     User_id: state => state.User_id,
-    token: state => state.token
+    token: state => state.token,
   },
   plugins:[vuexpersist.plugin],
   actions: {},
