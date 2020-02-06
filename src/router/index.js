@@ -11,6 +11,11 @@ const routes = [
     component: () => import("../views/View.vue")
   },
   {
+    path:"/addOrgn",
+    name: "addorganization",
+    component: () => import("../views/addOrgn.vue")
+  },
+  {
       path:"/view:id",
       name:"viewStructure",
       component:() => import("../components/ViewSpecific.vue")
