@@ -148,23 +148,23 @@ export default {
   },
   methods: {
     okbtn(){
-      this.ok != this.ok;
+      this.ok = !this.ok;
     },
     registered() {
         if(this.$refs.form.validate()){
             this.snackbar = true;
         }
         this.ok = true;
-        const data = {
-        fullname: this.fullname,
-        email: this.email,
-        role: this.role,
-        password: this.password,
-        Educational_status: this.Educational_status,
-        organization: this.organization,
-        gender: this.gender,
-        Nationality: this.Nationality,
-        Username: this.Username
+   const data = {
+            fullname: this.fullname,
+            email: this.email,
+            role: this.role,
+            password: this.password,
+            Educational_status: this.Educational_status,
+            organization: this.organization,
+            gender: this.gender,
+            Nationality: this.Nationality,
+            Username: this.Username
       };
       api.register(data);
     },
@@ -176,7 +176,8 @@ export default {
        this.orgs = response.data 
        console.log(this.orgs)
     })
-  }
+  },
+
   
   
   },
