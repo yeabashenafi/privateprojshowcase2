@@ -1,8 +1,11 @@
 <template>
     <v-container>
-        <template v-for="(structure, index) in structures">
-             <v-card v-bind:key="structure.index" class="mb-3" @click="viewStructure(structure.id)">
-            <v-card-title>
+        <v-flex class="align-center md6">
+ <template v-for="(structure, index) in structures">
+            
+             <v-card v-bind:key="structure.index" class="mb-3" height="1%" @click="viewStructure(structure.id)">
+          <v-layout class="md6">
+        <v-card-title >
                 <h2 class="grey--text text--darken-1">Structure{{ index+1 }}</h2>
                 <v-card-text>
                     <v-layout>
@@ -26,8 +29,11 @@
 
                 </v-card-text>
             </v-card-title>
+          </v-layout>
         </v-card>
         </template>
+            </v-flex>
+       
 
     </v-container>
 </template>

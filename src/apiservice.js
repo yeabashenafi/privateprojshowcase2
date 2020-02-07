@@ -48,6 +48,11 @@ async getOrganizations(){
   let response = await axios.get(`${API_URL}/Organizations`);
   return response;
 }
+async getUserInformotion(){
+  let response = await axios.get(`${API_URL}/Accounts`);
+  console.log(response);
+  return response;
+}
 
 };
 
