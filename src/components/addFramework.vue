@@ -1,6 +1,6 @@
 <template>
     <span>
-        <v-dialog v-model="shower" persistent max-width="900" >
+        <v-dialog v-model="shower" persistent max-width="900"  >
             <v-card widht="100%">
                 <v-card-title class="text-center" dark>
                     <v-flex>
@@ -9,7 +9,7 @@
                     
                 </v-card-title>
                 <v-card-actions>
-                    <v-carousel width="100%" class="black" >
+                    <v-carousel width="100%" class="black" height="1000" >
                         <v-carousel-item class="ml-10 mr-10">
                             <v-container class="fill-height" width="400" align="center" justify-center>
                                 
