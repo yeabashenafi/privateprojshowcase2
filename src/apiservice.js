@@ -36,6 +36,17 @@ async getStructure(id){
 async addOrganization(data){
   let response = await axios.post(`${API_URL}/Organizations`,data);
   return response;
+ }
+// async addImage(data){
+
+// }
+async getUser(id){
+  let response = await axios.get(`${API_URL}/Accounts/${id}`);
+  return response;
+}
+async getOrganizations(){
+  let response = await axios.get(`${API_URL}/Organizations`);
+  return response;
 }
 
 };

@@ -1,12 +1,12 @@
 <template>
  <span >
-  <v-card raised class="mt-3" >
+  <v-card raised class="ml-3" >
           <v-card-title class="blue lighten-4 dark mb-3">
             <v-layout>
               <v-flex>
                 <v-layout>
                   <h2 class="my-3 indigo--text text--lighten-2">
-                    Registration Form
+                    New User  Registration Form
                   </h2>
                   <v-spacer></v-spacer>
                 </v-layout>
@@ -34,11 +34,11 @@
                 v-model="email"
                 :rules="emailRule"
               ></v-text-field>
-              <v-text-field
-                label=" Organization"
+              <v-select
+                label="Registered in Organization"
                 v-model="organization"
-                :rules="namerule"
-              ></v-text-field>
+                :items="names"
+              ></v-select>
               <v-text-field
                 label=" password"
                 v-model="password"
@@ -117,6 +117,7 @@ export default {
       ok: false,
       email: "",
       fullname: "",
+      orgs:[],
       Nationality: "",
       Educational_status: "",
       gender: "",
@@ -170,6 +171,26 @@ export default {
     resetForm(){
             this.$refs.form.reset();
         },
+    getOrgs(){
+      api.getOrganizations().then((response)=>{
+       this.orgs = response.data 
+       console.log(this.orgs)
+    })
   }
-};
+  
+  
+  },
+computed:{
+    names: function(){
+        var x= [];
+        for(var i=0;i<this.orgs.length;i++){
+          x.push(this.orgs[i].Name)
+        }
+        return x;
+    }
+},
+mounted(){
+  this.getOrgs()
+}
+}
 </script>

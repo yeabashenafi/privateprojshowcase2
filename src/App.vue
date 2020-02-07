@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="#607D8B" dark>
+    <v-app-bar app color="blue darken-3" dark>
       <v-toolbar-title class="lighten-3">Curriculum Management</v-toolbar-title>
       <v-btn text rounded to="/">HOME</v-btn>
       <v-btn text rounded to="/addcurriculumstructure" v-show="checkLogging">ADD</v-btn>
