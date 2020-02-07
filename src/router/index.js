@@ -12,6 +12,16 @@ const routes = [
     component: () => import("../views/View.vue")
   },
   {
+    path: "/addNewStructure",
+    name: "addnewsturcture",
+    component: () => import("../components/addFramework.vue")
+  },
+  {
+    path: "/orgDashboard",
+    name:"orgdashboard",
+    component: () => import("../views/orgDash.vue")
+  },
+  {
     path:"/addOrgn",
     name: "addorganization",
     component: () => import("../views/addOrgn.vue")

@@ -1,6 +1,6 @@
 <template>
   <span>
-      <v-container class="mt-10 ">
+      <v-container height="100%">
           <v-card width="100%" raised class="align-center" >
               <v-card-title class="align-center">
                   <v-flex class="text-center" >
