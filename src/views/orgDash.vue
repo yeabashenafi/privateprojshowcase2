@@ -40,7 +40,7 @@
                     </v-list-item-content>
 
                 </v-list-item>
-                <v-list-item  link >
+                <v-list-item  link @click="viewAllUsers()">
                     <v-list-item-icon>
                         <V-icon>mdi-account</v-icon>
                     </v-list-item-icon>
@@ -57,6 +57,7 @@
           <add-organization v-if="addo"></add-organization>
           <register v-if="addu" class="ml-3"></register>
           <my-account v-if="myacc"></my-account>
+          <view-users v-if="alluser"></view-users>
       </v-flex>
       
    
@@ -65,6 +66,7 @@
   
 </template>
 <script>
+import viewUsers from '../components/viewUsers'
 import MyAccount from '../components/MyAccount'
 import addOrganization from '../components/addorganization.vue';
 import register from '../components/register.vue';
@@ -72,7 +74,8 @@ export default {
 components:{
     addOrganization,
     register,
-    MyAccount
+    MyAccount,
+    viewUsers
 },
 data:() =>{
     return{
@@ -86,6 +89,7 @@ data:() =>{
     addo:true,
     addu:false,
     myacc:false,
+    alluser: false,
     orgnames:[],
     username:'',
     }
@@ -95,16 +99,25 @@ methods:{
         this.addo = false;
         this.addu = true;
         this.myacc = false;
+        this.alluser = false;
     },
     addOrganization(){
         this.addo = true;
         this.addu = false;
         this.myacc = false;
+        this.alluser = false;
     },
     MyAcc(){
         this.myacc = true;
         this.addo = false;
         this.addu = false;
+        this.alluser = false;
+    },
+    viewAllUsers(){
+        this.alluser = true;
+        this.addo = false;
+        this.addu = false;
+        this.myacc = false;
     }
 },
 

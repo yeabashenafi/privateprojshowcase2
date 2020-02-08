@@ -17,6 +17,11 @@ const routes = [
     component: () => import("../components/viewUsers.vue")
   },
   {
+    path: '/testRegister',
+    name: 'testRegister',
+    component: () => import("../components/testRegister.vue")
+  },
+  {
     path: "/addNewStructure",
     name: "addnewsturcture",
     component: () => import("../components/addFramework.vue")

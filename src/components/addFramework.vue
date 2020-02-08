@@ -134,7 +134,82 @@
                           </v-flex>
                           </v-container>
                         </v-carousel-item>
-                        
+                        <v-carousel-item>
+                           <v-container class="fill-height mr-10 my-5" width="200px" align="center">
+                             
+                          <v-flex  width="80%">
+                            <v-text-field label="Contact Hour"
+                                   v-model="contactHour"></v-text-field>
+                            </v-flex>
+                           </v-container>
+                        </v-carousel-item>
+                        <v-carousel-item>
+                          <v-container  class="fill-height mr-10 my-5" width="200px" align="center">
+                            <v-flex width="80%">
+                               <v-select :items="year"
+                               v-model="ClassYear"
+                                label="Accadamic Year"></v-select>
+                            </v-flex>
+                          </v-container>
+                        </v-carousel-item>
+                        <v-carousel-item>
+                          <v-container class="fill-height mr-10 my-5" width="200px" align="center">
+                            <v-flex width="80%">
+                               <v-select label="Select Semister" 
+                              v-model="semister"
+                              :items="semisters"></v-select>
+                            </v-flex>
+                          </v-container>
+                        </v-carousel-item>
+                        <v-carousel-item>
+                          <v-container  class="fill-height mr-10 my-5" width="200px" align="center">
+                             <v-flex width="80%">
+                               <v-text-field label="Pre-requisties"
+                                   v-model="preRequisites"></v-text-field>
+                             </v-flex>
+                          </v-container>
+                        </v-carousel-item>
+                        <v-carousel-item>
+                          <v-container class="fill-height mr-10 my-5" width="200px" align="center">
+                           <v-container  class="ml-3 mr-5">
+                            <p class="title primary--text">Cource Outline</p>
+                              <v-flex width="80%">
+                    <template v-for="(outline,index) in outlines">
+                          <v-flex :key="outline.index">
+                            <v-layout>
+                              <p class="title"> Chapter  {{ index+1}}</p>
+                              <v-spacer></v-spacer>
+                              <v-icon @click="reduceOutline()">mdi-minus</v-icon>
+                              <v-icon @click="addOutline()">mdi-plus</v-icon>
+                        </v-layout>
+                                  <v-text-field outlined label="Course Chapter" v-model="outline.chapter"></v-text-field>
+                                  <v-text-field outlined label="Details" v-model="outline.details"></v-text-field>
+                          </v-flex>
+                      </template> 
+                            </v-flex>
+                           </v-container>
+                          </v-container>
+                        </v-carousel-item>
+                        <v-carousel-item>
+                          <v-container  class="fill-height mr-10 my-5" width="200px" align="center">
+                            <v-flex class="ml-3 mr-5" width="80%">
+                               <template v-for="(reference,index) in references">
+                          <v-flex :key="reference.index">
+                          <v-layout>
+                          <p class="title">refs{{ index+1}}</p>
+                          <v-spacer></v-spacer>
+                          <v-icon @click="reduceReference()">mdi-minus</v-icon>
+                          <v-icon @click="addReference()">mdi-plus</v-icon>
+                  </v-layout>
+                             <v-text-field outlined label="References" v-model="reference.refers_name"></v-text-field>
+                     </v-flex>
+                  </template>
+                            </v-flex>
+                          </v-container>
+                        </v-carousel-item>
+                        <v-carousel-item>
+                          
+                        </v-carousel-item>
                     </v-carousel>
                 </v-card-actions>
             </v-card>
