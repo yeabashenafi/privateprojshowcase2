@@ -32,9 +32,14 @@ const routes = [
     component: () => import("../views/orgDash.vue")
   },
   {
-    path:"/addOrgn",
-    name: "addorganization",
-    component: () => import("../views/addOrgn.vue")
+    path: "/orgDashboard",
+    name:"orgdashboard",
+    component: () => import("../views/orgDash.vue")
+  },
+  {
+    path:"/addOrgStructure",
+    name: "addOrgStructure",
+    component: () => import("../components/addOrgStructure.vue")
   },
   {
       path:"/view:id",
