@@ -46,7 +46,7 @@
                              </v-container>    
                         </v-carousel-item>
                         <v-carousel-item>
-                            <v-container class="fill-height  mr-10" width="200" align="center" >
+                            <v-container class="fill-height  mr-10" width="200px" align="center" >
                               <p outlined class="white--text headline">Program Outcome/s(PO)</p>
                                 <v-container class="ml-3 mr-5" >
                                 <template v-for="(program,index) in po">
@@ -65,7 +65,7 @@
                             </v-container>    
                         </v-carousel-item>
                         <v-carousel-item>
-                            <v-container class="fill-height  mr-10" width="200" align="center" >
+                            <v-container class="fill-height  mr-10" width="200px" align="center" >
                                 <p class="headline white--text">Program Educational Outcome/s(PEO)</p>
                                 <v-container class="ml-3 mr-5">
                                     <template v-for="(PEO,index) in peo">
@@ -92,6 +92,47 @@
                                     </template>
                                 </v-container>
                             </v-container>    
+                        </v-carousel-item>
+                        <v-carousel-item>
+                          <v-container class="fill-height mr-10 my-5" width="200px" align="center">
+                           <p class="white--text headline "> Cource Out Comes(CLO) </p>
+                           <v-container  class="ml-3 mr-5">
+                          <template v-for="(CLO,index) in clo">
+                            <v-flex  v-bind:key="CLO.index">
+                          <v-layout>
+                                <p class="title white--text" >CLO{{ index+1 }}</p>
+                                <v-spacer></v-spacer>
+                                <v-icon @click="reduceClo()">mdi-minus</v-icon>
+                                <v-icon @click="addCLO()">mdi-plus</v-icon>
+                          </v-layout>
+                          <v-text-field
+                                outlined
+                                label="Name of Educational Outcome"
+                                v-model="CLO.name"
+                          ></v-text-field>
+                              <v-text-field outlined label="Description" v-model="CLO.details"></v-text-field>
+                              <v-select
+                                multiple
+                                :items="PEOS"
+                                label="Mapped PEO/PEOs"
+                                v-model="CLO.mappedPEO"
+                              ></v-select>
+                            </v-flex>
+                          </template>
+                           </v-container>
+                          </v-container>
+                        </v-carousel-item>
+                        <v-carousel-item>
+                          <v-container class="fill-height mr-10 my-5" width="200px" align="center">
+                          <v-flex  width="80%">
+                             <div>
+                             <v-text-field label="Cource tile"
+                                  v-model="title"></v-text-field>
+                     <v-text-field label="Cource Code"
+                                  v-model="code"></v-text-field>
+                          </div>
+                          </v-flex>
+                          </v-container>
                         </v-carousel-item>
                         
                     </v-carousel>
