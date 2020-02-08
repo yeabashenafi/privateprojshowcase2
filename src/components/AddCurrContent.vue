@@ -1,32 +1,34 @@
 <template>
   <span width="70%">
     <v-container text-md-center>
-      <v-card width="60%" ref="cardref">
+    <v-form width="50%" ref="form">
+        <v-card width="100%" ref="cardref">
         <v-card-title class="display-1">
           Add a Curriculum Structure
         </v-card-title>
-        <v-card-actions width="100%" class="ml-5">
+        <v-card-actions class="ml-5">
           <v-flex width="100%" raised>
-          <v-flex >
-              <v-text-field
-              outlined
-              full-width
-              v-model="name"
-              label="Program Name"
-            ></v-text-field>
-          </v-flex>
-            <v-select
+          <v-flex>
+            <v-layout>
+               <v-select
               :items="types"
               v-model="type"
-              label="Program Type"
-            ></v-select>
+              label="Program Type"  class="mx-5"
+             ></v-select>
+              <v-text-field
+              full-width
+              v-model="name"
+              label="Program Name" class="mx-5"
+            ></v-text-field>
+           
+          </v-layout>
+          </v-flex>
             <v-textarea
-              outlined
+              
               label="Background"
               v-model="background"
             ></v-textarea>
             <v-textarea
-              outlined
               label="Rational"
               v-model="rational"
             ></v-textarea>
@@ -70,9 +72,7 @@
                 </template>
               </v-flex>
                <p class="headline">Curriculum Learning Outcome</p>
-              <v-flex>
-
-              </v-flex>
+              
                 <template v-for="(CLO,index) in clo">
                   <v-flex  v-bind:key="CLO.index">
                 <v-layout>
@@ -128,17 +128,18 @@
                       </template> 
 
                       <p class="title primary--text"> References</p>
-                          <template v-for="(reference,index) in references">
-                          <v-flex :key="reference.index">
-                          <v-layout>
-                          <p class="title">refs{{ index+1}}</p>
+    
+                          <v-flex>
+                          <!-- <v-layout>
                           <v-spacer></v-spacer>
                           <v-icon @click="reduceReference()">mdi-minus</v-icon>
                           <v-icon @click="addReference()">mdi-plus</v-icon>
-                  </v-layout>
-                             <v-text-field outlined label="References" v-model="reference.refers_name"></v-text-field>
+                        </v-layout> -->
+                             <v-textarea
+                              label="References" 
+                              v-model="refers_name" ></v-textarea>
                      </v-flex>
-                  </template>
+                     
                   <p class="title primary--text">Learning Methods</p>
                   <template v-for="(lmethod,index) in learningMethod">
                           <v-flex :key="lmethod.index">
@@ -148,21 +149,37 @@
                           <v-icon @click="reduceMethod()">mdi-minus</v-icon>
                           <v-icon @click="addLearningMethod()">mdi-plus</v-icon>
                   </v-layout>
-                             <v-text-field outlined label="References" v-model="lmethod.methodName"></v-text-field>
+                             <v-text-field  label="References" v-model="lmethod.methodName"></v-text-field>
                      </v-flex>
                   </template>
+                     
+                  <v-textarea v-model="coursePolicies"
+                              label="Course Policies"></v-textarea>
+                  <v-textarea v-model="gradingScale"
+                              label="Grading Scale"></v-textarea>
+                  <v-textarea v-model="graduateProfile"
+                              label="Graduate Profile"></v-textarea>
+                  <v-textarea v-model="tools" 
+                              label="Tools"></v-textarea>
                   </v-flex>
                 </template>
               </v-flex>
             </v-flex>
-            <v-flex text-md-center>
-              <v-btn color="green" @click="addCurriculum()"
-                >Add Curriculum Structure</v-btn
-              >
-            </v-flex>
+           <v-flex class="ma-5">
+             <v-layout text-md-center>
+               <v-btn color="success" @click="SaveChange()" text>
+                        Save change </v-btn>
+                <v-spacer></v-spacer>
+              <v-btn color="success" 
+              @click="addCurriculum()" text
+                >Send for approval</v-btn>
+                
+             </v-layout>
+           </v-flex>
           </v-flex>
         </v-card-actions>
       </v-card>
+    </v-form>
        <v-dialog
           max-width="400px"
          v-model="ok">
@@ -188,6 +205,7 @@ const api = new apiservice();
 export default {
   data: () => {
     return {
+      refers_name: '',
       preRequisites:'',
       classYear: '',
       contactHour: '',
@@ -235,24 +253,19 @@ export default {
       ],
       outlines: [
         {
-          id: '',
           chapter: '',
           details: ''
         }
       ],
-      references: [
-                 {
-                   id: '',
-                   refers_name: ''
-                 }       
-      ],
+      references: '',
+      gradingScale: '',
       learningMethod: [
         {
-          id: '',
           methodName: ''
         }
-      ]
-      ,
+      ],
+      coursePolicies: '',
+
       year: ['1st year', '2nd year', '3rd year' , '4th year', '5th year'],
       semisters: ['semister 1','semister 2','semister 3','semister 4','semister 5','semister 6',
                  'semister 7','semister 8','semister 9','semister 10']
