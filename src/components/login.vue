@@ -94,14 +94,14 @@ export default {
            org_id: this.chosenOrg
          }
          api.login(data).then( (response) =>{
-             console.log(response)
+            // console.log(response)
               this.$store.commit('change')
               this.$store.commit('setusername',response.data.username)
               this.$store.commit('setToken',response.data.token)
               this.$store.commit('setOrgid',response.data.org_id)
               this.$store.commit('setemail',response.data.email)
               this.$store.commit('setrole',response.data.role)
-              console.log(this.$store.getters.role)
+             // console.log(this.$store.getters.role)
               this.$router.push({name:"home"});
         })
 
