@@ -42,27 +42,26 @@
 import { apiservice } from "../apiservice";
 const api = new apiservice();
 export default {
-    data(){
-  return {
-      token: '',
+  data() {
+    return {
+      token: "",
       structures: []
-  }
+    };
+  },
+  methods: {
+    getStructures() {
+      const token2 = this.$store.getters.token;
+      api.getData(token2).then(res => {
+        this.structures = res;
+        console.log(this.structures);
+      });
     },
-    methods: {
-      getStructures(){
-        const token2 = this.$store.getters.token;
-        api.getData(token2).then((res)=>{
-            this.structures = res;
-            console.log(this.structures);
-        });
-        },
-      viewStructure(id){
-          this.$router.push({name:'viewStructure',params:{id:':'+id}})
-      }
-
-    },
-    mounted(){
-        this.getStructures();
+    viewStructure(id) {
+      this.$router.push({ name: "viewStructure", params: { id: ":" + id } });
     }
+  },
+  mounted() {
+    this.getStructures();
+  }
 };
 </script>

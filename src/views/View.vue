@@ -1,12 +1,11 @@
 <template>
   <div>
-    <viewDetails/>
+    <viewDetails />
   </div>
 </template>
 <script>
-import viewDetails from '../components/viewDetails';
+import viewDetails from "../components/viewDetails";
 export default {
-  components:{ viewDetails }
-  
-}
+  components: { viewDetails }
+};
 </script>

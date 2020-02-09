@@ -27,10 +27,20 @@
                         <V-icon>mdi-account</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title>Add structure</v-list-item-title>
+                        <v-list-item-title>Add Organization</v-list-item-title>
                     </v-list-item-content>
 
                 </v-list-item>
+                <v-list-item  link @click="addOrgS()">
+                    <v-list-item-icon>
+                        <V-icon>mdi-plus</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>Manage Structure</v-list-item-title>
+                    </v-list-item-content>
+
+                </v-list-item>
+
                 <v-list-item  link @click="addUser()">
                     <v-list-item-icon>
                         <V-icon>mdi-upload-network-outline</v-icon>
@@ -58,6 +68,7 @@
           <register v-if="addu" class="ml-3"></register>
           <my-account v-if="myacc"></my-account>
           <view-users v-if="alluser"></view-users>
+          <add-org-structure v-if="orgst"></add-org-structure>
       </v-flex>
       
    
@@ -66,16 +77,18 @@
   
 </template>
 <script>
-import viewUsers from '../components/viewUsers'
-import MyAccount from '../components/MyAccount'
+import viewUsers from '../components/viewUsers';
+import MyAccount from '../components/MyAccount';
 import addOrganization from '../components/addorganization.vue';
 import register from '../components/register.vue';
+import addOrgStructure from '../components/addOrgStructure.vue'; 
 export default {
 components:{
     addOrganization,
     register,
     MyAccount,
-    viewUsers
+    viewUsers,
+    addOrgStructure
 },
 data:() =>{
     return{
@@ -90,6 +103,7 @@ data:() =>{
     addu:false,
     myacc:false,
     alluser: false,
+    orgst:false,
     orgnames:[],
     username:'',
     }
@@ -100,24 +114,35 @@ methods:{
         this.addu = true;
         this.myacc = false;
         this.alluser = false;
+        this.orgst = false;
     },
     addOrganization(){
         this.addo = true;
         this.addu = false;
         this.myacc = false;
         this.alluser = false;
+        this.orgst = false;
     },
     MyAcc(){
         this.myacc = true;
         this.addo = false;
         this.addu = false;
         this.alluser = false;
+        this.orgst = false;
     },
     viewAllUsers(){
         this.alluser = true;
         this.addo = false;
         this.addu = false;
         this.myacc = false;
+        this.orgst = false;
+    },
+    addOrgS(){
+      this.alluser = false;
+      this.addo = false;
+      this.addu = false;
+      this.myacc = false; 
+      this.orgst = true; 
     }
 },
 

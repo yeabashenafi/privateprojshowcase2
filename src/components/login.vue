@@ -1,17 +1,17 @@
 <template>
-
   <v-layout row>
-
     <v-flex class="col pa-4 ma-5 align-center">
       <v-card class="mt-5 mx-auto py-5" width="700px" height="501">
         <v-card-title class="pa-3">
           <v-container>
-            <h3 class="my-3 indigo--text text--lighten-2 text-center display-3">Log in</h3>
+            <h3 class="my-3 indigo--text text--lighten-2 text-center display-3">
+              Log in
+            </h3>
           </v-container>
         </v-card-title>
         <v-card-text>
           <v-form class="px-3">
-            <v-text-field label="E-mail" v-model="lemail"> </v-text-field>
+            <v-text-field label="Username" v-model="luser"> </v-text-field>
             <v-text-field label="Password" required v-model="lpassword"></v-text-field>
             <v-select  :items="orgName"
                         label="Organization Name"
@@ -21,15 +21,13 @@
                       v-model="usertypemodel"
                       label="User Type"></v-select>
             <p class="red--text">{{ errmessage }}</p>
-            <v-btn flat class="success text-md-center" @click="logIn">Login</v-btn>
+            <v-btn flat class="success text-md-center" @click="logIn"
+              >Login</v-btn
+            >
           </v-form>
-          <!-- <p class="float-right mt-5 p-3 orange--text ">
-            if you haven't registered yet ,register here ?
-            <v-btn color="green" @click="closeVar = !closevar">Sign Up</v-btn>
-          </p> -->
+          
         </v-card-text>
       </v-card>
-
     </v-flex>
   </v-layout>
 </template>
@@ -52,9 +50,10 @@ export default {
       gender: "",
       password: "",
       lpassword:"",
-      lemail:"",
+      luser:"",
+      chosenOrg:"",
       organization: "",
-      items: ['Departement Head', 'College Dean', 'Teacher','Acadamic commitie'],
+      items: ['Departement Head', 'College Dean', 'Teacher','Academic commitie'],
       errmessage: "",
       Username: "",
       closeVar: false,
@@ -63,19 +62,19 @@ export default {
       usertypemodel: '',
       userType:['Normal User', 'Admin'],
       nameRule: [
-             v => !!v || 'Name is required',
-             v => (v && v.length <= 15) || 'Name must be less than 15 characters',
-                    ],
-     emailRule: [
-            v => !!v || 'E-mail is required',
-            v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
-                    ],
-    passwordRule: [
-          v => (v && v.length > 8) || 'password must be more than 8 characters'
-            ],
-    nationalRule: [
-           v=> (v && v.length > 0) || 'You can not leave nationality field'
-            ]
+        v => !!v || "Name is required",
+        v => (v && v.length <= 15) || "Name must be less than 15 characters"
+      ],
+      emailRule: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      ],
+      passwordRule: [
+        v => (v && v.length > 8) || "password must be more than 8 characters"
+      ],
+      nationalRule: [
+        v => (v && v.length > 0) || "You can not leave nationality field"
+      ]
     };
   },
   components: {
@@ -88,27 +87,33 @@ export default {
         return;
       }
       else{
-        let data = {
-          email :this.lemail,
-          password :this.lpassword,
-        }
-        api.login(data).then( (response) =>{
-            console.log(data)
-            this.$store.commit('change')
-            this.$store.commit('setToken',response.data.id)
-            console.log(this.$store.getters.token)
-            this.$router.push({name:"home"})
+        this.chosenOrg =this.getOrgId(this.orgname2);
+         let data = {
+           username :this.luser,
+           password :this.lpassword,
+           org_id: this.chosenOrg
+         }
+         api.login(data).then( (response) =>{
+             console.log(response)
+              this.$store.commit('change')
+              this.$store.commit('setusername',response.data.username)
+              this.$store.commit('setToken',response.data.token)
+              this.$store.commit('setOrgid',response.data.org_id)
+              this.$store.commit('setemail',response.data.email)
+              this.$store.commit('setrole',response.data.role)
+              console.log(this.$store.getters.role)
+              this.$router.push({name:"home"})
         })
 
       }
-    //
+    
     },
     registered() {
-        if(this.$refs.form.validate()){
-            this.snackbar = true;
-        }
-        this.ok = true;
-        const data = {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true;
+      }
+      this.ok = true;
+      const data = {
         fullname: this.fullname,
         email: this.email,
         role: this.role,
@@ -142,6 +147,16 @@ export default {
        
     });
      
+    },
+    getOrgId(name){
+      console.log(name)
+      for(var i=0;i<this.orgAllInfo.length;i++){
+        if(name == this.orgAllInfo[i].Name){
+          console.log(this.orgAllInfo[i].id)
+          return this.orgAllInfo[i].id
+        }
+        
+      }
     }
   },
   mounted(){
@@ -150,8 +165,6 @@ export default {
   computed: {
     
   }
-  //  if(this.email !='' && this.password !=''){
-  //      this.errmessage = ''
-  //  }
+  
 };
 </script>
