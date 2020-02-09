@@ -38,7 +38,6 @@ async addOrganization(data){
   return response;
  }
 // async addImage(data){
-
 // }
 async getUser(id){
   let response = await axios.get(`${API_URL}/Accounts/${id}`);
@@ -50,6 +49,11 @@ async getOrganizations(){
 }
 async getUserInformotion(){
   let response = await axios.get(`${API_URL}/Accounts`);
+  console.log(response);
+  return response;
+}
+async getStructureInfo(){
+  let response = await axios.get(`${API_URL}/AccadamicOffices`);
   console.log(response);
   return response;
 }
