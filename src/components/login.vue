@@ -11,131 +11,23 @@
         </v-card-title>
         <v-card-text>
           <v-form class="px-3">
-            <v-text-field label="E-mail" v-model="lemail"> </v-text-field>
-            <v-text-field label="Password" required v-model="lpassword">
-            </v-text-field>
+            <v-text-field label="Username" v-model="luser"> </v-text-field>
+            <v-text-field label="Password" required v-model="lpassword"></v-text-field>
+            <v-select  :items="orgName"
+                        label="Organization Name"
+                        v-model="orgname2"
+                        ></v-select>
+            <v-select :items="userType"
+                      v-model="usertypemodel"
+                      label="User Type"></v-select>
             <p class="red--text">{{ errmessage }}</p>
             <v-btn flat class="success text-md-center" @click="logIn"
               >Login</v-btn
             >
           </v-form>
-          <p class="float-right mt-5 p-3 orange--text ">
-            if you haven't registered yet ,register here ?
-            <v-btn color="green" @click="closeVar = !closevar">Sign Up</v-btn>
-          </p>
+          
         </v-card-text>
       </v-card>
-      <v-dialog max-width="600px" v-model="closeVar">
-        <!-- <v-alert color="teal--text lighten-4">
-
-  </v-alert> -->
-        <v-card>
-          <v-card-title class="blue lighten-4 dark mb-3">
-            <v-layout>
-              <v-flex>
-                <v-layout>
-                  <h2 class="my-3 indigo--text text--lighten-2">
-                    Registration Form
-                  </h2>
-                  <v-spacer></v-spacer>
-                  <v-icon
-                    class="float-right"
-                    color="red"
-                    @click="closeVar = !closeVar"
-                    >mdi-close</v-icon
-                  >
-                </v-layout>
-
-                <h4 class="ma-3 indigo--text text--lighten-2">
-                  create profile
-                </h4>
-              </v-flex>
-            </v-layout>
-          </v-card-title>
-          <v-card-text>
-            <v-form ref="form" class="px-3" v-model="valid">
-              <v-text-field
-                label=" Full Name"
-                v-model="fullname"
-                :rules="nameRule"
-              ></v-text-field>
-              <v-text-field
-                label=" Username"
-                v-model="Username"
-                :rules="nameRule"
-              ></v-text-field>
-              <v-text-field
-                label=" email"
-                v-model="email"
-                :rules="emailRule"
-              ></v-text-field>
-              <v-text-field
-                label=" Organization"
-                v-model="organization"
-                :rules="namerule"
-              ></v-text-field>
-              <v-text-field
-                label=" password"
-                v-model="password"
-                :rules="passwordRule"
-              ></v-text-field>
-              <v-select :items="items" label="Roles" v-model="role"></v-select>
-              <v-text-field
-                label="nationality"
-                v-model="Nationality"
-                :rules="nationalRule"
-              ></v-text-field>
-              <p class="mx-3 pt-3 title">Gender</p>
-              <v-radio-group
-                v-model="gender"
-                :mandatory="true"
-                row
-                class="mx-4"
-              >
-                <v-radio label="Male" value="Male"></v-radio>
-                <v-radio label="Female" value="Female"></v-radio>
-              </v-radio-group>
-              <p class="mx-3 pt-3 title">Educational status</p>
-              <v-radio-group
-                v-model="Educational_status"
-                :mandatory="true"
-                row
-                class="mx-4"
-              >
-                <v-radio label="Bsc" value="bachelor"></v-radio>
-                <v-radio label="Msc" value="Masters"></v-radio>
-                <v-radio label="PHD" value="phd"></v-radio>
-              </v-radio-group>
-              <!-- <div class="mb-3">
-                      <v-file-input label="Upload Document" v-model="file"></v-file-input>
-                 </div> -->
-              <v-btn
-                class="success lighten-1 text-center"
-                @click="registered"
-                :disabled="!valid"
-              >
-                Register
-              </v-btn>
-              <v-btn color="error" class="mx-5 px-5" @click="resetForm"
-                >reset</v-btn
-              >
-            </v-form>
-          </v-card-text>
-        </v-card>
-        <v-dialog max-width="400px" v-model="ok">
-          <v-card>
-            <v-card-title>
-              <h2>confirmed</h2>
-            </v-card-title>
-            <v-card-text>
-              <h3>Successfully registered</h3>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn @click="okbtn">ok</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-dialog>
     </v-flex>
   </v-layout>
 </template>
@@ -150,24 +42,25 @@ export default {
   data() {
     return {
       ok: false,
+      orgname2: '',
       email: "",
       fullname: "",
       Nationality: "",
       Educational_status: "",
       gender: "",
       password: "",
-      lpassword: "",
-      lemail: "",
+      lpassword:"",
+      luser:"",
+      chosenOrg:"",
       organization: "",
-      items: [
-        "Departement Head",
-        "College Dean",
-        "Teacher",
-        "Acadamic commitie"
-      ],
+      items: ['Departement Head', 'College Dean', 'Teacher','Academic commitie'],
       errmessage: "",
       Username: "",
       closeVar: false,
+      orgAllInfo: [],
+      orgName:[],
+      usertypemodel: '',
+      userType:['Normal User', 'Admin'],
       nameRule: [
         v => !!v || "Name is required",
         v => (v && v.length <= 15) || "Name must be less than 15 characters"
@@ -192,20 +85,28 @@ export default {
       if (this.lemail == "" || this.lpassword == "") {
         this.errmessage = "you must fill the form";
         return;
-      } else {
-        let data = {
-          email: this.lemail,
-          password: this.lpassword
-        };
-        api.login(data).then(response => {
-          console.log(data);
-          this.$store.commit("change");
-          this.$store.commit("setToken", response.data.id);
-          console.log(this.$store.getters.token);
-          this.$router.push({ name: "home" });
-        });
       }
-      //
+      else{
+        this.chosenOrg =this.getOrgId(this.orgname2);
+         let data = {
+           username :this.luser,
+           password :this.lpassword,
+           org_id: this.chosenOrg
+         }
+         api.login(data).then( (response) =>{
+             console.log(response)
+              this.$store.commit('change')
+              this.$store.commit('setusername',response.data.username)
+              this.$store.commit('setToken',response.data.token)
+              this.$store.commit('setOrgid',response.data.org_id)
+              this.$store.commit('setemail',response.data.email)
+              this.$store.commit('setrole',response.data.role)
+              console.log(this.$store.getters.role)
+              this.$router.push({name:"home"})
+        })
+
+      }
+    
     },
     registered() {
       if (this.$refs.form.validate()) {
@@ -225,16 +126,45 @@ export default {
       };
       api.register(data);
     },
-    resetForm() {
-      this.$refs.form.reset();
+    resetForm(){
+            this.$refs.form.reset();
+        },
+        okbtn(){
+        //  this.ok = false;
+          this.closeVar = false;
+        },
+      getOrganizationData(){
+       api.getOrganizations().then( response => {
+       //console.log(response.data); 
+       this.orgAllInfo = response.data;
+       console.log(this.orgAllInfo);
+      for(let i=0; i< this.orgAllInfo.length; i++){
+        this.orgName.push(this.orgAllInfo[i].Name);
+      }
+      console.log(this.orgName);
+      //return this.orgName;
+      
+       
+    });
+     
     },
-    okbtn() {
-      //  this.ok = false;
-      this.closeVar = false;
+    getOrgId(name){
+      console.log(name)
+      for(var i=0;i<this.orgAllInfo.length;i++){
+        if(name == this.orgAllInfo[i].Name){
+          console.log(this.orgAllInfo[i].id)
+          return this.orgAllInfo[i].id
+        }
+        
+      }
     }
+  },
+  mounted(){
+ this.getOrganizationData();
+  },
+  computed: {
+    
   }
-  //  if(this.email !='' && this.password !=''){
-  //      this.errmessage = ''
-  //  }
+  
 };
 </script>

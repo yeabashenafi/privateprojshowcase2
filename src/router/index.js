@@ -15,6 +15,34 @@ const routes = [
     path: "/addOrgn",
     name: "addorganization",
     component: () => import("../views/addOrgn.vue")
+    path: '/viewUsers',
+    name: 'viewUsers',
+    component: () => import("../components/viewUsers.vue")
+  },
+  {
+    path: '/testRegister',
+    name: 'testRegister',
+    component: () => import("../components/testRegister.vue")
+  },
+  {
+    path: "/addNewStructure",
+    name: "addnewsturcture",
+    component: () => import("../components/addFramework.vue")
+  },
+  {
+    path: "/orgDashboard",
+    name:"orgdashboard",
+    component: () => import("../views/orgDash.vue")
+  },
+  {
+    path: "/orgDashboard",
+    name:"orgdashboard",
+    component: () => import("../views/orgDash.vue")
+  },
+  {
+    path:"/addOrgStructure",
+    name: "addOrgStructure",
+    component: () => import("../components/addOrgStructure.vue")
   },
   {
     path: "/view:id",
