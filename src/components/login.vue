@@ -102,7 +102,7 @@ export default {
               this.$store.commit('setemail',response.data.email)
               this.$store.commit('setrole',response.data.role)
               console.log(this.$store.getters.role)
-              this.$router.push({name:"home"})
+              this.$router.push({name:"home"});
         })
 
       }
