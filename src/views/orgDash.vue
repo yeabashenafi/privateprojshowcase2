@@ -5,9 +5,9 @@
         
       <v-card width="256"   >
           <v-navigation-drawer permanent >
-              <v-list-item class="blue darken-3"  >
+              <v-list-item class="blue darken-3">
                   <v-list-item-content>
-                      <v-list-item-title class="title">Username</v-list-item-title>
+                      <v-list-item-title class="title">{{ $store.getters.username}}</v-list-item-title>
                   </v-list-item-content>
                   
               </v-list-item>
@@ -77,6 +77,7 @@
   
 </template>
 <script>
+// import { mapGetters } from 'vuex';
 import viewUsers from '../components/viewUsers';
 import MyAccount from '../components/MyAccount';
 import addOrganization from '../components/addorganization.vue';
@@ -92,7 +93,7 @@ components:{
 },
 data:() =>{
     return{
-        
+    name: '',
     items:[
         {title:'My Account',icon:'mdi-account',route:''},
         {title:'Add organizational approval hierarchy',icon:'mdi-account',route:'/addOrgn'},
@@ -149,7 +150,17 @@ methods:{
 mounted(){
     //this.username = this.$store.getters.User_id;
     console.log(this.username)
-}   
+} ,
+// computed: {
+// //    ...mapGetters({
+// //   // map `this.getName` to `this.$store.getters.username`
+// //   getName: 'username'
+// // }),
+// // getUsername(){
+// //     this.name = this.getName;
+// //     return this.name;
+// // }
+// }  
 }
 </script>
 <style>

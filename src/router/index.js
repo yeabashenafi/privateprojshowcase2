@@ -15,6 +15,8 @@ const routes = [
     path: "/addOrgn",
     name: "addorganization",
     component: () => import("../views/addOrgn.vue")
+  },
+    {
     path: '/viewUsers',
     name: 'viewUsers',
     component: () => import("../components/viewUsers.vue")
