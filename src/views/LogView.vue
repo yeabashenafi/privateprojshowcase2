@@ -9,7 +9,6 @@
 // @ is an alias to /src
 import login from "../components/login";
 export default {
-  data() {},
   components: {
     login
   }
