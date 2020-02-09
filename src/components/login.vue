@@ -1,12 +1,12 @@
 <template>
-
   <v-layout row>
-
     <v-flex class="col pa-4 ma-5 align-center">
       <v-card class="mt-5 mx-auto py-5" width="700px" height="501">
         <v-card-title class="pa-3">
           <v-container>
-            <h3 class="my-3 indigo--text text--lighten-2 text-center display-3">Log in</h3>
+            <h3 class="my-3 indigo--text text--lighten-2 text-center display-3">
+              Log in
+            </h3>
           </v-container>
         </v-card-title>
         <v-card-text>
@@ -15,7 +15,9 @@
             <v-text-field label="Password" required v-model="lpassword">
             </v-text-field>
             <p class="red--text">{{ errmessage }}</p>
-            <v-btn flat class="success text-md-center" @click="logIn">Login</v-btn>
+            <v-btn flat class="success text-md-center" @click="logIn"
+              >Login</v-btn
+            >
           </v-form>
           <p class="float-right mt-5 p-3 orange--text ">
             if you haven't registered yet ,register here ?
@@ -77,11 +79,7 @@
                 v-model="password"
                 :rules="passwordRule"
               ></v-text-field>
-              <v-select
-              :items="items"
-              label="Roles"
-              v-model="role"
-               ></v-select>
+              <v-select :items="items" label="Roles" v-model="role"></v-select>
               <v-text-field
                 label="nationality"
                 v-model="Nationality"
@@ -124,23 +122,20 @@
             </v-form>
           </v-card-text>
         </v-card>
-         <v-dialog
-          max-width="400px"
-         v-model="ok">
-              <v-card>
-              <v-card-title>
-                <h2>confirmed</h2>
-              </v-card-title>
-              <v-card-text>
-                <h3> Successfully registered</h3>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn @click="okbtn">ok</v-btn>
-              </v-card-actions>
-            </v-card>
-         </v-dialog>
+        <v-dialog max-width="400px" v-model="ok">
+          <v-card>
+            <v-card-title>
+              <h2>confirmed</h2>
+            </v-card-title>
+            <v-card-text>
+              <h3>Successfully registered</h3>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn @click="okbtn">ok</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-dialog>
-
     </v-flex>
   </v-layout>
 </template>
@@ -161,27 +156,32 @@ export default {
       Educational_status: "",
       gender: "",
       password: "",
-      lpassword:"",
-      lemail:"",
+      lpassword: "",
+      lemail: "",
       organization: "",
-      items: ['Departement Head', 'College Dean', 'Teacher','Acadamic commitie'],
+      items: [
+        "Departement Head",
+        "College Dean",
+        "Teacher",
+        "Acadamic commitie"
+      ],
       errmessage: "",
       Username: "",
       closeVar: false,
       nameRule: [
-             v => !!v || 'Name is required',
-             v => (v && v.length <= 15) || 'Name must be less than 15 characters',
-                    ],
-     emailRule: [
-            v => !!v || 'E-mail is required',
-            v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
-                    ],
-    passwordRule: [
-          v => (v && v.length > 8) || 'password must be more than 8 characters'
-            ],
-    nationalRule: [
-           v=> (v && v.length > 0) || 'You can not leave nationality field'
-            ]
+        v => !!v || "Name is required",
+        v => (v && v.length <= 15) || "Name must be less than 15 characters"
+      ],
+      emailRule: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      ],
+      passwordRule: [
+        v => (v && v.length > 8) || "password must be more than 8 characters"
+      ],
+      nationalRule: [
+        v => (v && v.length > 0) || "You can not leave nationality field"
+      ]
     };
   },
   components: {
@@ -192,29 +192,27 @@ export default {
       if (this.lemail == "" || this.lpassword == "") {
         this.errmessage = "you must fill the form";
         return;
-      }
-      else{
+      } else {
         let data = {
-          email :this.lemail,
-          password :this.lpassword,
-        }
-        api.login(data).then( (response) =>{
-            console.log(data)
-            this.$store.commit('change')
-            this.$store.commit('setToken',response.data.id)
-            console.log(this.$store.getters.token)
-            this.$router.push({name:"home"})
-        })
-
+          email: this.lemail,
+          password: this.lpassword
+        };
+        api.login(data).then(response => {
+          console.log(data);
+          this.$store.commit("change");
+          this.$store.commit("setToken", response.data.id);
+          console.log(this.$store.getters.token);
+          this.$router.push({ name: "home" });
+        });
       }
-    //
+      //
     },
     registered() {
-        if(this.$refs.form.validate()){
-            this.snackbar = true;
-        }
-        this.ok = true;
-        const data = {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true;
+      }
+      this.ok = true;
+      const data = {
         fullname: this.fullname,
         email: this.email,
         role: this.role,
@@ -227,13 +225,13 @@ export default {
       };
       api.register(data);
     },
-    resetForm(){
-            this.$refs.form.reset();
-        },
-        okbtn(){
-        //  this.ok = false;
-          this.closeVar = false;
-        }
+    resetForm() {
+      this.$refs.form.reset();
+    },
+    okbtn() {
+      //  this.ok = false;
+      this.closeVar = false;
+    }
   }
   //  if(this.email !='' && this.password !=''){
   //      this.errmessage = ''

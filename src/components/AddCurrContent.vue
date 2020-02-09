@@ -7,14 +7,14 @@
         </v-card-title>
         <v-card-actions width="100%" class="ml-5">
           <v-flex width="100%" raised>
-          <v-flex >
+            <v-flex>
               <v-text-field
-              outlined
-              full-width
-              v-model="name"
-              label="Program Name"
-            ></v-text-field>
-          </v-flex>
+                outlined
+                full-width
+                v-model="name"
+                label="Program Name"
+              ></v-text-field>
+            </v-flex>
             <v-select
               :items="types"
               v-model="type"
@@ -32,23 +32,31 @@
             ></v-textarea>
             <p outlined class="headline">Program Outcome/s(PO)</p>
             <v-flex class="ml-5">
-              <template v-for="(program,index) in po">
+              <template v-for="(program, index) in po">
                 <v-flex v-bind:key="program.index">
                   <v-layout>
-                    <p class="title"> PO {{ index+1 }} </p>
+                    <p class="title">PO {{ index + 1 }}</p>
                     <v-spacer></v-spacer>
                     <v-icon @click="addPO()">mdi-plus</v-icon>
                   </v-layout>
-                  <v-text-field outlined label="Name of Outcome" v-model="program.name"></v-text-field>
-                  <v-text-field outlined label="Description" v-model="program.details"></v-text-field>
+                  <v-text-field
+                    outlined
+                    label="Name of Outcome"
+                    v-model="program.name"
+                  ></v-text-field>
+                  <v-text-field
+                    outlined
+                    label="Description"
+                    v-model="program.details"
+                  ></v-text-field>
                 </v-flex>
               </template>
               <p class="headline">Program Educational Outcome/s(PEO)</p>
               <v-flex>
-                <template v-for="(PEO,index) in peo">
+                <template v-for="(PEO, index) in peo">
                   <v-flex v-bind:key="PEO.index">
                     <v-layout>
-                      <p class="title">PEO{{ index+1 }}</p>
+                      <p class="title">PEO{{ index + 1 }}</p>
                       <v-spacer></v-spacer>
                       <v-icon @click="addPEO()">mdi-plus</v-icon>
                     </v-layout>
@@ -57,7 +65,11 @@
                       label="Name of Educational Outcome"
                       v-model="PEO.name"
                     ></v-text-field>
-                    <v-text-field outlined label="Description" v-model="PEO.details"></v-text-field>
+                    <v-text-field
+                      outlined
+                      label="Description"
+                      v-model="PEO.details"
+                    ></v-text-field>
                     <v-select
                       multiple
                       :items="POS"
@@ -69,10 +81,10 @@
               </v-flex>
               <p class="headline">Curriculum Learning Outcome</p>
               <v-flex>
-                <template v-for="(CLO,index) in clo">
+                <template v-for="(CLO, index) in clo">
                   <v-flex v-bind:key="CLO.index">
                     <v-layout>
-                      <p class="title" >CLO{{ index+1 }}</p>
+                      <p class="title">CLO{{ index + 1 }}</p>
                       <v-spacer></v-spacer>
                       <v-icon @click="addCLO()">mdi-plus</v-icon>
                     </v-layout>
@@ -81,63 +93,95 @@
                       label="Name of Educational Outcome"
                       v-model="CLO.name"
                     ></v-text-field>
-                    <v-text-field outlined label="Description" v-model="CLO.details"></v-text-field>
+                    <v-text-field
+                      outlined
+                      label="Description"
+                      v-model="CLO.details"
+                    ></v-text-field>
                     <v-select
                       multiple
                       :items="PEOS"
                       label="Mapped PEO/PEOs"
                       v-model="CLO.mappedPEO"
                     ></v-select>
-                    <v-text-field label="Cource tile"
-                                  v-model="title"></v-text-field>
-                    <v-text-field label="Cource Code"
-                                  v-model="code"></v-text-field>
-                    <v-text-field label="Contact Hour"
-                                   v-model="contactHour"></v-text-field>
-                    <v-select :items="year"
-                               v-model="ClassYear"
-                                label="Accadamic Year"></v-select>
-                    <v-select label="Select Semister" 
-                              v-model="semister"
-                              :items="semisters"></v-select>
-                    <v-text-field label="Pre-requisties"
-                                   v-model="preRequisites"></v-text-field>
-                        <p class="title primary--text">Cource Outline</p>
-                  <template v-for="(outline,index) in outlines">
-                     <v-flex :key="outline.index">
-                      <v-layout>
-                        <p class="title"> Chapter  {{ index+1}}</p>
-                        <v-spacer></v-spacer>
-                        <v-icon @click="addOutline()">mdi-plus</v-icon>
-                  </v-layout>
-                             <v-text-field outlined label="Course Chapter" v-model="outline.chapter"></v-text-field>
-                             <v-text-field outlined label="Details" v-model="outline.details"></v-text-field>
-                     </v-flex>
-                      </template> 
+                    <v-text-field
+                      label="Cource tile"
+                      v-model="title"
+                    ></v-text-field>
+                    <v-text-field
+                      label="Cource Code"
+                      v-model="code"
+                    ></v-text-field>
+                    <v-text-field
+                      label="Contact Hour"
+                      v-model="contactHour"
+                    ></v-text-field>
+                    <v-select
+                      :items="year"
+                      v-model="ClassYear"
+                      label="Accadamic Year"
+                    ></v-select>
+                    <v-select
+                      label="Select Semister"
+                      v-model="semister"
+                      :items="semisters"
+                    ></v-select>
+                    <v-text-field
+                      label="Pre-requisties"
+                      v-model="preRequisites"
+                    ></v-text-field>
+                    <p class="title primary--text">Cource Outline</p>
+                    <template v-for="(outline, index) in outlines">
+                      <v-flex :key="outline.index">
+                        <v-layout>
+                          <p class="title">Chapter {{ index + 1 }}</p>
+                          <v-spacer></v-spacer>
+                          <v-icon @click="addOutline()">mdi-plus</v-icon>
+                        </v-layout>
+                        <v-text-field
+                          outlined
+                          label="Course Chapter"
+                          v-model="outline.chapter"
+                        ></v-text-field>
+                        <v-text-field
+                          outlined
+                          label="Details"
+                          v-model="outline.details"
+                        ></v-text-field>
+                      </v-flex>
+                    </template>
 
-                      <p class="title primary--text"> References</p>
-                          <template v-for="(reference,index) in references">
-                          <v-flex :key="reference.index">
-                          <v-layout>
-                          <p class="title">refs{{ index+1}}</p>
+                    <p class="title primary--text">References</p>
+                    <template v-for="(reference, index) in references">
+                      <v-flex :key="reference.index">
+                        <v-layout>
+                          <p class="title">refs{{ index + 1 }}</p>
                           <v-spacer></v-spacer>
                           <v-icon @click="reduceReference()">mdi-minus</v-icon>
                           <v-icon @click="addReference()">mdi-plus</v-icon>
-                  </v-layout>
-                             <v-text-field outlined label="References" v-model="reference.refers_name"></v-text-field>
-                     </v-flex>
-                  </template>
-                  <p class="title primary--text">Learning Methods</p>
-                  <template v-for="(lmethod,index) in learningMethod">
-                          <v-flex :key="lmethod.index">
-                          <v-layout>
-                          <p class="title">Method{{ index+1}}</p>
+                        </v-layout>
+                        <v-text-field
+                          outlined
+                          label="References"
+                          v-model="reference.refers_name"
+                        ></v-text-field>
+                      </v-flex>
+                    </template>
+                    <p class="title primary--text">Learning Methods</p>
+                    <template v-for="(lmethod, index) in learningMethod">
+                      <v-flex :key="lmethod.index">
+                        <v-layout>
+                          <p class="title">Method{{ index + 1 }}</p>
                           <v-spacer></v-spacer>
                           <v-icon @click="addLearningMethod()">mdi-plus</v-icon>
-                  </v-layout>
-                             <v-text-field outlined label="References" v-model="lmethod.methodName"></v-text-field>
-                     </v-flex>
-                  </template>
+                        </v-layout>
+                        <v-text-field
+                          outlined
+                          label="References"
+                          v-model="lmethod.methodName"
+                        ></v-text-field>
+                      </v-flex>
+                    </template>
                   </v-flex>
                 </template>
               </v-flex>
@@ -150,36 +194,34 @@
           </v-flex>
         </v-card-actions>
       </v-card>
-       <v-dialog
-          max-width="400px"
-         v-model="ok">
-              <v-card>
-              <v-card-title>
-                <h2>confirmed</h2>
-              </v-card-title>
-              <v-card-text>
-                <h3> Successfully submitted the change</h3>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn @click="okbtn">ok</v-btn>
-              </v-card-actions>
-            </v-card>
-         </v-dialog>
+      <v-dialog max-width="400px" v-model="ok">
+        <v-card>
+          <v-card-title>
+            <h2>confirmed</h2>
+          </v-card-title>
+          <v-card-text>
+            <h3>Successfully submitted the change</h3>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn @click="okbtn">ok</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-container>
   </span>
 </template>
 
 <script>
-import {apiservice} from "../apiservice";
+import { apiservice } from "../apiservice";
 const api = new apiservice();
 export default {
   data: () => {
     return {
-      preRequisites:'',
-      classYear: '',
-      contactHour: '',
-      code: '',
-      title: '',
+      preRequisites: "",
+      classYear: "",
+      contactHour: "",
+      code: "",
+      title: "",
       ok: false,
       no_of_PO: 1,
       no_of_PEO: 1,
@@ -200,61 +242,69 @@ export default {
         {
           id: "",
           name: "",
-          details: "",
+          details: ""
         }
       ],
       peo: [
         {
-          id:"",
-          name:"",
-          details:"",
-          mappedPO:[]
+          id: "",
+          name: "",
+          details: "",
+          mappedPO: []
         }
       ],
       clo: [
         {
-        id:"",
-        name:"",
-        details:"",
-        mappedPEO:[]
-      }
-
+          id: "",
+          name: "",
+          details: "",
+          mappedPEO: []
+        }
       ],
       outlines: [
         {
-          id: '',
-          chapter: '',
-          details: ''
+          id: "",
+          chapter: "",
+          details: ""
         }
       ],
       references: [
-                 {
-                   id: '',
-                   refers_name: ''
-                 }       
+        {
+          id: "",
+          refers_name: ""
+        }
       ],
       learningMethod: [
         {
-          id: '',
-          methodName: ''
+          id: "",
+          methodName: ""
         }
+      ],
+      year: ["1st year", "2nd year", "3rd year", "4th year", "5th year"],
+      semisters: [
+        "semister 1",
+        "semister 2",
+        "semister 3",
+        "semister 4",
+        "semister 5",
+        "semister 6",
+        "semister 7",
+        "semister 8",
+        "semister 9",
+        "semister 10"
       ]
-      ,
-      year: ['1st year', '2nd year', '3rd year' , '4th year', '5th year'],
-      semisters: ['semister 1','semister 2','semister 3','semister 4','semister 5','semister 6',
-                 'semister 7','semister 8','semister 9','semister 10']
     };
   },
   methods: {
-     okbtn(){
+    okbtn() {
       this.ok = !this.ok;
-      this.name ='';
-      this.type = '';
-      this.background = '';
-      this.rational = '';
+      this.name = "";
+      this.type = "";
+      this.background = "";
+      this.rational = "";
     },
     addPO() {
-    //  window.alert("added a program outcome");
+      //  window.alert("added a program outcome");
       //this.no_of_PO++;
       this.po.push({});
     },
@@ -267,42 +317,40 @@ export default {
     addCurriculum() {
       this.ok = true;
       this.setpoID();
-      let data={
-        program_name:this.name,
-        program_type:this.type,
-        background:this.background,
-        rational:this.rational,
-        program_outcome:this.po,
-        program_educational_outcome:this.peo,
-        course_learning_outcome:this.clo,
-        owner:"Admin",
+      let data = {
+        program_name: this.name,
+        program_type: this.type,
+        background: this.background,
+        rational: this.rational,
+        program_outcome: this.po,
+        program_educational_outcome: this.peo,
+        course_learning_outcome: this.clo,
+        owner: "Admin"
+      };
+      console.log(data);
 
-      }
-      console.log(data)
-
-      api.addStructure(data).then((data) => {
+      api.addStructure(data).then(data => {
         console.log(data);
-      })
+      });
     },
     setpoID() {
-      for(var program in this.po){
-        console.log(program)
+      for (var program in this.po) {
+        console.log(program);
         // this.po[i].id = "po"+(i+1)
       }
     },
-    addOutline(){
+    addOutline() {
       this.outlines.push({});
     },
-    addReference(){
+    addReference() {
       this.references.push({});
     },
-    addLearningMethod(){
+    addLearningMethod() {
       this.learningMethod.push({});
     },
-    reduceReference(){
-      if(this.references.length > 1){
-         this.references.pop();
-
+    reduceReference() {
+      if (this.references.length > 1) {
+        this.references.pop();
       }
     }
   },
@@ -320,8 +368,7 @@ export default {
         y.push("PEO" + j);
       }
       return y;
-    },
-   
+    }
   }
 };
 </script>
