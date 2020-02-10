@@ -49,6 +49,7 @@
                         <v-text-field
                           label="Grading Scale"
                           solo
+                          v-model="gradingScale"
                           ></v-text-field>
                           <v-textarea
                             label="Rational"
@@ -60,11 +61,14 @@
                           <v-layout>
                             <v-text-field  
                             label="Medium of Instruction"
-                            
+                            v-model="medium"
                             ></v-text-field>
                             <v-spacer></v-spacer>
                             
-                            <v-text-field label="Course Coding"></v-text-field>
+                            <v-text-field 
+                            label="Course Coding"
+                            v-model="coursecoding"
+                            ></v-text-field>
                           </v-layout>
                           <v-text-field 
                             placeholder="What will a student be called upon the completion of this program"
@@ -159,8 +163,47 @@
                       </v-card>
                 </v-stepper-content>
                 <v-stepper-content step="3">
-                  <p></p>
-                </v-stepper-content>
+                  <v-card>
+                    <v-card-title >
+                      <v-flex class="text-center">
+                        <p class="headline">Add the courses that are part of the curriculum</p>
+                      </v-flex>
+                      
+                    </v-card-title>
+                    <v-card-actions>
+                      <v-flex>
+                        <template v-for="(course,index) in courses">
+                          <v-flex v-bind:key="course.index">
+                            <v-layout>
+                              <p>Course{{index+1}}</p>
+                              <v-spacer></v-spacer>
+                              <v-icon @click="addcourses()">mdi-plus</v-icon>
+                            </v-layout>
+                            
+                            <v-layout>
+                              <v-text-field label="Enter the name of the course"></v-text-field>
+                              <v-layout>
+                                <v-icon>mdi-cogs</v-icon>
+                                <v-icon class="ml-5">mdi-check</v-icon>
+                                <v-dialog>
+                                  <v-card></v-card>
+                                </v-dialog>
+                              </v-layout>
+                              
+                            </v-layout>
+                            
+                          </v-flex>
+                        </template>  
+                          
+                      </v-flex>
+                    </v-card-actions>
+
+                    
+                    
+                  </v-card>
+                </v-stepper-content>  
+                
+                
             </v-stepper-items>
                 
                   
@@ -249,8 +292,7 @@
                             <v-spacer></v-spacer>
                             <v-icon @click="reduceMethod()">mdi-minus</v-icon>
                             <v-icon @click="addLearningMethod()"
-                              >mdi-plus</v-icon
-                            >
+                              >mdi-plus</v-icon>
                           </v-layout>
                           <v-text-field
                             label="References"
@@ -297,7 +339,7 @@
             <h2>confirmed</h2>
           </v-card-title>
           <v-card-text>
-            <h3>Successfully submitted the change</h3>
+            <h3>Successfully submitted the changes</h3>
           </v-card-text>
           <v-card-actions>
             <v-btn @click="okbtn">ok</v-btn>
@@ -322,9 +364,11 @@ export default {
       code: '',
       title: '',
       ok: false,
+      medium:'',
       no_of_PO: 1,
       no_of_PEO: 1,
       no_of_CLO: 1,
+      coursecoding:'',
       types: [
         "High School",
         "Bsc. Degree",
@@ -352,6 +396,12 @@ export default {
           mappedPO: []
         }
       ],
+      courses:[
+        {
+          id:0,
+          name:"",
+        }
+      ],
       clo: [
         {
           id: "",
@@ -367,6 +417,7 @@ export default {
         }
       ],
       references: "",
+      
       gradingScale: "",
       learningMethod: [
         {
@@ -374,7 +425,7 @@ export default {
         }
       ],
       coursePolicies: "",
-
+      coursecoding:"",
       year: ["1st year", "2nd year", "3rd year", "4th year", "5th year"],
       semisters: [
         "semister 1",
@@ -400,9 +451,10 @@ export default {
       this.rational = '';
     },
     addPO() {
-      //  window.alert("added a program outcome");
-      //this.no_of_PO++;
       this.po.push({});
+    },
+    addcourses(){
+      this.courses.push({});
     },
     addPEO() {
       this.peo.push({});
