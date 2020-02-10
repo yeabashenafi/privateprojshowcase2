@@ -1,100 +1,200 @@
 <template>
   <span width="70%">
-    <v-container text-md-center>
+    <v-container text-md-center elevation-12>
     <v-form width="50%" ref="form">
         <v-card width="100%" ref="cardref">
         <v-card-title class="display-1">
           Add a Curriculum Structure
         </v-card-title>
         <v-card-actions class="ml-5">
-          <v-flex width="100%" raised>
-          <v-flex>
-            <v-layout>
-               <v-select
-              :items="types"
-              v-model="type"
-              label="Program Type"  class="mx-5"
-             ></v-select>
-              <v-text-field
-              full-width
-              v-model="name"
-              label="Program Name" class="mx-5"
-            ></v-text-field>
+          <v-flex  raised>
+          <v-stepper v-model="el">
+            <v-stepper-header>
+              <v-stepper-step :complete="el > 1" step="1">Step 1</v-stepper-step>
+              <v-stepper-step :complete="el > 2" step="2">Step 2</v-stepper-step>
+              <v-stepper-step :complete="el > 3" step="3">Step 3</v-stepper-step>
+            </v-stepper-header>
+            <v-divider></v-divider>
+            <v-stepper-items>
+                <v-stepper-content step="1">
+                    <v-card>
+                    <v-card-title>
+                      <v-flex class="text-center">
+                        <p class="headline">General descriptions</p>
+                      </v-flex>
+                    </v-card-title>
+                      <v-container>
+                        <v-layout class="mb-3">
+                          <v-select
+                          :items="types"
+                          v-model="type"
+                          outlined filled rounded
+                          label="Program Type"  class="mx-5 "
+                          ></v-select>
+                          <v-spacer></v-spacer>
+                          <v-text-field
+                          solo
+                          v-model="name"
+                          label="Program Name" class="mx-5"
+                          ></v-text-field>
+                        </v-layout>
+                        <v-textarea
+                        label="Background"
+                        v-model="background"
+                        outlined
+                        height=10
+                        class="mb-3"
+                        
+                        ></v-textarea>
+                        <v-text-field
+                          label="Grading Scale"
+                          solo
+                          ></v-text-field>
+                          <v-textarea
+                            label="Rational"
+                            v-model="rational"
+                            solo
+                            height=10
+                          ></v-textarea>
+
+                          <v-layout>
+                            <v-text-field  
+                            label="Medium of Instruction"
+                            
+                            ></v-text-field>
+                            <v-spacer></v-spacer>
+                            
+                            <v-text-field label="Course Coding"></v-text-field>
+                          </v-layout>
+                          <v-text-field 
+                            placeholder="What will a student be called upon the completion of this program"
+                            label="Nomenclature of the Program" class="mr-10" solo
+                            ></v-text-field>
+                          <v-text-area label="Examination and Grading" placeholder="Describe processes of examination and Grading"></v-text-area>
+                          <v-text-area label="Graduating Requirements" placeholder="Describe the requirements for "></v-text-area>  
+                    </v-container> 
+                       <v-btn @click="el=2">Continue</v-btn>
+                    </v-card>  
+                </v-stepper-content>
+
+                <v-stepper-content step="2">
+                      <v-card>
+                        <v-card-title>
+                          <v-flex class="text-center">
+                            <p class="headline">Objectives of the framework</p>
+                            
+                          </v-flex>
+                        </v-card-title>
+                        <v-card-actions>
+                          <v-container>
+                          <v-flex>
+                            <p outlined class="headline">Program Outcome/s(PO)</p>
+                            <template v-for="(program,index) in po">
+                              <v-flex v-bind:key="program.index">
+                                <v-layout>
+                                  <p class="title"> PO {{index+1 }} </p>
+                                  <v-spacer></v-spacer>
+                                  <v-icon @click="reducePo()">mdi-minus</v-icon>
+                                  <v-icon @click="addPO()">mdi-plus</v-icon>
+                                </v-layout>
+                                <v-text-field outlined label="Name of Outcome" v-model="program.name"></v-text-field>
+                                <v-text-field outlined label="Description" v-model="program.details"></v-text-field>
+                              </v-flex>
+                            </template>
+                          </v-flex>
+                          <v-flex>
+                              
+                              <p class="headline">Program Educational Outcome/s(PEO)</p>
+                              <template v-for="(PEO,index) in peo">
+                                <v-flex v-bind:key="PEO.index">
+                                  <v-layout>
+                                    <p class="title">PEO{{ index+1 }}</p>
+                                    <v-spacer></v-spacer>
+                                    <v-icon @click="reducePeo()">mdi-minus</v-icon>
+                                    <v-icon @click="addPEO()">mdi-plus</v-icon>
+                                  </v-layout>
+                                  <v-text-field
+                                    outlined
+                                    label="Name of Educational Outcome"
+                                    v-model="PEO.name"
+                                  ></v-text-field>
+                                  <v-text-field outlined label="Description" v-model="PEO.details"></v-text-field>
+                                  <v-select
+                                    multiple
+                                    :items="POS"
+                                    label="Mapped PO/POs"
+                                    v-model="PEO.mappedPO"
+                                  ></v-select>
+                                </v-flex>
+                              </template>
+                          </v-flex>
+                          <v-flex>
+                              <p class="headline">Curriculum Learning Outcome/s</p>
+                              <template v-for="(CLO,index) in clo">
+                                <v-flex  v-bind:key="CLO.index">
+                              <v-layout>
+                                    <p class="title" >CLO{{ index+1 }}</p>
+                                    <v-spacer></v-spacer>
+                                    <v-icon @click="reduceClo()">mdi-minus</v-icon>
+                                    <v-icon @click="addCLO()">mdi-plus</v-icon>
+                              </v-layout>
+                              <v-text-field
+                                    outlined
+                                    label="Name of Educational Outcome"
+                                    v-model="CLO.name"
+                              ></v-text-field>
+                                  <v-text-field outlined label="Description" v-model="CLO.details"></v-text-field>
+                                  <v-select
+                                    multiple
+                                    :items="PEOS"
+                                    label="Mapped PEO/PEOs"
+                                    v-model="CLO.mappedPEO"
+                                  ></v-select>
+                                </v-flex>
+                              </template>
+                          </v-flex>
+                          </v-container>
+                        </v-card-actions>
+                        <v-btn @click="el=3">Continue</v-btn>
+                      </v-card>
+                </v-stepper-content>
+                <v-stepper-content step="3">
+                  <p></p>
+                </v-stepper-content>
+            </v-stepper-items>
+                
+                  
+                
+                   
+            
+            
+          
+          </v-stepper>
+            
+             
+
+          
+            
            
-          </v-layout>
-          </v-flex>
-            <v-textarea
-              
-              label="Background"
-              v-model="background"
-            ></v-textarea>
-            <v-textarea
-              label="Rational"
-              v-model="rational"
-            ></v-textarea>
-            <p outlined class="headline">Program Outcome/s(PO)</p>
+          
+          
+          
+            
+            
+            
+            
+            
+            
+            
+            
             <v-flex class="ml-5">
-              <template v-for="(program,index) in po">
-                <v-flex v-bind:key="program.index">
-                  <v-layout>
-                    <p class="title"> PO {{ index+1 }} </p>
-                    <v-spacer></v-spacer>
-                    <v-icon @click="reducePo()">mdi-minus</v-icon>
-                    <v-icon @click="addPO()">mdi-plus</v-icon>
-                  </v-layout>
-                  <v-text-field outlined label="Name of Outcome" v-model="program.name"></v-text-field>
-                  <v-text-field outlined label="Description" v-model="program.details"></v-text-field>
-                </v-flex>
-              </template>
-              <p class="headline">Program Educational Outcome/s(PEO)</p>
-              <v-flex>
-                <template v-for="(PEO,index) in peo">
-                  <v-flex v-bind:key="PEO.index">
-                    <v-layout>
-                      <p class="title">PEO{{ index+1 }}</p>
-                      <v-spacer></v-spacer>
-                      <v-icon @click="reducePeo()">mdi-minus</v-icon>
-                      <v-icon @click="addPEO()">mdi-plus</v-icon>
-                    </v-layout>
-                    <v-text-field
-                      outlined
-                      label="Name of Educational Outcome"
-                      v-model="PEO.name"
-                    ></v-text-field>
-                    <v-text-field outlined label="Description" v-model="PEO.details"></v-text-field>
-                    <v-select
-                      multiple
-                      :items="POS"
-                      label="Mapped PO/POs"
-                      v-model="PEO.mappedPO"
-                    ></v-select>
-                  </v-flex>
-                </template>
-              </v-flex>
-               <p class="headline">Curriculum Learning Outcome</p>
               
-                <template v-for="(CLO,index) in clo">
-                  <v-flex  v-bind:key="CLO.index">
-                <v-layout>
-                      <p class="title" >CLO{{ index+1 }}</p>
-                      <v-spacer></v-spacer>
-                      <v-icon @click="reduceClo()">mdi-minus</v-icon>
-                      <v-icon @click="addCLO()">mdi-plus</v-icon>
-                </v-layout>
-                 <v-text-field
-                      outlined
-                      label="Name of Educational Outcome"
-                      v-model="CLO.name"
-                 ></v-text-field>
-                    <v-text-field outlined label="Description" v-model="CLO.details"></v-text-field>
-                    <v-select
-                      multiple
-                      :items="PEOS"
-                      label="Mapped PEO/PEOs"
-                      v-model="CLO.mappedPEO"
-                    ></v-select>
-                  </v-flex>
-                </template>
+              <v-flex>
+                
+              </v-flex>
+               
+              
+                
               <v-flex>
                 <template >
                   <v-flex>
@@ -208,6 +308,7 @@ export default {
       refers_name: '',
       preRequisites:'',
       classYear: '',
+      el:1,
       contactHour: '',
       code: '',
       title: '',
@@ -275,6 +376,7 @@ export default {
      okbtn(){
       this.ok = !this.ok;
       this.name ='';
+      this.background = '';
       this.type = '';
       this.background = '';
       this.rational = '';
@@ -309,6 +411,14 @@ export default {
       api.addStructure(data).then((data) => {
         console.log(data);
       })
+    },
+    getBackground(){
+      api.getOrganizations(this.$store.getters.org_id).then((response) =>{
+//      c 
+        console.log(response.data[0].background)
+        this.background = response.data[0].background
+      }
+      )
     },
     setpoID() {
       for(var program in this.po){
@@ -372,8 +482,13 @@ export default {
       return y;
     },
    
-  }
+  },
+  mounted(){
+    this.getBackground()
+  } 
+
 };
+
 </script>
 
 <style></style>
