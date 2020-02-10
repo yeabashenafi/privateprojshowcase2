@@ -137,7 +137,7 @@ export default {
        api.getOrganizations().then( response => {
        //console.log(response.data); 
        this.orgAllInfo = response.data;
-       console.log(this.orgAllInfo);
+      // console.log(this.orgAllInfo);
       for(let i=0; i< this.orgAllInfo.length; i++){
         this.orgName.push(this.orgAllInfo[i].Name);
       }

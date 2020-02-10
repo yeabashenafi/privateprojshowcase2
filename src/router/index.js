@@ -47,6 +47,16 @@ const routes = [
     component: () => import("../components/addOrgStructure.vue")
   },
   {
+    path:"/testSlider",
+    name: "testSlider",
+    component: () => import("../views/testSlider.vue")
+  },
+  {
+    path:"/orgTest",
+    name: "orgTest",
+    component: () => import("../components/orgTest.vue")
+  },
+  {
     path: "/view:id",
     name: "viewStructure",
     component: () => import("../components/ViewSpecific.vue")

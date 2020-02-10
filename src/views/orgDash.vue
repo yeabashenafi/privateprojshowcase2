@@ -3,11 +3,15 @@
         <v-layout height="100%">
       
         
-      <v-card width="256"   >
+      <v-card width="256" flat>
           <v-navigation-drawer permanent >
               <v-list-item class="blue darken-3">
                   <v-list-item-content>
-                      <v-list-item-title class="title">{{ $store.getters.username}}</v-list-item-title>
+                      <v-list-item-title class="title" >
+                          <v-layout>
+                     <p class="title white--text"  >{{ $store.getters.username}}</p>
+                          </v-layout>
+                      </v-list-item-title>
                   </v-list-item-content>
                   
               </v-list-item>
@@ -66,9 +70,9 @@
       <v-flex>
           <add-organization v-if="addo"></add-organization>
           <register v-if="addu" class="ml-3"></register>
-          <my-account v-if="myacc"></my-account>
-          <view-users v-if="alluser"></view-users>
-          <add-org-structure v-if="orgst"></add-org-structure>
+         <my-account v-if="myacc"></my-account>
+         <view-users v-if="alluser"></view-users>
+         <add-org-structure v-if="orgst"></add-org-structure>
       </v-flex>
       
    

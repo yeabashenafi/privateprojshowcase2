@@ -55,7 +55,16 @@ async getStructureInfo(){
   console.log(response);
   return response;
 }
-
+async addOffices(data){
+  let response = await axios.post(`${API_URL}/AccadamicOffices`,data);
+    console.log(response);
+    return response;
+}
+async getParentData(data){
+  let response = await axios.post(`${API_URL}/AccadamicOffices/getParent`, data);
+  console.log(response);
+  return response;
+}
 };
 
 
