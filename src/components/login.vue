@@ -12,20 +12,26 @@
         <v-card-text>
           <v-form class="px-3">
             <v-text-field label="Username" v-model="luser"> </v-text-field>
-            <v-text-field label="Password" required v-model="lpassword"></v-text-field>
-            <v-select  :items="orgName"
-                        label="Organization Name"
-                        v-model="orgname2"
-                        ></v-select>
-            <v-select :items="userType"
-                      v-model="usertypemodel"
-                      label="User Type"></v-select>
+            <v-text-field
+              label="Password"
+              required
+              v-model="lpassword"
+            ></v-text-field>
+            <v-select
+              :items="orgName"
+              label="Organization Name"
+              v-model="orgname2"
+            ></v-select>
+            <v-select
+              :items="userType"
+              v-model="usertypemodel"
+              label="User Type"
+            ></v-select>
             <p class="red--text">{{ errmessage }}</p>
-            <v-btn flat class="success text-md-center" @click="logIn"
+            <v-btn text class="success text-md-center" @click="logIn"
               >Login</v-btn
             >
           </v-form>
-          
         </v-card-text>
       </v-card>
     </v-flex>
@@ -42,25 +48,30 @@ export default {
   data() {
     return {
       ok: false,
-      orgname2: '',
+      orgname2: "",
       email: "",
       fullname: "",
       Nationality: "",
       Educational_status: "",
       gender: "",
       password: "",
-      lpassword:"",
-      luser:"",
-      chosenOrg:"",
+      lpassword: "",
+      luser: "",
+      chosenOrg: "",
       organization: "",
-      items: ['Departement Head', 'College Dean', 'Teacher','Academic commitie'],
+      items: [
+        "Departement Head",
+        "College Dean",
+        "Teacher",
+        "Academic commitie"
+      ],
       errmessage: "",
       Username: "",
       closeVar: false,
       orgAllInfo: [],
-      orgName:[],
-      usertypemodel: '',
-      userType:['Normal User', 'Admin'],
+      orgName: [],
+      usertypemodel: "",
+      userType: ["Normal User", "Admin"],
       nameRule: [
         v => !!v || "Name is required",
         v => (v && v.length <= 15) || "Name must be less than 15 characters"
@@ -85,15 +96,36 @@ export default {
       if (this.lemail == "" || this.lpassword == "") {
         this.errmessage = "you must fill the form";
         return;
-      }
-      else{
+      } else {
+        this.chosenOrg = this.getOrgId(this.orgname2);
+        let data = {
+          username: this.luser,
+          password: this.lpassword,
+          org_id: this.chosenOrg
+        };
+        api.login(data).then(response => {
+          console.log(response);
+          this.$store.commit("change");
+          this.$store.commit("setusername", response.data.username);
+          this.$store.commit("setToken", response.data.token);
+          this.$store.commit("setOrgid", response.data.org_id);
+          this.$store.commit("setemail", response.data.email);
+          this.$store.commit("setrole", response.data.role);
+          console.log(this.$store.getters.role);
+          if (this.usertypemodel == "Normal User") {
+            this.$router.push({ name: "dashboard" });
+          } else if (this.usertypemodel == "Admin") {
+            this.$router.push({ name: "orgdashboard" });
+          }
+        });
+      } else { 
         this.chosenOrg =this.getOrgId(this.orgname2);
          let data = {
            username :this.luser,
            password :this.lpassword,
            org_id: this.chosenOrg
          }
-         api.login(data).then( (response) =>{
+             api.login(data).then( (response) =>{
             // console.log(response)
               this.$store.commit('change')
               this.$store.commit('setusername',response.data.username)
@@ -147,24 +179,38 @@ export default {
        
     });
      
+    resetForm() {
+      this.$refs.form.reset();
     },
-    getOrgId(name){
-      console.log(name)
-      for(var i=0;i<this.orgAllInfo.length;i++){
-        if(name == this.orgAllInfo[i].Name){
-          console.log(this.orgAllInfo[i].id)
-          return this.orgAllInfo[i].id
+    okbtn() {
+      //  this.ok = false;
+      this.closeVar = false;
+    },
+    getOrganizationData() {
+      api.getOrganizations().then(response => {
+        //console.log(response.data);
+        this.orgAllInfo = response.data;
+        console.log(this.orgAllInfo);
+        for (let i = 0; i < this.orgAllInfo.length; i++) {
+          this.orgName.push(this.orgAllInfo[i].Name);
         }
-        
+        console.log(this.orgName);
+        //return this.orgName;
+      });
+    },
+    getOrgId(name) {
+      console.log(name);
+      for (var i = 0; i < this.orgAllInfo.length; i++) {
+        if (name == this.orgAllInfo[i].Name) {
+          console.log(this.orgAllInfo[i].id);
+          return this.orgAllInfo[i].id;
+        }
       }
     }
   },
-  mounted(){
- this.getOrganizationData();
+  mounted() {
+    this.getOrganizationData();
   },
-  computed: {
-    
-  }
-  
+  computed: {}
 };
 </script>

@@ -65,6 +65,11 @@ async getParentData(data){
   console.log(response);
   return response;
 }
+async getOrgBackground(id){
+  let response = await axios.get(`${API_URL}/y/${id}`);
+  return response;
+}
+
 };
 
 

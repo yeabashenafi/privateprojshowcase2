@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import dashboard from "../components/dashboard";
+import dashboard from "../components/dashboard.vue";
 
 Vue.use(VueRouter);
 
@@ -16,9 +16,9 @@ const routes = [
     name: "addorganization",
     component: () => import("../views/addOrgn.vue")
   },
-    {
-    path: '/viewUsers',
-    name: 'viewUsers',
+  {
+    path: "/viewUsers",
+    name: "viewUsers",
     component: () => import("../components/viewUsers.vue")
   },
   {
@@ -30,11 +30,6 @@ const routes = [
     path: "/addNewStructure",
     name: "addnewsturcture",
     component: () => import("../components/addFramework.vue")
-  },
-  {
-    path: "/orgDashboard",
-    name:"orgdashboard",
-    component: () => import("../views/orgDash.vue")
   },
   {
     path: "/orgDashboard",
