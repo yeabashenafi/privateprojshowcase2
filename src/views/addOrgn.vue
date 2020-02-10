@@ -1,18 +1,16 @@
 <template>
   <span>
-      <addorganization />
+    <addorganization />
   </span>
 </template>
 
 <script>
 import addorganization from "../components/addorganization.vue";
 export default {
- components:{
-     addorganization
- }
-}
+  components: {
+    addorganization
+  }
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
