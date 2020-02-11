@@ -105,6 +105,7 @@ export default {
         };
         api.login(data).then(response => {
           console.log(response);
+          this.$store.commit("setUserID", response.data.id);
           this.$store.commit("change");
           this.$store.commit("setusername", response.data.username);
           this.$store.commit("setToken", response.data.token);
@@ -115,11 +116,12 @@ export default {
           if (this.usertypemodel == "Normal User") {
             this.$router.push({ name: "dashboard" });
           } else if (this.usertypemodel == "Admin") {
-            this.$router.push({ name: "orgdashboard" });
+            this.$router.push({ name: "AdminDash" });
           }
         });
-        } 
-        },
+      } 
+    
+    },
     registered() {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
@@ -141,27 +143,25 @@ export default {
     resetForm(){
             this.$refs.form.reset();
         },
-        okbtn(){
-        //  this.ok = false;
-          this.closeVar = false;
-        },
-      getOrganizationData(){
-       api.getOrganizations().then( response => {
-       //console.log(response.data); 
-       this.orgAllInfo = response.data;
-      // console.log(this.orgAllInfo);
-      for(let i=0; i< this.orgAllInfo.length; i++){
-        this.orgName.push(this.orgAllInfo[i].Name);
-      }
-      console.log(this.orgName);
-      //return this.orgName;
-      
        
-    });
-      }  ,
+      
     
-    
-    
+    okbtn() {
+      //  this.ok = false;
+      this.closeVar = false;
+    },
+    getOrganizationData() {
+      api.getOrganizations().then(response => {
+        //console.log(response.data);
+        this.orgAllInfo = response.data;
+        console.log(this.orgAllInfo);
+        for (let i = 0; i < this.orgAllInfo.length; i++) {
+          this.orgName.push(this.orgAllInfo[i].Name);
+        }
+        console.log(this.orgName);
+        //return this.orgName;
+      });
+    },
     getOrgId(name) {
       console.log(name);
       for (var i = 0; i < this.orgAllInfo.length; i++) {

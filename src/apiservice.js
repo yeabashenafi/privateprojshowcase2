@@ -13,9 +13,8 @@ async register(data){
   };
 
  async addStructure(data){
-   await axios.post(`${API_URL}/y`,data).then( res => {
-     console.log(res);
-   })
+   let response = await axios.post(`${API_URL}/y`,data);
+   return response;
  };
 
  async login(data){
@@ -69,7 +68,10 @@ async getOrgBackground(id){
   let response = await axios.get(`${API_URL}/y/${id}`);
   return response;
 }
-
+async addCourse(course){
+  let response = await axios.post(`${API_URL}/courses`,course);
+  return response;
+}
 };
 
 
