@@ -2,20 +2,20 @@
   <v-container persistent height="1000">
     <v-card>
       <v-card-title>
-        <p class="headline">{{ user[0].Username }}</p>
+        <p class="headline">{{ user.username }}</p>
       </v-card-title>
       <v-card-actions>
         <v-flex>
           <v-layout>
             <v-text-field
-              v-model="user[0].fullname"
+              v-model="user.fullname"
               label="FullName"
             ></v-text-field>
 
             <v-icon>mdi-account-edit</v-icon>
             <v-spacer></v-spacer>
             <v-text-field
-              v-model="user[0].organization"
+              v-model="user.organization"
               filled
               disabled
               label="organization"
@@ -23,11 +23,11 @@
           </v-layout>
 
           <v-layout>
-            <v-text-field v-model="user[0].email" label="Email"></v-text-field>
+            <v-text-field v-model="user.email" label="Email"></v-text-field>
             <v-icon>mdi-account-edit</v-icon>
             <v-spacer></v-spacer>
             <v-text-field
-              v-model="user[0].Nationality"
+              v-model="user.Nationality"
               filled
               disabled
               label="organization"
@@ -37,11 +37,11 @@
 
           <v-label>Username</v-label>
           <v-layout>
-            <v-text-field v-model="user[0].Username"></v-text-field>
+            <v-text-field v-model="user.Username"></v-text-field>
             <v-icon>mdi-account-edit</v-icon>
             <v-spacer></v-spacer>
             <v-text-field
-              v-model="user[0].role"
+              v-model="user.role"
               filled
               disabled
               label="role"

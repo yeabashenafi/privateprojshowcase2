@@ -116,7 +116,7 @@ export default {
           if (this.usertypemodel == "Normal User") {
             this.$router.push({ name: "dashboard" });
           } else if (this.usertypemodel == "Admin") {
-            this.$router.push({ name: "orgdashboard" });
+            this.$router.push({ name: "AdminDash" });
           }
         });
       } 

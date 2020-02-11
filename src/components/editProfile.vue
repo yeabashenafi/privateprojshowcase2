@@ -4,7 +4,7 @@
       <v-card class="mt-5 pa-12 mx-auto py-5" width="500px" height="520">
         <v-card-title>
           <v-flex class="text-center">
-            <v-text title> {{ this.user[0].fullname }} </v-text>
+            <v-text title> {{ this.user.fullname }} </v-text>
           </v-flex>
         </v-card-title>
 
@@ -14,8 +14,9 @@
             <v-flex row>
               <v-text-field
                 label="User Name"
-                v-model="user[0].Username"
+                v-model="user.Username"
                 width="100px"
+                @hover="change_uname"
                 disabled
                 ref="uname"
               >
@@ -23,16 +24,13 @@
               <a @click="change_Uname"
                 ><v-icon right class="grey--text mt-5">mdi-pencil</v-icon></a
               >
-              <a @click="save_Uname"
-                ><v-icon right class="grey--text mt-5"
-                  >mdi-shield-check</v-icon
-                ></a
-              >
+              
             </v-flex>
             <v-flex row>
               <v-text-field
                 label="Email"
-                v-model="user[0].email"
+                v-model="user.email"
+                
                 disabled
               ></v-text-field>
               <v-flex>
@@ -53,7 +51,7 @@
                 ></a
               >
               <br />
-              <v-radio-group row v-model="user[0].Educational_status" disabled>
+              <v-radio-group row v-model="user.Educational_status" disabled>
                 <v-radio label="Bsc" value="Bachelor"></v-radio>
                 <v-radio label="Msc" value="Masters"></v-radio>
                 <v-radio label="Phd" value="phd"></v-radio>
@@ -91,7 +89,7 @@
                     v-model="conf_pass"
                   ></v-text-field>
                   <v-flex class="text-center">
-                    <v-btn color="primary" @click="change_pass"
+                    <v-btn color="primary" 
                       >Change Password</v-btn
                     >
                   </v-flex>
@@ -125,9 +123,9 @@ export default {
   },
   methods: {
     getUser() {
-      api.getAccount(this.$store.getters.User_id).then(data => {
-        this.user = data;
-        console.log(data);
+      api.getUser(this.$store.getters.User_id).then((response)=> {
+        this.user = response.data;
+        console.log(this.user);
       });
     },
     change_Uname() {
