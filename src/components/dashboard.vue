@@ -56,7 +56,8 @@ export default {
     return {
       editp: false,
       addc: false,
-      isMenu: false
+      isMenu: false,
+      profile: false
       // items: [
       //   { title: "Edit", icon: "mdi-image", route: "/addCurriculumStructure" }
       // ]

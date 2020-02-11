@@ -118,28 +118,8 @@ export default {
             this.$router.push({ name: "orgdashboard" });
           }
         });
-      } else { 
-        this.chosenOrg =this.getOrgId(this.orgname2);
-         let data = {
-           username :this.luser,
-           password :this.lpassword,
-           org_id: this.chosenOrg
-         }
-             api.login(data).then( (response) =>{
-            // console.log(response)
-              this.$store.commit('change')
-              this.$store.commit('setusername',response.data.username)
-              this.$store.commit('setToken',response.data.token)
-              this.$store.commit('setOrgid',response.data.org_id)
-              this.$store.commit('setemail',response.data.email)
-              this.$store.commit('setrole',response.data.role)
-             // console.log(this.$store.getters.role)
-              this.$router.push({name:"home"});
-        })
-
-      }
-    
-    },
+        } 
+        },
     registered() {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
@@ -178,26 +158,10 @@ export default {
       
        
     });
-     
-    resetForm() {
-      this.$refs.form.reset();
-    },
-    okbtn() {
-      //  this.ok = false;
-      this.closeVar = false;
-    },
-    getOrganizationData() {
-      api.getOrganizations().then(response => {
-        //console.log(response.data);
-        this.orgAllInfo = response.data;
-        console.log(this.orgAllInfo);
-        for (let i = 0; i < this.orgAllInfo.length; i++) {
-          this.orgName.push(this.orgAllInfo[i].Name);
-        }
-        console.log(this.orgName);
-        //return this.orgName;
-      });
-    },
+      }  ,
+    
+    
+    
     getOrgId(name) {
       console.log(name);
       for (var i = 0; i < this.orgAllInfo.length; i++) {
@@ -211,6 +175,6 @@ export default {
   mounted() {
     this.getOrganizationData();
   },
-  computed: {}
-};
+  computed: {},
+}
 </script>
