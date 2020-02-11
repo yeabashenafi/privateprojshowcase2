@@ -154,7 +154,9 @@ export default {
         Username: this.Username
       };
       
-      
+      api.register(data).then((response) => {
+        console.log(response.data)
+      });
     },
     resetForm() {
       this.$refs.form.reset();
