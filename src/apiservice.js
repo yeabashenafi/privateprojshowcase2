@@ -7,12 +7,10 @@ constructor(){
 
 }
 async register(data){
-
    await axios.post(`${API_URL}/Accounts`,data).then( res => {
        console.log(res);
-   });
-
- };
+   })
+  };
 
  async addStructure(data){
    let response = await axios.post(`${API_URL}/y`,data);
@@ -37,7 +35,6 @@ async addOrganization(data){
   return response;
  }
 // async addImage(data){
-
 // }
 async getUser(id){
   let response = await axios.get(`${API_URL}/Accounts/${id}`);
@@ -49,6 +46,21 @@ async getOrganizations(){
 }
 async getUserInformotion(){
   let response = await axios.get(`${API_URL}/Accounts`);
+  console.log(response);
+  return response;
+}
+async getStructureInfo(){
+  let response = await axios.get(`${API_URL}/AccadamicOffices`);
+  console.log(response);
+  return response;
+}
+async addOffices(data){
+  let response = await axios.post(`${API_URL}/AccadamicOffices`,data);
+    console.log(response);
+    return response;
+}
+async getParentData(data){
+  let response = await axios.post(`${API_URL}/AccadamicOffices/getParent`, data);
   console.log(response);
   return response;
 }
