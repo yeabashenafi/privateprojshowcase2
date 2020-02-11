@@ -12,7 +12,7 @@
             </v-layout>
 
             <h4 class="ma-3 indigo--text text--lighten-2">
-              create profile
+              Create profile
             </h4>
           </v-flex>
         </v-layout>
@@ -34,19 +34,15 @@
             v-model="email"
             :rules="emailRule"
           ></v-text-field>
-          <v-select
-            label="Registered in Organization"
-            v-model="organization"
-            :items="names"
-          ></v-select>
+          
           <v-text-field
-            label=" password"
+            label=" Password"
             v-model="password"
             :rules="passwordRule"
           ></v-text-field>
-          <v-select :items="items" label="Roles" v-model="role"></v-select>
+          <v-select :items="names" label="Office user Works in " v-model="office"></v-select>
           <v-text-field
-            label="nationality"
+            label="Nationality"
             v-model="Nationality"
             :rules="nationalRule"
           ></v-text-field>
@@ -107,19 +103,16 @@ export default {
       email: "",
       fullname: "",
       orgs: [],
+      offices:[],
+      office:'',
       Nationality: "",
       Educational_status: "",
       gender: "",
       password: "",
       lpassword: "",
       lemail: "",
+      off:[],
       organization: "",
-      items: [
-        "Departement Head",
-        "College Dean",
-        "Teacher",
-        "Acadamic committe"
-      ],
       errmessage: "",
       Username: "",
       closeVar: false,
@@ -147,19 +140,21 @@ export default {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
       }
+      var off_id = this.getAccoffId(this.office);
       this.ok = true;
       const data = {
         fullname: this.fullname,
         email: this.email,
-        role: this.role,
+        registered_inId: this.$store.getters.org_id,
         password: this.password,
         Educational_status: this.Educational_status,
-        organization: this.organization,
+        works_inDep: off_id,
         gender: this.gender,
         Nationality: this.Nationality,
         Username: this.Username
       };
-      api.register(data);
+      
+      
     },
     resetForm() {
       this.$refs.form.reset();
@@ -169,19 +164,41 @@ export default {
         this.orgs = response.data;
         console.log(this.orgs);
       });
+    },
+    getAccoffId(name){
+      var s = '';
+      for(var i=0;i<this.offices.length;i++){
+        if(this.offices[i].officeType){
+          if(this.offices[i].officeType == name){
+              return this.offices[i].id
+           }
+        }
+        
+        
+        
+      }
+      return s;
     }
   },
   computed: {
     names: function() {
       var x = [];
-      for (var i = 0; i < this.orgs.length; i++) {
-        x.push(this.orgs[i].Name);
-      }
+      for(var i =0; i<this.offices.length;i++){
+          if(this.offices[i].officeType){
+            x.push(this.offices[i].officeType)
+          }
+          
+        }
+      
       return x;
     }
   },
   mounted() {
-    this.getOrgs();
+    
+    
+     api.getAcademicOffices(this.$store.getters.org_id).then((response) =>{
+        this.offices = response.data 
+     })
   }
 };
 </script>

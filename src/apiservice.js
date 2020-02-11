@@ -72,6 +72,11 @@ async addCourse(course){
   let response = await axios.post(`${API_URL}/courses`,course);
   return response;
 }
+async getAcademicOffices(orgid){
+  let response = await axios.get(`${API_URL}/Organizations/${orgid}/AcademicOffices`)
+  return response;
+  //return response;
+}
 };
 
 
