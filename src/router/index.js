@@ -22,8 +22,8 @@ const routes = [
     component: () => import("../components/viewUsers.vue")
   },
   {
-    path: '/testRegister',
-    name: 'testRegister',
+    path: "/testRegister",
+    name: "testRegister",
     component: () => import("../components/testRegister.vue")
   },
   {
@@ -33,11 +33,11 @@ const routes = [
   },
   {
     path: "/orgDashboard",
-    name:"orgdashboard",
+    name: "orgdashboard",
     component: () => import("../views/orgDash.vue")
   },
   {
-    path:"/addOrgStructure",
+    path: "/addOrgStructure",
     name: "addOrgStructure",
     component: () => import("../components/addOrgStructure.vue")
   },

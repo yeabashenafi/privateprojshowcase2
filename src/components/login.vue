@@ -105,6 +105,7 @@ export default {
         };
         api.login(data).then(response => {
           console.log(response);
+          this.$store.commit("setUserID", response.data.id);
           this.$store.commit("change");
           this.$store.commit("setusername", response.data.username);
           this.$store.commit("setToken", response.data.token);
