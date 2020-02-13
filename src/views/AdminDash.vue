@@ -84,11 +84,13 @@
         </v-card>
       </v-tab-item>
        <v-tab-item>
-        <v-card flat>
-          <v-card-text>
+      <v-flex class="text-center" align-self-center>
+          <v-card flat>
+          <v-card-text  >
             <register class="ml-3"></register>
           </v-card-text>
         </v-card>
+      </v-flex>
       </v-tab-item>
        <v-tab-item>
         <v-card flat>
