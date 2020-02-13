@@ -1,7 +1,7 @@
 <template>
     <v-layout row>
     <v-flex class="col pa-4 ma-5 align-center">
-      <v-card class="mt-5 mx-auto py-5" width="700px" height="501">
+      <v-card class="mt-5 mx-auto py-5" width="50%" height="501">
         <v-card-title class="pa-3">
           <v-container>
             <p class="my-3 indigo--text text--lighten-2 text-center display-3 headline">

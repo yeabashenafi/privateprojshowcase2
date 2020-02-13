@@ -6,8 +6,7 @@
       </v-title> -->
       <v-title>
        <div min-width="100px">
-          <p class="text-lg-center cyan darken-3 white--text headline title-1"> Account Setting</p>
-        <p class="headline">{{ user.fullname }}</p>
+          <p class=" display-4 text-lg-center cyan darken-3 white--text headline pa-7"> Account Setting</p>
        </div>
       </v-title>
       <v-card-actions>

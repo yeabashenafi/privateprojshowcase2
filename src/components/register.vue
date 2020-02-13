@@ -1,25 +1,26 @@
 <template>
   <span>
-    <v-card raised class="ml-3 mb-5" min-width="300px">
+    <v-flex class="px-5 pb-10 mx-12 text-center">
+      <v-card raised class="mx-12" width="80%">
       <v-card-title class="cyan darken-2 mb-3">
         <v-layout>
           <v-flex>
             <v-layout>
               <!-- indigo--text text--lighten-2 -->
-              <h2 class="my-3 white--text ">
+              <h2 class="my-3 white--text text-center">
                 New User Registration Form
               </h2>
-              <v-spacer></v-spacer>
+              <!-- <v-spacer></v-spacer> -->
             </v-layout>
 
-            <h4 class="ma-3 white--text">
-              Create profile
+            <h4 class="ma-7 white--text">
+              
             </h4>
           </v-flex>
         </v-layout>
       </v-card-title>
       <v-card-text>
-        <v-form ref="form" class="px-3" v-model="valid">
+        <v-form ref="form" class="pa-3" v-model="valid">
           <v-text-field
             label=" Full Name"
             v-model="fullname"
@@ -79,6 +80,7 @@
         </v-form>
       </v-card-text>
     </v-card>
+    </v-flex>
     <v-dialog max-width="400px" v-model="ok">
       <v-card>
         <v-card-title>

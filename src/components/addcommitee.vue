@@ -2,10 +2,12 @@
     <v-container>
         <v-flex>
             <v-layout column align-center>
-             <v-card min-width="70%" min-height="350px" class="mt-8">
-                <v-title>
-                    <p class="title cyan darken-3 text-md-center white--text"> Add Commitee </p>
+             <v-card width="80%" height="100%" class="mt-8">
+                <v-flex>
+                    <v-title>
+                    <p class="title cyan darken-3 text-md-center white--text pa-7"> Add Commitee </p>
                 </v-title>
+                </v-flex>
                 <v-card-text>
                     <v-form ref="form"> 
                         <v-select label="Name"
@@ -17,11 +19,13 @@
                         ></v-select>
                     </v-form>
                 </v-card-text>
-                <v-card-actions>
+               <v-flex class="text-center pa-9">
+                   
                     <div class="mx-5">
                     <v-btn @click="addCommitee()" class="mx-5 cyan darken-3 white--text" rounded> Add </v-btn>
                     </div>
-                </v-card-actions>
+                <!-- </v-card-actions> -->
+               </v-flex>
             </v-card>
             </v-layout>
         </v-flex>
