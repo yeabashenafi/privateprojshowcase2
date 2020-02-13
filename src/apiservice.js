@@ -11,7 +11,10 @@ async register(data){
        console.log(res);
    })
   };
-
+ async getusersFrameworks(id){
+  let response = await axios.get(`${API_URL}/Accounts/${id}/getFrameworks`)
+  return response.data.frameworks
+ }
  async addStructure(data){
    let response = await axios.post(`${API_URL}/y`,data);
    return response;
