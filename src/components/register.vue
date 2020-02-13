@@ -1,17 +1,18 @@
 <template>
   <span>
-    <v-card raised class="ml-3">
-      <v-card-title class="blue lighten-4 dark mb-3">
+    <v-card raised class="ml-3 mb-5" min-width="300px">
+      <v-card-title class="cyan darken-2 mb-3">
         <v-layout>
           <v-flex>
             <v-layout>
-              <h2 class="my-3 indigo--text text--lighten-2">
+              <!-- indigo--text text--lighten-2 -->
+              <h2 class="my-3 white--text ">
                 New User Registration Form
               </h2>
               <v-spacer></v-spacer>
             </v-layout>
 
-            <h4 class="ma-3 indigo--text text--lighten-2">
+            <h4 class="ma-3 white--text">
               Create profile
             </h4>
           </v-flex>

@@ -10,13 +10,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    logged_in: false,
-    User_id: "",
-    token: "",
-    org_id: "",
-    username: "",
-    email: "",
-    role: ""
+    logged_in:false,
+    User_id:'',
+    token:'',
+    org_id:'',
+    Username:'',
+    email:'',
+    role:'',
+    parentId: ''
+
+
   },
   mutations: {
     setUserID(state, ID) {
@@ -25,20 +28,23 @@ export default new Vuex.Store({
     setToken(state, token) {
       state.token = token;
     },
-    change(state) {
-      state.logged_in = !state.logged_in;
+    change(state){
+      state.logged_in = !state.logged_in
     },
-    setOrgid(state, id) {
-      state.org_id = id;
+    setOrgid(state,id){
+      state.org_id = id
     },
-    setusername(state, username) {
-      state.username = username;
+    setusername(state,Username){
+      state.Username = Username
     },
-    setemail(state, email) {
-      state.email = email;
+    setemail(state,email){
+      state.email = email
     },
-    setrole(state, role) {
-      state.role = role;
+    setrole(state,role){
+      state.role = role
+    },
+    setParentid(state, parentId){
+      state.parentId = parentId;
     }
   },
   getters: {
@@ -46,9 +52,10 @@ export default new Vuex.Store({
     User_id: state => state.User_id,
     token: state => state.token,
     email: state => state.email,
-    username: state => state.username,
+    Username: state => state.Username,
     role: state => state.role,
-    org_id: state => state.org_id
+    org_id: state => state.org_id,
+    parentId: state => state.parentId
   },
   plugins: [vuexpersist.plugin],
   actions: {},

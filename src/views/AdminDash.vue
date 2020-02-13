@@ -9,7 +9,7 @@
       <!-- <v-list>
       <v-list-item> -->
           <v-card-title class="primary lighten-2" style="margin-left= -20">
-     <p title class="align-center"> {{$store.getters.username}}</p>
+     <p title class="align-center"> {{ $store.getters.Username }}</p>
           </v-card-title>
           <v-tab >
         <v-icon left>mdi-account</v-icon>
@@ -46,10 +46,12 @@
         <v-icon left>mdi-plus</v-icon>
               Add Users
       </v-tab>
-      <!-- </v-list-item>
-     
-      
-    </v-list> -->
+    <v-tab >
+        <v-icon left>mdi-plus</v-icon>
+           Add Committee
+      </v-tab>
+
+
    </v-card>
       <v-tab-item>
         <v-card flat>
@@ -85,7 +87,13 @@
         <v-card flat>
           <v-card-text>
             <register class="ml-3"></register>
-
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+       <v-tab-item>
+        <v-card flat>
+          <v-card-text>
+           <addcommitee class="ml-3"></addcommitee>
           </v-card-text>
         </v-card>
       </v-tab-item>
@@ -94,6 +102,7 @@
  </v-flex>
 </template>
 <script>
+import addcommitee from '../components/addcommitee';
 import MyAccount from '../components/MyAccount';
 import addOrganization from '../components/addorganization.vue';
 import addOrgStructure from '../components/addOrgStructure.vue'; 
@@ -111,7 +120,8 @@ export default {
     register,
     MyAccount,
     viewUsers,
-   addOrgStructure
+   addOrgStructure,
+   addcommitee
 },
 }
 </script>

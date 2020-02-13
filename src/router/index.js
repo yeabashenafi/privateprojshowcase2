@@ -12,6 +12,11 @@ const routes = [
     component: () => import("../views/View.vue")
   },
   {
+    path: "/adminlogin",
+    name: "adminlogin",
+    component: () => import("../components/adminlogin.vue")
+  },
+  {
     path: "/addOrgn",
     name: "addorganization",
     component: () => import("../views/addOrgn.vue")
@@ -20,6 +25,11 @@ const routes = [
     path: "/viewUsers",
     name: "viewUsers",
     component: () => import("../components/viewUsers.vue")
+  },
+  {
+    path: "/addcommitee",
+    name: "addcommitee",
+    component: () => import("../components/addcommitee.vue")
   },
   {
     path: "/testRegister",
