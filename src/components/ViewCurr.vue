@@ -8,7 +8,7 @@
                <v-flex >
                    <v-text class="headline">Framework{{index+1}}</v-text>
                </v-flex>
-               x
+               
            </v-card-actions>
            <v-card-actions>
               <v-container>   
