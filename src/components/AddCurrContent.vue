@@ -230,7 +230,7 @@
                                   v-model="course.name"
                                 ></v-text-field>
                                 <v-layout>
-                                  <v-icon>mdi-cogs</v-icon>
+                                  <v-icon @click="showcd">mdi-cogs</v-icon>
                                   <v-icon class="ml-5">mdi-check</v-icon>
                                   <v-dialog>
                                     <v-card></v-card>
@@ -238,30 +238,32 @@
                                 </v-layout>
                               </v-layout>
                               <v-flex class="ma-5">
-                          <v-layout text-md-center>
-                            <v-btn color="success" @click="SaveChange()" text>
-                              Save change
-                            </v-btn>
-                            <v-spacer></v-spacer>
-                            <v-btn color="success" @click="addCurriculum()" text
-                              >Send for approval</v-btn
-                            >
-                          </v-layout>
-                        </v-flex>
+                                <v-layout text-md-center>
+                                  <v-btn
+                                    color="success"
+                                    @click="SaveChange()"
+                                    text
+                                  >
+                                    Save change
+                                  </v-btn>
+                                  <v-spacer></v-spacer>
+                                  <v-btn
+                                    color="success"
+                                    @click="addCurriculum()"
+                                    text
+                                    >Send for approval</v-btn
+                                  >
+                                </v-layout>
+                              </v-flex>
                             </v-flex>
                           </template>
                         </v-flex>
-                        
                       </v-card-actions>
+                      <CourseDetails v-if="show_courseD" :name="courses.name" />
                     </v-card>
                   </v-stepper-content>
                 </v-stepper-items>
               </v-stepper>
-
-              
-
-                
-              
             </v-flex>
           </v-card-actions>
         </v-card>
@@ -284,15 +286,21 @@
 </template>
 
 <script>
+import CourseDetails from "./CourseDetails.vue";
 import { apiservice } from "../apiservice";
 const api = new apiservice();
 export default {
+  components: {
+    CourseDetails
+  },
   data: () => {
     return {
+      show_courseD: false,
       refers_name: "",
       preRequisites: "",
       classYear: "",
       el: 1,
+      SHOW: false,
       contactHour: "",
       code: "",
       title: "",
@@ -332,7 +340,7 @@ export default {
       ],
       courses: [
         {
-          curriculumManagementId:"",
+          curriculumManagementId: "",
           name: ""
         }
       ],
@@ -374,6 +382,9 @@ export default {
     };
   },
   methods: {
+    showcd() {
+      this.show_courseD = !this.show_courseD;
+    },
     okbtn() {
       this.ok = !this.ok;
       this.name = "";
@@ -395,47 +406,40 @@ export default {
       this.clo.push({});
     },
     addCurriculum() {
-      
       this.ok = true;
       // this.setpoID();
       var user = this.$store.getters.User_id;
-      var org = this.$store.getters.org_id;     
-      
-       let data = {
-         program_name: this.name,
-         program_type: this.type,
-         background: this.background,
-         rational: this.rational,
-         program_outcome: this.po,
-         program_educational_outcome: this.peo,
-         course_learning_outcome: this.clo,
-         program_nomenclature: this.nomenclature,
-         gradingmethods: this.gradingMethods,
-         medium: this.medium,
-         coursecoding: this.coursecoding,
-         OwnersId: user,
-         organizationalId: org,
-         gradreqs: this.gradReqs,
-         //course: this.courses
-       };
+      var org = this.$store.getters.org_id;
+
+      let data = {
+        program_name: this.name,
+        program_type: this.type,
+        background: this.background,
+        rational: this.rational,
+        program_outcome: this.po,
+        program_educational_outcome: this.peo,
+        course_learning_outcome: this.clo,
+        program_nomenclature: this.nomenclature,
+        gradingmethods: this.gradingMethods,
+        medium: this.medium,
+        coursecoding: this.coursecoding,
+        OwnersId: user,
+        organizationalId: org,
+        gradreqs: this.gradReqs
+        //course: this.courses
+      };
       console.log(data);
 
-       api.addStructure(data).then((response) => {
-         console.log(response.data.id);
-        
-         for (var i=0; i < this.courses.length;i++) {
-        this.courses[i].curriculumManagementId = response.data.id;  
-        api.addCourse(this.courses[i]).then((response) =>{
-          console.log('Courses added',response);
+      api.addStructure(data).then(response => {
+        console.log(response.data.id);
 
+        for (var i = 0; i < this.courses.length; i++) {
+          this.courses[i].curriculumManagementId = response.data.id;
+          api.addCourse(this.courses[i]).then(response => {
+            console.log("Courses added", response);
+          });
         }
-
-        );
-      
-      }
-       });
-
-       
+      });
     },
     getBackground() {
       api.getOrganizations(this.$store.getters.org_id).then(response => {

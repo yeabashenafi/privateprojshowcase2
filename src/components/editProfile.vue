@@ -24,13 +24,11 @@
               <a @click="change_Uname"
                 ><v-icon right class="grey--text mt-5">mdi-pencil</v-icon></a
               >
-              
             </v-flex>
             <v-flex row>
               <v-text-field
                 label="Email"
                 v-model="user.email"
-                
                 disabled
               ></v-text-field>
               <v-flex>
@@ -89,9 +87,7 @@
                     v-model="conf_pass"
                   ></v-text-field>
                   <v-flex class="text-center">
-                    <v-btn color="primary" 
-                      >Change Password</v-btn
-                    >
+                    <v-btn color="primary">Change Password</v-btn>
                   </v-flex>
                 </v-card>
               </v-dialog>
@@ -123,7 +119,7 @@ export default {
   },
   methods: {
     getUser() {
-      api.getUser(this.$store.getters.User_id).then((response)=> {
+      api.getUser(this.$store.getters.User_id).then(response => {
         this.user = response.data;
         console.log(this.user);
       });
