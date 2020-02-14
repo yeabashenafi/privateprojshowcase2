@@ -172,6 +172,6 @@ export default {
   mounted() {
     this.getOrganizationData();
   },
-  computed: {},
-}
+  computed: {}
+};
 </script>

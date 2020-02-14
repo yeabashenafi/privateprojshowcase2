@@ -51,48 +51,48 @@
             Add Committee
           </v-tab>
         </v-card>
-      <v-tab-item>
-        <v-card flat>
-          <v-card-text>
-            <my-account></my-account>
-          </v-card-text>
-        </v-card>
-      </v-tab-item>
-      <v-tab-item>
-        <v-card flat>
-          <v-card-text>
-              <add-organization></add-organization>
-          <!-- <all-user></all-user> -->
-          </v-card-text>
-        </v-card>
-      </v-tab-item>
-          <v-tab-item>
-      <v-flex class="text-center" align-self-center>
+        <v-tab-item>
           <v-card flat>
             <v-card-text>
-                     <add-org-structure></add-org-structure>
+              <my-account></my-account>
             </v-card-text>
           </v-card>
-      </v-flex>
-        </v-tab-item>
-       <v-tab-item>
-      <v-flex class="text-center" align-self-center>
-          <v-card flat>
-            <v-card-text>
-              <all-user></all-user>
-            </v-card-text>
-          </v-card>
-      </v-flex>
         </v-tab-item>
         <v-tab-item>
           <v-card flat>
             <v-card-text>
-           <register class="ml-3"></register>
+              <add-organization></add-organization>
+              <!-- <all-user></all-user> -->
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-flex class="text-center" align-self-center>
+            <v-card flat>
+              <v-card-text>
+                <add-org-structure></add-org-structure>
+              </v-card-text>
+            </v-card>
+          </v-flex>
+        </v-tab-item>
+        <v-tab-item>
+          <v-flex class="text-center" align-self-center>
+            <v-card flat>
+              <v-card-text>
+                <all-user></all-user>
+              </v-card-text>
+            </v-card>
+          </v-flex>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+            <v-card-text>
+              <register class="ml-3"></register>
               <!-- <add-organization></add-organization> -->
             </v-card-text>
           </v-card>
         </v-tab-item>
-       <v-tab-item>
+        <v-tab-item>
           <v-card flat>
             <v-card-text>
               <addcommitee class="ml-3"></addcommitee>
@@ -104,12 +104,12 @@
   </v-flex>
 </template>
 <script>
-import addcommitee from '../components/addcommitee';
-import MyAccount from '../components/MyAccount';
-import addOrganization from '../components/addorganization.vue';
-import addOrgStructure from '../components/addOrgStructure.vue'; 
-import allUser from '../components/allUser';
-import register from '../components/register.vue';
+import addcommitee from "../components/addcommitee";
+import MyAccount from "../components/MyAccount";
+import addOrganization from "../components/addorganization.vue";
+import addOrgStructure from "../components/addOrgStructure.vue";
+import allUser from "../components/allUser";
+import register from "../components/register.vue";
 
 export default {
   data() {
@@ -120,8 +120,8 @@ export default {
     register,
     MyAccount,
     allUser,
-   addOrgStructure,
-   addcommitee
-},
-}
+    addOrgStructure,
+    addcommitee
+  }
+};
 </script>

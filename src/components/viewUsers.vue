@@ -7,7 +7,7 @@
             <v-card-title class="primary lighten-1 white--text">
               <div>
                 <p>User {{ index + 1 }}</p>
-                <hr>
+                <hr />
               </div>
             </v-card-title>
             <v-card-text class="pa-4">
@@ -33,10 +33,8 @@
           </v-card>
         </v-layout>
       </v-flex>
-      
     </v-template>
-   <!-- ? -->
-    
+    <!-- ? -->
   </v-container>
 </template>
 <script>
@@ -46,7 +44,7 @@ export default {
   data() {
     return {
       dialog: false,
-      userInfo: [],
+      userInfo: []
     };
   },
   methods: {
@@ -57,13 +55,13 @@ export default {
         return this.userInfo;
       });
     },
-    addToCommitee(userid){
-     this.dialog = false;
-     console.log(userid);
+    addToCommitee(userid) {
+      this.dialog = false;
+      console.log(userid);
     }
   },
   mounted() {
     this.getAllUsers();
-  },
-  };
+  }
+};
 </script>

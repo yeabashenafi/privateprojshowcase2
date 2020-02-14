@@ -2,89 +2,87 @@
   <span>
     <v-flex class="px-5 pb-10 mx-12 text-center">
       <v-card raised class="mx-12" width="80%">
-      <v-card-title class="cyan darken-2 mb-3">
-        <v-layout>
-          <v-flex>
-            <v-layout>
-              <!-- indigo--text text--lighten-2 -->
-              <h2 class="my-3 white--text text-center">
-                New User Registration Form
-              </h2>
-              <!-- <v-spacer></v-spacer> -->
-            </v-layout>
+        <v-card-title class="cyan darken-2 mb-3">
+          <v-layout>
+            <v-flex>
+              <v-layout>
+                <!-- indigo--text text--lighten-2 -->
+                <h2 class="my-3 white--text text-center">
+                  New User Registration Form
+                </h2>
+                <!-- <v-spacer></v-spacer> -->
+              </v-layout>
 
-            <h4 class="ma-7 white--text">
-              
-            </h4>
-          </v-flex>
-        </v-layout>
-      </v-card-title>
-      <v-card-text>
-        <v-form ref="form" class="pa-3" v-model="valid">
-          <v-text-field
-            label=" Full Name"
-            v-model="fullname"
-            :rules="nameRule"
-          ></v-text-field>
-          <v-text-field
-            label=" Username"
-            v-model="Username"
-            :rules="nameRule"
-          ></v-text-field>
-          <v-text-field
-            label=" email"
-            v-model="email"
-            :rules="emailRule"
-          ></v-text-field>
-          
-          <v-text-field
-            label=" Password"
-            v-model="password"
-            :rules="passwordRule"
-          ></v-text-field>
-          <v-select :items="names" label="Office user Works in " v-model="office"></v-select>
-          <v-select  label="Role"
-                     :items="roles"
-                     v-model="role"> 
+              <h4 class="ma-7 white--text"></h4>
+            </v-flex>
+          </v-layout>
+        </v-card-title>
+        <v-card-text>
+          <v-form ref="form" class="pa-3" v-model="valid">
+            <v-text-field
+              label=" Full Name"
+              v-model="fullname"
+              :rules="nameRule"
+            ></v-text-field>
+            <v-text-field
+              label=" Username"
+              v-model="Username"
+              :rules="nameRule"
+            ></v-text-field>
+            <v-text-field
+              label=" email"
+              v-model="email"
+              :rules="emailRule"
+            ></v-text-field>
 
-          </v-select>
-          <v-text-field
-            label="Nationality"
-            v-model="Nationality"
-            :rules="nationalRule"
-          ></v-text-field>
-          <p class="mx-3 pt-3 title">Gender</p>
-          <v-radio-group v-model="gender" :mandatory="true" row class="mx-4">
-            <v-radio label="Male" value="Male"></v-radio>
-            <v-radio label="Female" value="Female"></v-radio>
-          </v-radio-group>
-          <p class="title">Educational status</p>
-          <v-radio-group
-            v-model="Educational_status"
-            :mandatory="true"
-            row
-            class="mx-4"
-          >
-            <v-radio label="Bsc" value="bachelor"></v-radio>
-            <v-radio label="Msc" value="Masters"></v-radio>
-            <v-radio label="PHD" value="phd"></v-radio>
-          </v-radio-group>
-          <!-- <div class="mb-3">
+            <v-text-field
+              label=" Password"
+              v-model="password"
+              :rules="passwordRule"
+            ></v-text-field>
+            <v-select
+              :items="names"
+              label="Office user Works in "
+              v-model="office"
+            ></v-select>
+            <v-select label="Role" :items="roles" v-model="role"> </v-select>
+            <v-text-field
+              label="Nationality"
+              v-model="Nationality"
+              :rules="nationalRule"
+            ></v-text-field>
+            <p class="mx-3 pt-3 title">Gender</p>
+            <v-radio-group v-model="gender" :mandatory="true" row class="mx-4">
+              <v-radio label="Male" value="Male"></v-radio>
+              <v-radio label="Female" value="Female"></v-radio>
+            </v-radio-group>
+            <p class="title">Educational status</p>
+            <v-radio-group
+              v-model="Educational_status"
+              :mandatory="true"
+              row
+              class="mx-4"
+            >
+              <v-radio label="Bsc" value="bachelor"></v-radio>
+              <v-radio label="Msc" value="Masters"></v-radio>
+              <v-radio label="PHD" value="phd"></v-radio>
+            </v-radio-group>
+            <!-- <div class="mb-3">
                       <v-file-input label="Upload Document" v-model="file"></v-file-input>
                   </div> -->
-          <v-btn
-            class="success lighten-1 text-center"
-            @click="registered"
-            :disabled="!valid"
-          >
-            Register
-          </v-btn>
-          <v-btn color="error" class="mx-5 px-5" @click="resetForm"
-            >reset</v-btn
-          >
-        </v-form>
-      </v-card-text>
-    </v-card>
+            <v-btn
+              class="success lighten-1 text-center"
+              @click="registered"
+              :disabled="!valid"
+            >
+              Register
+            </v-btn>
+            <v-btn color="error" class="mx-5 px-5" @click="resetForm"
+              >reset</v-btn
+            >
+          </v-form>
+        </v-card-text>
+      </v-card>
     </v-flex>
     <v-dialog max-width="400px" v-model="ok">
       <v-card>
@@ -107,21 +105,21 @@ const api = new apiservice();
 export default {
   data() {
     return {
-      roles: ['Admin', 'Normal'],
-      role: '',
+      roles: ["Admin", "Normal"],
+      role: "",
       ok: false,
       email: "",
       fullname: "",
       orgs: [],
-      offices:[],
-      office:'',
+      offices: [],
+      office: "",
       Nationality: "",
       Educational_status: "",
       gender: "",
       password: "",
       lpassword: "",
       lemail: "",
-      off:[],
+      off: [],
       organization: "",
       errmessage: "",
       Username: "",
@@ -164,9 +162,9 @@ export default {
         Nationality: this.Nationality,
         Username: this.Username
       };
-      
-      api.register(data).then((response) => {
-        console.log(response.data)
+
+      api.register(data).then(response => {
+        console.log(response.data);
       });
     },
     resetForm() {
@@ -178,17 +176,14 @@ export default {
         console.log(this.orgs);
       });
     },
-    getAccoffId(name){
-      var s = '';
-      for(var i=0;i<this.offices.length;i++){
-        if(this.offices[i].officeType){
-          if(this.offices[i].officeType == name){
-              return this.offices[i].id
-           }
+    getAccoffId(name) {
+      var s = "";
+      for (var i = 0; i < this.offices.length; i++) {
+        if (this.offices[i].officeType) {
+          if (this.offices[i].officeType == name) {
+            return this.offices[i].id;
+          }
         }
-        
-        
-        
       }
       return s;
     }
@@ -196,22 +191,19 @@ export default {
   computed: {
     names: function() {
       var x = [];
-      for(var i =0; i<this.offices.length;i++){
-          if(this.offices[i].officeType){
-            x.push(this.offices[i].officeType)
-          }
-          
+      for (var i = 0; i < this.offices.length; i++) {
+        if (this.offices[i].officeType) {
+          x.push(this.offices[i].officeType);
         }
-      
+      }
+
       return x;
     }
   },
   mounted() {
-    
-    
-     api.getAcademicOffices(this.$store.getters.org_id).then((response) =>{
-        this.offices = response.data 
-     })
+    api.getAcademicOffices(this.$store.getters.org_id).then(response => {
+      this.offices = response.data;
+    });
   }
 };
 </script>

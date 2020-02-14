@@ -5,9 +5,13 @@
         <p class="cyan darken-3"></p>
       </v-title> -->
       <v-title>
-       <div min-width="100px">
-          <p class=" display-4 text-lg-center cyan darken-3 white--text headline pa-7"> Account Setting</p>
-       </div>
+        <div min-width="100px">
+          <p
+            class=" display-4 text-lg-center cyan darken-3 white--text headline pa-7"
+          >
+            Account Setting
+          </p>
+        </div>
       </v-title>
       <v-card-actions>
         <v-flex>
@@ -53,7 +57,9 @@
             ></v-text-field>
           </v-layout>
           <v-flex class="text-center">
-            <v-btn round color="success text-white" rounded>Submit changes</v-btn>
+            <v-btn round color="success text-white" rounded
+              >Submit changes</v-btn
+            >
           </v-flex>
         </v-flex>
       </v-card-actions>

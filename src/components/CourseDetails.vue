@@ -158,8 +158,8 @@
   </v-flex>
 </template>
 <script>
- import { apiservice } from "../apiservice";
- const api = new apiservice();
+import { apiservice } from "../apiservice";
+const api = new apiservice();
 export default {
   data() {
     return {
@@ -221,11 +221,11 @@ export default {
         }
       ];
       console.log(data);
-       api.addCourse(data).then(response => {
-         console.log(response);
-       });
+      api.addCourse(data).then(response => {
+        console.log(response);
+      });
       this.show_courseD = !this.show_courseD;
-     // this.$root.$emit("finishcd");
+      // this.$root.$emit("finishcd");
     },
     finish_assessment() {
       // let data = {

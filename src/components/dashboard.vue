@@ -33,12 +33,15 @@
           <v-icon>mdi-image</v-icon>
           <a><v-text class="black--text">Edit</v-text></a>
         </v-container>
-        <v-divider>
-        </v-divider>
+        <v-divider> </v-divider>
         <v-container row class="mx-2" @click="view_Curr">
           <v-layout>
             <v-icon class="my-1">mdi-view-dashboard</v-icon>
-            <a><v-text class="black--text">View your curriculum frameworks</v-text></a>
+            <a
+              ><v-text class="black--text"
+                >View your curriculum frameworks</v-text
+              ></a
+            >
           </v-layout>
         </v-container>
         <v-divider></v-divider>
@@ -62,7 +65,7 @@
 
 <script>
 import YourOrganization from "../components/YourOrganization.vue";
-import ViewCurr from "../components/ViewCurr.vue"
+import ViewCurr from "../components/ViewCurr.vue";
 import editProfile from "../components/editProfile.vue";
 import AddCurrContent from "../components/AddCurrContent.vue";
 export default {
@@ -77,8 +80,8 @@ export default {
       editp: false,
       addc: false,
       isMenu: false,
-      vcurr:false,
-      yorg: true,
+      vcurr: false,
+      yorg: true
       // items: [
       //   { title: "Edit", icon: "mdi-image", route: "/addCurriculumStructure" }
       // ]
@@ -97,18 +100,17 @@ export default {
       this.vcurr = false;
       this.yorg = false;
     },
-    view_Curr(){
+    view_Curr() {
       this.editp = false;
       this.addc = false;
       this.vcurr = true;
       this.yorg = false;
     },
-    yourorg(){
+    yourorg() {
       this.editp = false;
       this.addc = false;
       this.vcurr = false;
       this.yorg = true;
-
     }
   }
 };

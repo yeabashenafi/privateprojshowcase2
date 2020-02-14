@@ -10,16 +10,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    logged_in:false,
-    User_id:'',
-    token:'',
-    org_id:'',
-    Username:'',
-    email:'',
-    role:'',
-    parentId: ''
-
-
+    logged_in: false,
+    User_id: "",
+    token: "",
+    org_id: "",
+    Username: "",
+    email: "",
+    role: "",
+    parentId: ""
   },
   mutations: {
     setUserID(state, ID) {
@@ -28,22 +26,22 @@ export default new Vuex.Store({
     setToken(state, token) {
       state.token = token;
     },
-    change(state){
-      state.logged_in = !state.logged_in
+    change(state) {
+      state.logged_in = !state.logged_in;
     },
-    setOrgid(state,id){
-      state.org_id = id
+    setOrgid(state, id) {
+      state.org_id = id;
     },
-    setusername(state,Username){
-      state.Username = Username
+    setusername(state, Username) {
+      state.Username = Username;
     },
-    setemail(state,email){
-      state.email = email
+    setemail(state, email) {
+      state.email = email;
     },
-    setrole(state,role){
-      state.role = role
+    setrole(state, role) {
+      state.role = role;
     },
-    setParentid(state, parentId){
+    setParentid(state, parentId) {
       state.parentId = parentId;
     }
   },
