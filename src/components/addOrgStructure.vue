@@ -78,8 +78,7 @@ export default {
       ],
 
       parentId: '',
-        tempId;
-
+      tempId: ''
     };
   },
   methods: {
