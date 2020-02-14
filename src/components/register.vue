@@ -1,24 +1,26 @@
 <template>
   <span>
-    <v-card raised class="ml-3">
-      <v-card-title class="blue lighten-4 dark mb-3">
+    <v-flex class="px-5 pb-10 mx-12 text-center">
+      <v-card raised class="mx-12" width="80%">
+      <v-card-title class="cyan darken-2 mb-3">
         <v-layout>
           <v-flex>
             <v-layout>
-              <h2 class="my-3 indigo--text text--lighten-2">
+              <!-- indigo--text text--lighten-2 -->
+              <h2 class="my-3 white--text text-center">
                 New User Registration Form
               </h2>
-              <v-spacer></v-spacer>
+              <!-- <v-spacer></v-spacer> -->
             </v-layout>
 
-            <h4 class="ma-3 indigo--text text--lighten-2">
-              create profile
+            <h4 class="ma-7 white--text">
+              
             </h4>
           </v-flex>
         </v-layout>
       </v-card-title>
       <v-card-text>
-        <v-form ref="form" class="px-3" v-model="valid">
+        <v-form ref="form" class="pa-3" v-model="valid">
           <v-text-field
             label=" Full Name"
             v-model="fullname"
@@ -34,19 +36,15 @@
             v-model="email"
             :rules="emailRule"
           ></v-text-field>
-          <v-select
-            label="Registered in Organization"
-            v-model="organization"
-            :items="names"
-          ></v-select>
+          
           <v-text-field
-            label=" password"
+            label=" Password"
             v-model="password"
             :rules="passwordRule"
           ></v-text-field>
-          <v-select :items="items" label="Roles" v-model="role"></v-select>
+          <v-select :items="names" label="Office user Works in " v-model="office"></v-select>
           <v-text-field
-            label="nationality"
+            label="Nationality"
             v-model="Nationality"
             :rules="nationalRule"
           ></v-text-field>
@@ -82,6 +80,7 @@
         </v-form>
       </v-card-text>
     </v-card>
+    </v-flex>
     <v-dialog max-width="400px" v-model="ok">
       <v-card>
         <v-card-title>
@@ -107,19 +106,16 @@ export default {
       email: "",
       fullname: "",
       orgs: [],
+      offices:[],
+      office:'',
       Nationality: "",
       Educational_status: "",
       gender: "",
       password: "",
       lpassword: "",
       lemail: "",
+      off:[],
       organization: "",
-      items: [
-        "Departement Head",
-        "College Dean",
-        "Teacher",
-        "Acadamic committe"
-      ],
       errmessage: "",
       Username: "",
       closeVar: false,
@@ -147,19 +143,23 @@ export default {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
       }
+      var off_id = this.getAccoffId(this.office);
       this.ok = true;
       const data = {
         fullname: this.fullname,
         email: this.email,
-        role: this.role,
+        registered_inId: this.$store.getters.org_id,
         password: this.password,
         Educational_status: this.Educational_status,
-        organization: this.organization,
+        works_inDep: off_id,
         gender: this.gender,
         Nationality: this.Nationality,
         Username: this.Username
       };
-      api.register(data);
+      
+      api.register(data).then((response) => {
+        console.log(response.data)
+      });
     },
     resetForm() {
       this.$refs.form.reset();
@@ -169,19 +169,41 @@ export default {
         this.orgs = response.data;
         console.log(this.orgs);
       });
+    },
+    getAccoffId(name){
+      var s = '';
+      for(var i=0;i<this.offices.length;i++){
+        if(this.offices[i].officeType){
+          if(this.offices[i].officeType == name){
+              return this.offices[i].id
+           }
+        }
+        
+        
+        
+      }
+      return s;
     }
   },
   computed: {
     names: function() {
       var x = [];
-      for (var i = 0; i < this.orgs.length; i++) {
-        x.push(this.orgs[i].Name);
-      }
+      for(var i =0; i<this.offices.length;i++){
+          if(this.offices[i].officeType){
+            x.push(this.offices[i].officeType)
+          }
+          
+        }
+      
       return x;
     }
   },
   mounted() {
-    this.getOrgs();
+    
+    
+     api.getAcademicOffices(this.$store.getters.org_id).then((response) =>{
+        this.offices = response.data 
+     })
   }
 };
 </script>

@@ -44,7 +44,7 @@
             </v-layout>
             <v-text-field label="Motto" v-model="Motto"></v-text-field>
             <v-flex class="text-center">
-              <v-btn color="green " rounded @click="add()"
+              <v-btn color="success white--text " rounded @click="add()"
                 >Add Organization</v-btn
               >
             </v-flex>
@@ -83,6 +83,13 @@ export default {
       api.addOrganization(data).then(response => {
         console.log(response);
       });
+      // const req = {
+      //   fullname: this.name + 'admin',
+      //   password: this.name + 'pass45'
+      // }
+      // api.setAdminTo(req).then(res => {
+      //  console.log(res);
+      // })
     }
   }
 };
