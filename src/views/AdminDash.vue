@@ -54,57 +54,45 @@
       <v-tab-item>
         <v-card flat>
           <v-card-text>
-         <add-org-structure></add-org-structure>
-            
+            <my-account></my-account>
           </v-card-text>
         </v-card>
       </v-tab-item>
       <v-tab-item>
         <v-card flat>
           <v-card-text>
-          <all-user></all-user>
+              <add-organization></add-organization>
+          <!-- <all-user></all-user> -->
           </v-card-text>
         </v-card>
       </v-tab-item>
+          <v-tab-item>
+      <v-flex class="text-center" align-self-center>
+          <v-card flat>
+            <v-card-text>
+                     <add-org-structure></add-org-structure>
+            </v-card-text>
+          </v-card>
+      </v-flex>
+        </v-tab-item>
        <v-tab-item>
       <v-flex class="text-center" align-self-center>
           <v-card flat>
             <v-card-text>
-              <my-account />
+              <all-user></all-user>
             </v-card-text>
           </v-card>
+      </v-flex>
         </v-tab-item>
         <v-tab-item>
           <v-card flat>
             <v-card-text>
-              <add-organization></add-organization>
+           <register class="ml-3"></register>
+              <!-- <add-organization></add-organization> -->
             </v-card-text>
           </v-card>
         </v-tab-item>
-        <v-tab-item>
-          <v-card flat>
-            <v-card-text>
-              <add-org-structure></add-org-structure>
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-        <v-tab-item>
-          <v-card flat>
-            <v-card-text>
-              <view-users></view-users>
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-        <v-tab-item>
-          <v-flex class="text-center" align-self-center>
-            <v-card flat>
-              <v-card-text>
-                <register class="ml-3"></register>
-              </v-card-text>
-            </v-card>
-          </v-flex>
-        </v-tab-item>
-        <v-tab-item>
+       <v-tab-item>
           <v-card flat>
             <v-card-text>
               <addcommitee class="ml-3"></addcommitee>

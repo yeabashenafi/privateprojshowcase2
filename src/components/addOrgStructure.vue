@@ -93,7 +93,7 @@ export default {
     addParent(){
       let data = {
         officeType: this.offices.Name,
-        parentId: this.parentId,
+        parentId: this.tempId,
         organizationId: this.$store.getters.org_id,
       };
       api.addOffices(data).then( response => {
