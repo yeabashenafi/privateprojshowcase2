@@ -43,6 +43,11 @@
             :rules="passwordRule"
           ></v-text-field>
           <v-select :items="names" label="Office user Works in " v-model="office"></v-select>
+          <v-select  label="Role"
+                     :items="roles"
+                     v-model="role"> 
+
+          </v-select>
           <v-text-field
             label="Nationality"
             v-model="Nationality"
@@ -53,7 +58,7 @@
             <v-radio label="Male" value="Male"></v-radio>
             <v-radio label="Female" value="Female"></v-radio>
           </v-radio-group>
-          <p class="mx-3 pt-3 title">Educational status</p>
+          <p class="title">Educational status</p>
           <v-radio-group
             v-model="Educational_status"
             :mandatory="true"
@@ -102,6 +107,8 @@ const api = new apiservice();
 export default {
   data() {
     return {
+      roles: ['Admin', 'Normal'],
+      role: '',
       ok: false,
       email: "",
       fullname: "",
@@ -148,6 +155,7 @@ export default {
       const data = {
         fullname: this.fullname,
         email: this.email,
+        // role: this.role,
         registered_inId: this.$store.getters.org_id,
         password: this.password,
         Educational_status: this.Educational_status,

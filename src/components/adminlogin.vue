@@ -22,7 +22,7 @@
         </v-card-text>
         <v-actions>
              <v-flex class="mx-5 text-center">
-                <v-btn text class="success text-md-center" rounded @click="logIn"
+                <v-btn text class="success text-md-center" rounded @click="adminLogin()"
               >Login</v-btn>
             </v-flex>
         </v-actions>
@@ -31,12 +31,26 @@
   </v-layout>
 </template>
 <script>
+import { apiservice } from '../apiservice';
+const api = new apiservice();
 export default {
     data(){
         return{
             username: '',
             password: ''
         }
+    },
+    methods: {
+     adminLogin(){
+       let data = {
+         name: this.username,
+         password: this.password,
+       };
+       api.loginAdmin(data).then(response => {
+             console.log(response);
+       }).catch( err => { console.log(err)});
+     }
+     
     }
 }
 </script>

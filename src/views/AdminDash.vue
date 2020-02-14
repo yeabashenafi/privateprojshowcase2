@@ -79,7 +79,7 @@
       <v-tab-item>
         <v-card flat>
           <v-card-text>
-          <view-users></view-users>
+          <all-user></all-user>
           </v-card-text>
         </v-card>
       </v-tab-item>
@@ -108,7 +108,7 @@ import addcommitee from '../components/addcommitee';
 import MyAccount from '../components/MyAccount';
 import addOrganization from '../components/addorganization.vue';
 import addOrgStructure from '../components/addOrgStructure.vue'; 
-import viewUsers from '../components/viewUsers';
+import allUser from '../components/allUser';
 import register from '../components/register.vue';
 
 export default {
@@ -121,7 +121,7 @@ export default {
     addOrganization,
     register,
     MyAccount,
-    viewUsers,
+    allUser,
    addOrgStructure,
    addcommitee
 },
