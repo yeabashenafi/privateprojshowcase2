@@ -76,8 +76,7 @@ async addCourse(course){
   return response;
 }
 async getAcademicOffices(orgid){
-  let response = await axios.get(`${API_URL}/Organizations/${orgid}/AcademicOffices`);
-  // console.log(response);
+  let response = await axios.get(`${API_URL}/Organizations/${orgid}/AcademicOffices`);  
   return response.data;
   //return response;
 }
