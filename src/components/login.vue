@@ -119,8 +119,7 @@ export default {
             this.$router.push({ name: "AdminDash" });
           }
         });
-      } 
-    
+      }
     },
     registered() {
       if (this.$refs.form.validate()) {
@@ -140,12 +139,10 @@ export default {
       };
       api.register(data);
     },
-    resetForm(){
-            this.$refs.form.reset();
-        },
-       
-      
-    
+    resetForm() {
+      this.$refs.form.reset();
+    },
+
     okbtn() {
       //  this.ok = false;
       this.closeVar = false;

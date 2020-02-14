@@ -11,8 +11,10 @@
       >
 
       <v-spacer></v-spacer>
-       <v-icon class="mr-3" v-show="isexist">mdi-folder</v-icon>
-      <p v-show="isexist" class="mt-4 mr-12 title-1">{{ $store.getters.username }}</p>
+      <v-icon class="mr-3" v-show="isexist">mdi-folder</v-icon>
+      <p v-show="isexist" class="mt-4 mr-12 title-1">
+        {{ $store.getters.username }}
+      </p>
       <v-btn text rounded to="/login" v-show="!checkLogging">LOG IN</v-btn>
       <v-btn text rounded v-show="checkLogging" @click="logout">LOG OUT</v-btn>
     </v-app-bar>
@@ -40,11 +42,11 @@ export default {
       this.$router.push({ name: "addCurriculum" });
     },
     logout() {
-      this.isexist= false;
+      this.isexist = false;
       this.$store.commit("change");
       this.$store.commit("setToken", "");
-      this.$store.commit("setusername","");
-      this.$store.commit("setrole","");
+      this.$store.commit("setusername", "");
+      this.$store.commit("setrole", "");
       this.$router.push({ name: "home" });
     }
   },
@@ -52,7 +54,6 @@ export default {
     checkLogging() {
       return this.$store.getters.logged;
     }
-    
   }
   // computed: {
   //   ishome(){

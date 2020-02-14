@@ -42,12 +42,12 @@ const routes = [
     component: () => import("../components/addOrgStructure.vue")
   },
   {
-    path:"/AdminDash",
+    path: "/AdminDash",
     name: "AdminDash",
     component: () => import("../views/AdminDash.vue")
   },
   {
-    path:"/orgTest",
+    path: "/orgTest",
     name: "orgTest",
     component: () => import("../components/orgTest.vue")
   },
