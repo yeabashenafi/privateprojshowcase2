@@ -40,8 +40,13 @@
             <v-icon class="my-1">mdi-view-dashboard</v-icon>
             <a><v-text class="black--text">View your curriculum frameworks</v-text></a>
           </v-layout>
-          
-          
+        </v-container>
+        <v-divider></v-divider>
+        <v-container @click="yourorg">
+          <v-layout>
+            <v-icon>mdi-account</v-icon>
+            <v-text class="black-text">Your organization</v-text>
+          </v-layout>
         </v-container>
         <v-container></v-container>
       </v-navigation-drawer>
@@ -50,16 +55,19 @@
       <editProfile v-if="editp" />
       <add-currContent v-if="addc"></add-currContent>
       <view-curr v-if="vcurr"></view-curr>
+      <your-organization v-if="yorg"></your-organization>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
+import YourOrganization from "../components/YourOrganization.vue";
 import ViewCurr from "../components/ViewCurr.vue"
 import editProfile from "../components/editProfile.vue";
 import AddCurrContent from "../components/AddCurrContent.vue";
 export default {
   components: {
+    YourOrganization,
     editProfile,
     AddCurrContent,
     ViewCurr
@@ -70,6 +78,7 @@ export default {
       addc: false,
       isMenu: false,
       vcurr:false,
+      yorg: true,
       // items: [
       //   { title: "Edit", icon: "mdi-image", route: "/addCurriculumStructure" }
       // ]
@@ -80,16 +89,26 @@ export default {
       this.editp = true;
       this.addc = false;
       this.vcurr = false;
+      this.yorg = false;
     },
     addc_visibility() {
       this.editp = false;
       this.addc = true;
       this.vcurr = false;
+      this.yorg = false;
     },
     view_Curr(){
       this.editp = false;
       this.addc = false;
       this.vcurr = true;
+      this.yorg = false;
+    },
+    yourorg(){
+      this.editp = false;
+      this.addc = false;
+      this.vcurr = false;
+      this.yorg = true;
+
     }
   }
 };

@@ -10,11 +10,19 @@
                 </v-flex>
                 <v-card-text>
                     <v-form ref="form"> 
-                        <v-select label="Name"
+                        <v-text-field 
+                        label="Commitee Name"
+                        class="px-12"
+                        v-model="name">
+                        </v-text-field>
+                        <v-select label="Add users to commitee"
                                      :items="username"
-                                      v-model="name"></v-select>
+                                     multiple
+                                     class="px-12"
+                                      v-model="users"></v-select>
                         <v-select label="Select Offices" 
                                   :items="officename"
+                                  class="px-12"
                                   v-model="office"
                         ></v-select>
                     </v-form>
@@ -37,7 +45,14 @@ const api = new apiservice();
 export default {
     data(){
         return {
-      name: 'addcommitee',
+      name: '',
+      users:[],
+      members:[
+          {
+              "id":"",
+              "isActive":true
+          }
+      ],
       officedata: [],
       officename: [],
       userInfo: [],
@@ -56,18 +71,27 @@ export default {
                 }
             };
              for(i=0; i<this.userInfo.length; i++){
-                if(this.name == this.userInfo[i].fullname){
-                    this.getuserid = this.userInfo[i].id;
-                    break;
+                if(this.users[i] == this.userInfo[i].fullname){
+                   
+                       this.members.push ({
+                        id:this.userInfo[i].id,
+                        isActive:true
+                    });
+                   
+                    
                 }
-            };
+            };   
+            this.members.shift();
            let data = {
-                 accId: this.getuserid,
+                 name:this.name,
+                 IsPartofId: this.$store.getters.org_id,
+                 members: this.members,
                  offId: this.getofficeid 
             };
+            console.log(data);
            api.addCommittee(data).then( response => {
                console.log(response);
-           });
+            });
             // console.log('user id '+ this.getuserid + ' office id ' + this.getofficeid);
         },
           getAllUsers() {
@@ -80,12 +104,15 @@ export default {
         });
         },
          getOfficeData(){
-           let id = '5e4077b18f4973319453f2b5';
+           let id = this.$store.getters.org_id;
            api.getAcademicOffices(id).then(response =>{
             console.log(response);
            this.officedata = response;
            for(var i=0; i < this.officedata.length; i++){
-              this.officename.push(this.officedata[i].officeType);
+               if(this.officedata[i].officeType != undefined){
+                   this.officename.push(this.officedata[i].officeType);
+               }
+              
            }
          console.log(this.officename);
          });
@@ -95,7 +122,6 @@ export default {
     mounted(){
         this.getOfficeData();
         this.getAllUsers();
-
-       },
+   },
 }
 </script>
