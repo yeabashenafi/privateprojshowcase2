@@ -70,7 +70,7 @@
           <v-flex class="text-center" align-self-center>
             <v-card flat>
               <v-card-text>
-                <add-org-structure></add-org-structure>
+                <org-structure-test></org-structure-test>
               </v-card-text>
             </v-card>
           </v-flex>
@@ -107,7 +107,7 @@
 import addcommitee from "../components/addcommitee";
 import MyAccount from "../components/MyAccount";
 import addOrganization from "../components/addorganization.vue";
-import addOrgStructure from "../components/addOrgStructure.vue";
+import orgStructureTest from "../components/orgStructureTest.vue";
 import allUser from "../components/allUser";
 import register from "../components/register.vue";
 
@@ -120,7 +120,7 @@ export default {
     register,
     MyAccount,
     allUser,
-    addOrgStructure,
+    orgStructureTest,
     addcommitee
   }
 };
