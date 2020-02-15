@@ -62,6 +62,11 @@ const routes = [
     component: () => import("../components/orgTest.vue")
   },
   {
+    path: "/orgStructureTest",
+    name: "orgStructureTest",
+    component: () => import("../components/orgStructureTest.vue")
+  },
+  {
     path: "/view:id",
     name: "viewStructure",
     component: () => import("../components/ViewSpecific.vue")
