@@ -51,7 +51,12 @@
             <v-text class="black-text">Your organization</v-text>
           </v-layout>
         </v-container>
-        <v-container></v-container>
+        <v-container @click="yourCom">
+          <v-layout>
+            <v-icon>mdi-check</v-icon>
+            <v-text class="black-text">Your comittees</v-text>
+          </v-layout>
+        </v-container>
       </v-navigation-drawer>
     </v-card>
     <v-flex>
@@ -59,11 +64,13 @@
       <add-currContent v-if="addc"></add-currContent>
       <view-curr v-if="vcurr"></view-curr>
       <your-organization v-if="yorg"></your-organization>
+      <your-comitees v-if="ycomm" class="ml-10"></your-comitees>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
+import yourComitees from "../components/yourComitees";
 import YourOrganization from "../components/YourOrganization.vue";
 import ViewCurr from "../components/ViewCurr.vue";
 import editProfile from "../components/editProfile.vue";
@@ -73,6 +80,7 @@ export default {
     YourOrganization,
     editProfile,
     AddCurrContent,
+    yourComitees,
     ViewCurr
   },
   data() {
@@ -81,7 +89,8 @@ export default {
       addc: false,
       isMenu: false,
       vcurr: false,
-      yorg: true
+      yorg: true,
+      ycomm:false,
       // items: [
       //   { title: "Edit", icon: "mdi-image", route: "/addCurriculumStructure" }
       // ]
@@ -93,24 +102,35 @@ export default {
       this.addc = false;
       this.vcurr = false;
       this.yorg = false;
+      this.ycomm = false;
     },
     addc_visibility() {
       this.editp = false;
       this.addc = true;
       this.vcurr = false;
-      this.yorg = false;
+      this.yorg = false
+      this.ycomm = false;
     },
     view_Curr() {
       this.editp = false;
       this.addc = false;
       this.vcurr = true;
       this.yorg = false;
+      this.ycomm = false;
     },
     yourorg() {
       this.editp = false;
       this.addc = false;
       this.vcurr = false;
       this.yorg = true;
+      this.ycomm = false;
+    },
+    yourCom(){
+      this.editp = false;
+      this.addc = false;
+      this.vcurr = false;
+      this.yorg = false;
+      this.ycomm = true;
     }
   }
 };

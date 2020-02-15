@@ -12,6 +12,10 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/Accounts/${id}/getFrameworks`);
     return response.data.frameworks;
   }
+  async getyourComitee(id){
+      let response =  await axios.get(`${API_URL}/committees/{id}/checkComitees?user_id=${id}`);
+      return response.data;
+  }
   async addStructure(data) {
     let response = await axios.post(`${API_URL}/y`, data);
     return response;
