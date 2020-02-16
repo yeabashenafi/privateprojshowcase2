@@ -31,11 +31,11 @@
         <v-divider></v-divider>
         <v-container row class="mx-2">
           <v-icon>mdi-image</v-icon>
-          <a><v-text class="black--text">Edit</v-text></a>
+          <a><v-text class="black--text" link>Edit</v-text></a>
         </v-container>
         <v-divider> </v-divider>
         <v-container row class="mx-2" @click="view_Curr">
-          <v-layout>
+          <v-layout link>
             <v-icon class="my-1">mdi-view-dashboard</v-icon>
             <a
               ><v-text class="black--text"
@@ -46,13 +46,13 @@
         </v-container>
         <v-divider></v-divider>
         <v-container @click="yourorg">
-          <v-layout>
+          <v-layout link>
             <v-icon>mdi-account</v-icon>
             <v-text class="black-text">Your organization</v-text>
           </v-layout>
         </v-container>
-        <v-container @click="yourCom">
-          <v-layout>
+        <v-container @click="yourCom" link>
+          <v-layout link>
             <v-icon>mdi-check</v-icon>
             <v-text class="black-text">Your comittees</v-text>
           </v-layout>
@@ -90,7 +90,7 @@ export default {
       isMenu: false,
       vcurr: false,
       yorg: true,
-      ycomm:false,
+      ycomm: false
       // items: [
       //   { title: "Edit", icon: "mdi-image", route: "/addCurriculumStructure" }
       // ]
@@ -108,7 +108,7 @@ export default {
       this.editp = false;
       this.addc = true;
       this.vcurr = false;
-      this.yorg = false
+      this.yorg = false;
       this.ycomm = false;
     },
     view_Curr() {
@@ -125,7 +125,7 @@ export default {
       this.yorg = true;
       this.ycomm = false;
     },
-    yourCom(){
+    yourCom() {
       this.editp = false;
       this.addc = false;
       this.vcurr = false;

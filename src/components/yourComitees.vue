@@ -37,24 +37,21 @@ components:{
 }, 
 data: () =>{
     return {
-        comittees:[],
+      comittees: []
+    };
+  },
+  methods: {
+    getUserComittes() {
+      api.getyourComitee(this.$store.getters.User_id).then(data => {
+        this.comittees = data.Comitees;
+        console.log(this.comittees);
+      });
     }
-},
-methods:{
-    getUserComittes(){
-        api.getyourComitee(this.$store.getters.User_id).then((data) =>{
-            this.comittees = data.Comitees
-            console.log(this.comittees)
-        })
-    }
-},
-mounted(){
-    
+  },
+  mounted() {
     this.getUserComittes();
-}
-}
+  }
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

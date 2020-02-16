@@ -12,7 +12,7 @@
         <p class="title ml-5">Organization Name</p>
         <v-container>
           <v-flex class="text-center">
-            <v-text class="headline gray light" >{{Hoffice.name}}</v-text>
+            <v-text class="headline gray light">{{ Hoffice.name }}</v-text>
           </v-flex>
           <v-container v-show="visible" class="ml-5 mr-5">
             <v-layout class="">
@@ -55,16 +55,25 @@
             </v-flex>
             <v-flex>
               <v-layout class="ml-3 mr-5">
-                <v-text-field label="Add the name of the office" v-model="offices[index].Name"></v-text-field>
+                <v-text-field
+                  label="Add the name of the office"
+                  v-model="offices[index].Name"
+                ></v-text-field>
                 <v-spacer></v-spacer>
-                <v-text-field  v-model="officeName" filled disabled></v-text-field>
+                <v-text-field
+                  v-model="officeName"
+                  filled
+                  disabled
+                ></v-text-field>
               </v-layout>
               <v-btn>Add child</v-btn>
             </v-flex>
           </v-container>
         </template>
         <v-flex class="text-center ma-5 mb-10">
-          <v-btn class="success white--text" rounded @click="createChild()">Add Offices</v-btn>
+          <v-btn class="success white--text" rounded @click="createChild()"
+            >Add Offices</v-btn
+          >
         </v-flex>
       </v-form>
     </v-card>
@@ -86,11 +95,11 @@ export default {
       offices: [
         {
           Name: "",
-          parentid:""
+          parentid: ""
         }
       ],
-      regOffices:[],
-      regNames:[],
+      regOffices: [],
+      regNames: [],
       parentId: "",
       tempId: ""
     };
@@ -109,15 +118,13 @@ export default {
         this.visible = false;
       });
     },
-    createChild(){
-      for(var i=0;i<this.offices.length;i++){
-        console.log(this.offices[i])
+    createChild() {
+      for (var i = 0; i < this.offices.length; i++) {
+        console.log(this.offices[i]);
       }
-       
     },
     addOffice() {
-      this.offices.push([{}
-      ]);
+      this.offices.push([{}]);
     },
     addParent() {
       let data = {
@@ -133,35 +140,28 @@ export default {
     // addSecondaryRole(index) {
     //   this.offices[index + 1].Roles.push([""]);
     // }
-    
-  checkHighest(){
-    api.checkHigher().then((response) => {
-      this.visible = !response.data.hasParent;
-      this.officeName = response.data.hasParent.officeType;
-    })
-  },
-  Off(){
-     api.getAcademicOffices(this.$store.getters.org_id).then((response) =>{
-      this.regOffices = response.data;
-      console.log(this.regOffices);
-      for(var i=0;i<this.regOffices.length;i++){
-        this.regNames.push(this.regOffices[i].officeType);
-      }
-      
-    })
-    
-  }
-  
+
+    checkHighest() {
+      api.checkHigher().then(response => {
+        this.visible = !response.data.hasParent;
+        this.officeName = response.data.hasParent.officeType;
+      });
+    },
+    Off() {
+      api.getAcademicOffices(this.$store.getters.org_id).then(response => {
+        this.regOffices = response.data;
+        console.log(this.regOffices);
+        for (var i = 0; i < this.regOffices.length; i++) {
+          this.regNames.push(this.regOffices[i].officeType);
+        }
+      });
+    }
   },
 
-  
-  computed: {
-    
-    
-  },
-  mounted(){
+  computed: {},
+  mounted() {
     this.checkHighest();
     this.Off();
   }
-}
+};
 </script>

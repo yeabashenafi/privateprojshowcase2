@@ -167,7 +167,10 @@ this.viewOffices();
 this.checkHighest();
 // this.getCheck();
     },
-    computed: {
+    
+  
+  
+  computed: {
     //    check: function(){
     //      if(this.officeName == '' || this.selectedOffice == ''){
     //               return this.check = false;
@@ -176,8 +179,8 @@ this.checkHighest();
     //                 return this.check = true;
     //             }
     // }
-    },
+    }
     
 
-}
+};
 </script>

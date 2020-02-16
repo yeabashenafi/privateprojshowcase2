@@ -8,9 +8,12 @@
         <v-card class="float-left ml-3 mb-4" flat min-height="100%">
           <!-- <v-list>
       <v-list-item> -->
-          <v-card-title class="primary lighten-2" style="margin-left= -20">
+          <v-card-title class="cyan lighten-2" style="margin-left= -20">
             <p title class="align-center">{{ $store.getters.Username }}</p>
           </v-card-title>
+          <!-- <v-card align="left" class="py-9 cyan darken-2" flat>
+            <p title class="align-center">{{ $store.getters.Username }}</p>
+          </v-card> -->
           <v-tab>
             <v-icon left>mdi-account</v-icon>
             My Account

@@ -1,9 +1,9 @@
 <template>
   <span>
-    <v-flex class="mt-5 ml-5">
+    <v-flex class="mt-5 ml-12">
       <template v-for="(frameworks, index) in currfr">
-        <v-flex v-bind:key="frameworks.index">
-          <v-card class="float-left mr-10" width="23%">
+        <v-flex v-bind:key="frameworks.index" class="ml-12">
+          <v-card class="float-left mr-10 ml-3" width="23%">
             <v-card-actions class="blue ">
               <v-flex>
                 <v-text class="headline">Framework{{ index + 1 }}</v-text>

@@ -50,13 +50,20 @@ export default {
   methods: {
     adminLogin() {
       let data = {
-        name: this.username,
+        username: this.username,
         password: this.password
       };
       api
         .loginAdmin(data)
         .then(response => {
-          console.log(response);
+          console.log(response.data.username);
+          this.$store.commit("setUserID", response.data.id);
+          this.$store.commit("setusername", response.data.username);
+          this.$store.commit("setToken", response.data.token);
+          this.$store.commit("setOrgid", response.data.orgId);
+          this.$store.commit("change");
+          this.$store.commit("setemail", response.data.email);
+          this.$router.push({ name: "AdminDash" });
         })
         .catch(err => {
           console.log(err);
