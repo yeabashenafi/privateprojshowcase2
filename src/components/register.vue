@@ -10,7 +10,7 @@
                 <h2 class="my-3 white--text text-center">
                   New User Registration Form
                 </h2>
-                <!-- <v-spacer></v-spacer> -->
+                <!-- <v -spacer></v-spacer> -->
               </v-layout>
 
               <h4 class="ma-7 white--text"></h4>
@@ -202,7 +202,9 @@ export default {
   },
   mounted() {
     api.getAcademicOffices(this.$store.getters.org_id).then(response => {
-      this.offices = response.data;
+      this.offices = response;
+      console.log(this.offices)
+
     });
   }
 };

@@ -6,8 +6,11 @@
           <v-card class="float-left ml-10   mr-10" width="30%">
             <v-card-actions class="blue ">
               <v-flex>
-                <v-icon class="align-right">Hey</v-icon>
-                <v-text class="headline">Comittee{{ index + 1 }}</v-text>
+                <v-layout>
+                    <v-text class="headline">Comittee{{ index + 1 }}</v-text>
+                    <v-spacer></v-spacer>
+                    <notification-bell count=9 />
+                </v-layout>
                 
               </v-flex>
             </v-card-actions>
@@ -25,9 +28,13 @@
 </template>
 
 <script>
+import NotificationBell from 'vue-notification-bell';
 import {apiservice} from "../apiservice";
 const api = new apiservice();
 export default {
+components:{
+ NotificationBell
+}, 
 data: () =>{
     return {
         comittees:[],
