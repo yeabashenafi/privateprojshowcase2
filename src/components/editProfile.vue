@@ -1,136 +1,119 @@
 <template>
-  <v-layout row>
-    <v-flex class="col pa-6 ma-5 align-center">
-      <v-card class="mt-5 pa-12 mx-auto py-5" width="500px" height="520">
-        <v-card-title>
-          <v-flex class="text-center">
-            <v-text title> {{ this.user.fullname }} </v-text>
-          </v-flex>
-        </v-card-title>
-
-        <v-form>
-          <!-- <p class="pa-2">User Name: </p> -->
-          <span>
-            <v-flex row>
-              <v-text-field
-                label="User Name"
-                v-model="user.Username"
-                width="100px"
-                @hover="change_uname"
-                disabled
-                ref="uname"
-              >
-              </v-text-field>
-              <a @click="change_Uname"
-                ><v-icon right class="grey--text mt-5">mdi-pencil</v-icon></a
-              >
-            </v-flex>
-            <v-flex row>
-              <v-text-field
-                label="Email"
-                v-model="user.email"
-                disabled
-              ></v-text-field>
-              <v-flex>
-                <a><v-icon right class="grey--text mt-5">mdi-pencil</v-icon></a>
-                <a @click="change_Uname"
-                  ><v-icon right class="grey--text mt-5"
-                    >mdi-shield-check</v-icon
-                  ></a
-                >
-              </v-flex>
-            </v-flex>
-            <p>
-              Educational Status
-              <a><v-icon right class="grey--text">mdi-pencil</v-icon></a
-              ><a @click="change_Uname"
-                ><v-icon right class="grey--text md-9"
-                  >mdi-shield-check</v-icon
-                ></a
-              >
-              <br />
-              <v-radio-group row v-model="user.Educational_status" disabled>
-                <v-radio label="Bsc" value="Bachelor"></v-radio>
-                <v-radio label="Msc" value="Masters"></v-radio>
-                <v-radio label="Phd" value="phd"></v-radio>
-              </v-radio-group>
-            </p>
-            <v-flex>
-              <a
-                style="text-decoration:Underline"
-                @click="showchange = !showchange"
-                >Change my password ?</a
-              > </v-flex
-            ><br />
+  <v-container persistent height="1000">
+    <v-card>
+      <!-- <v-title>
+        <p class="cyan darken-3"></p>
+      </v-title> -->
+      <v-title>
+        <div min-width="100px">
+          <p
+            class=" display-4 text-lg-center cyan darken-3 white--text headline pa-7"
+          >
+            Account Setting
+          </p>
+        </div>
+      </v-title>
+      <v-card-actions>
+        <v-flex>
+          <v-layout>
             <v-text-field
-              label="Enter Password to confirm the above changes"
-              v-model="confirm_change"
+              v-model="user.Username"
+              label="username"
+              
             ></v-text-field>
-            <v-flex class="text-center">
-              <v-btn color="263f44" @click="change_save"
-                >Save Changes</v-btn
-              ></v-flex
+            <v-icon>mdi-account-edit</v-icon>
+            <!-- <v-spacer></v-spacer> -->
+            <v-text-field
+              v-model="user.password"
+              
+              label="password"
+            ></v-text-field>
+            <v-icon>mdi-account-edit</v-icon>
+
+            <v-text-field
+              v-model="user.fullname"
+              
+              label="Full Name"
+            ></v-text-field>
+          </v-layout>
+       
+          <v-layout>
+            <v-text-field v-model="user.email" 
+            label="E-mail"
+            filled></v-text-field>
+            <v-icon>mdi-account-edit</v-icon>
+            <v-spacer></v-spacer>
+                  <v-text-field
+              v-model="user.role"
+              filled
+              disabled
+              label="role"
+            ></v-text-field>
+            <!-- <v-text-field v-model="user[o].Nationality"></v-text-field> -->
+          </v-layout>
+          <v-layout>
+            <v-text-field v-model="user.Educational_status" 
+            label="Educational Status"
+            filled
+            disabled
+             ></v-text-field>
+            <v-icon>mdi-account-edit</v-icon>
+            <v-spacer></v-spacer>
+                  <v-text-field
+              v-model="user.Nationality"
+              filled
+              disabled
+              label="Nationality"
+            ></v-text-field>
+            <!-- <v-text-field v-model="user[o].Nationality"></v-text-field> -->
+          </v-layout>
+          <v-flex class="text-center">
+            <v-btn 
+            round 
+            color="success text-white" rounded
+            @click="update()">Submit changes</v-btn
             >
-            <v-flex color="red">
-              <v-dialog v-model="showchange" width="600px">
-                <v-card color="white" class="pa-6">
-                  <v-text-field
-                    label="Old Password"
-                    v-model="old_pass"
-                  ></v-text-field>
-                  <v-text-field
-                    label="New Password"
-                    v-model="new_pass"
-                  ></v-text-field>
-                  <v-text-field
-                    label="Confirm Password"
-                    v-model="conf_pass"
-                  ></v-text-field>
-                  <v-flex class="text-center">
-                    <v-btn color="primary">Change Password</v-btn>
-                  </v-flex>
-                </v-card>
-              </v-dialog>
-            </v-flex>
-          </span>
-        </v-form>
-      </v-card>
-    </v-flex>
-  </v-layout>
+          </v-flex>
+        </v-flex>
+      </v-card-actions>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
 import { apiservice } from "../apiservice";
 const api = new apiservice();
+
 export default {
-  data: () => ({
-    showchange: false,
-    user: [],
-    u_name: "",
-    email_edit: "",
-    educ_status: "",
-    old_pass: "",
-    new_pass: "",
-    conf_pass: "",
-    confirm_change: ""
-  }),
-  mounted() {
-    this.getUser();
+  data: () => {
+    return {
+      user: {}
+    };
   },
   methods: {
-    getUser() {
-      api.getUser(this.$store.getters.User_id).then(response => {
-        this.user = response.data;
-        console.log(this.user);
+    update(){
+     let data = {
+       Username: this.user.Username,
+       email: this.user.email,
+       organizationId: this.$store.getters.org_id,
+       password: this.user.password
+     }
+     api.updateAdminData(this.user.id, data).then( response => {
+       console.log(response);
+     })
+    },
+    getUserData() {
+      var userId = this.$store.getters.User_id;
+      api.getUser(userId).then(response => {
+           this.user = response.data;
+            console.log(this.user);
       });
-    },
-    change_Uname() {
-      //   .textfield_enable
-      this.$refs.uname.disabled = false;
-    },
-    save_Uname() {
-      this.$refs.uname.disabled = true;
     }
+  },
+  mounted() {
+    this.getUserData();
   }
 };
 </script>
+
+<style></style>

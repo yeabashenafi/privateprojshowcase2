@@ -11,10 +11,13 @@
       >
 
       <v-spacer></v-spacer>
-      <v-icon class="mr-3" v-show="isexist">mdi-folder</v-icon>
-      <p v-show="isexist" class="mt-4 mr-12 title-1">
-        {{ $store.getters.Username }}
-      </p>
+      <v-layout v-show="isexist">
+        <v-spacer></v-spacer>
+        <v-icon class="mr-3">mdi-folder</v-icon>
+        <p class="mt-4 mr-12 title-1">
+          {{ $store.getters.Username }}
+        </p>
+      </v-layout>
       <v-btn text rounded to="/login" v-show="!checkLogging">LOG IN</v-btn>
       <v-btn text rounded v-show="checkLogging" @click="logout">LOG OUT</v-btn>
     </v-app-bar>
@@ -55,6 +58,9 @@ export default {
       this.$store.commit("setToken", "");
       this.$store.commit("setusername", "");
       this.$store.commit("setrole", "");
+      this.$store.commit("setemail", "");
+      this.$store.commit("setUserID", "");
+      this.$store.commit("setOrgid", "");
       this.$router.push({ name: "home" });
     }
   },

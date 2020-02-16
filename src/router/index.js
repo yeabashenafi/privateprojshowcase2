@@ -62,9 +62,9 @@ const routes = [
     component: () => import("../components/orgTest.vue")
   },
   {
-    path: "/orgStructureTest",
-    name: "orgStructureTest",
-    component: () => import("../components/orgStructureTest.vue")
+    path: "/userDashTest",
+    name: "userDashTest",
+    component: () => import("../views/userDashTest.vue")
   },
   {
     path: "/view:id",

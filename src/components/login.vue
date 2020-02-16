@@ -17,16 +17,6 @@
               required
               v-model="lpassword"
             ></v-text-field>
-            <v-select
-              :items="orgName"
-              label="Organization Name"
-              v-model="orgname2"
-            ></v-select>
-            <v-select
-              :items="userType"
-              v-model="usertypemodel"
-              label="User Type"
-            ></v-select>
             <p class="red--text">{{ errmessage }}</p>
             <v-btn text class="success text-md-center" @click="logIn"
               >Login</v-btn
@@ -97,52 +87,26 @@ export default {
         this.errmessage = "you must fill the form";
         return;
       } else {
-        this.chosenOrg = this.getOrgId(this.orgname2);
         let data = {
           username: this.luser,
           password: this.lpassword,
-          org_id: this.chosenOrg
         };
         api.login(data).then(response => {
           console.log(response);
           this.$store.commit("setUserID", response.data.id);
           this.$store.commit("change");
-          this.$store.commit("setusername", response.data.username);
+          this.$store.commit("setusername", response.data.Username);
           this.$store.commit("setToken", response.data.token);
           this.$store.commit("setOrgid", response.data.org_id);
           this.$store.commit("setemail", response.data.email);
           this.$store.commit("setrole", response.data.role);
-          console.log(this.$store.getters.role);
-          if (this.usertypemodel == "Normal User") {
-            this.$router.push({ name: "dashboard" });
-          } else if (this.usertypemodel == "Admin") {
-            this.$router.push({ name: "AdminDash" });
-          }
+          this.$router.push({ name: "userDashTest" });
         });
-      }
-    },
-    registered() {
-      if (this.$refs.form.validate()) {
-        this.snackbar = true;
-      }
-      this.ok = true;
-      const data = {
-        fullname: this.fullname,
-        email: this.email,
-        role: this.role,
-        password: this.password,
-        Educational_status: this.Educational_status,
-        organization: this.organization,
-        gender: this.gender,
-        Nationality: this.Nationality,
-        Username: this.Username
-      };
-      api.register(data);
+      }            
     },
     resetForm() {
       this.$refs.form.reset();
     },
-
     okbtn() {
       //  this.ok = false;
       this.closeVar = false;
@@ -159,15 +123,15 @@ export default {
         //return this.orgName;
       });
     },
-    getOrgId(name) {
-      console.log(name);
-      for (var i = 0; i < this.orgAllInfo.length; i++) {
-        if (name == this.orgAllInfo[i].Name) {
-          console.log(this.orgAllInfo[i].id);
-          return this.orgAllInfo[i].id;
-        }
-      }
-    }
+    // getOrgId(name) {
+    //   console.log(name);
+    //   for (var i = 0; i < this.orgAllInfo.length; i++) {
+    //     if (name == this.orgAllInfo[i].Name) {
+    //       console.log(this.orgAllInfo[i].id);
+    //       return this.orgAllInfo[i].id;
+    //     }
+    //   }
+    // }
   },
   mounted() {
     this.getOrganizationData();
