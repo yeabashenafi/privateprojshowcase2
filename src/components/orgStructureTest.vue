@@ -10,6 +10,7 @@
                     <v-layout>
                         <v-select label="Available Offices"
                               v-model="selectedOffice"
+                              @select="selectOffice"
                               :items="officeName"
                         ></v-select>
                         <v-spacer></v-spacer>
@@ -63,7 +64,7 @@
                 </v-card-text>
                 <v-actions>
                     <v-layout>
-                    <v-btn @click="addOffice()" class="mx-5" :disabled="check">add office</v-btn>
+                    <v-btn @click="addChildren()" class="mx-5" :disabled="check">add office</v-btn>
                     <v-btn @click="viewOffices()">Get  newly added Offices</v-btn>
 
                     </v-layout>
@@ -84,11 +85,13 @@ export default {
             name: '',
             Hoffice: {
                 name: "",
-                id: ""
+                parentId: "",
+                
               },
             coffices:[
                 {
-                name:""
+                name:"",
+                
             }
             ],  
             hasParent: true,
@@ -101,6 +104,17 @@ export default {
     methods: {
         addChild(){
             this.coffices.push({})
+        },
+        addChildren(){
+             for(var i=0;i<this.coffices.length;i++){
+                 this.coffices[i].parentId = this.tempId;
+                 this.coffices[i].orgId = this.$store.getters.org_id;
+             }
+             api.createChildren(this.coffices).then((data) =>{
+                 console.log(data)
+                 this.viewOffices();
+             });
+             
         },
         addOffice(){
             // if(this.tempId == ''){
@@ -125,17 +139,26 @@ export default {
             api.getAcademicOffices(this.$store.getters.org_id).then( response => {
                 // console.log(response);
                 this.officeInfo = response;
-                console.log(this.officeInfo);
-                for(var i=0; i<this.officeInfo.length; i++){
+                console.log(this.officeInfo.length);
+                for(var i=0;i<this.officeInfo.length;i++){
                     this.officeName.push(this.officeInfo[i].officeType);
+                    console.log(this.officeName)
                 }
-                 if(this.officeName.length != 0 && this.selectedOffice == ''){
-                  return this.check = true;
-                }
-                else {
-                    return this.check = false;
-                }
+                
+                //  if(this.officeName.length != 0 && this.selectedOffice == ''){
+                //   return this.check = true;
+                // }
+                // else {
+                //     return this.check = false;
+                // }
             });
+            // for(var i=0; i < this.officeInfo.length; i++){
+            //         console.log("hey")
+            //        this.officeName[i] = this.officeInfo[i].officeType;
+            //        this.officeName.push("");
+                    
+            //     }
+                console.log("It has been recieved",this.officeName);
             //Validation on text fields
            
         },
@@ -158,7 +181,7 @@ export default {
             api.checkHigher().then((response) => {
                 this.visible = !response.data.hasParent;
                 console.log(response);
-                this.officeName = response.data.hasParent.officeType;
+                //this.officeName = response.data.hasParent.officeType;
             })
         },
     },

@@ -61,6 +61,7 @@ export default {
       this.$store.commit("setemail", "");
       this.$store.commit("setUserID", "");
       this.$store.commit("setOrgid", "");
+      this.$store.commit("setOffice", "");
       this.$router.push({ name: "home" });
     }
   },

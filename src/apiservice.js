@@ -12,11 +12,9 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/Accounts/${id}/getFrameworks`);
     return response.data.frameworks;
   }
-  async getyourComitee(id) {
-    let response = await axios.get(
-      `${API_URL}/committees/{id}/checkComitees?user_id=${id}`
-    );
-    return response.data;
+  async getyourComitee(id){
+      let response =  await axios.get(`${API_URL}/committees/{id}/checkComitees?user_id=${id}`);
+      return response.data;
   }
   async addStructure(data) {
     let response = await axios.post(`${API_URL}/y`, data);
@@ -49,23 +47,6 @@ export class apiservice {
   // }
   async getUser(id) {
     let response = await axios.get(`${API_URL}/Accounts/${id}`);
-    return response;
-  }
-  async getAdmin(id) {
-    let response = await axios.get(`${API_URL}/admins/${id}`);
-    console.log(response);
-    return response;
-  }
-  async updateAdminData(adminid, data) {
-    let find = {
-      where: { id: adminid }
-    };
-    let response = await axios.post(
-      `${API_URL}/admins/upsertWithWhere`,
-      find,
-      data
-    );
-    // console.log(response);
     return response;
   }
   async getOrganizations() {
@@ -102,17 +83,31 @@ export class apiservice {
     let response = await axios.post(`${API_URL}/courses`, course);
     return response;
   }
+  async checkRequest(id){
+    let response = await axios.get(`${API_URL}/requests/checkcurriculum?currId=${id}`)
+    return response.data.hasrequest;
+  }
   async getAcademicOffices(orgid) {
-    let response = await axios.get(
-      `${API_URL}/Organizations/${orgid}/AcademicOffices`
+    let response = await axios.get(`${API_URL}/Organizations/${orgid}/AcademicOffices`
     );
-    // console.log(response);
-    return response.data;
-    //return response;
+     return response.data;
+    
+  }
+  async sendRequest(data){
+    let response = await axios.post(`${API_URL}/requests`,data)
+    return response;
+  }
+  async getparentcomitees(offid){
+    let response = await axios.get(`${API_URL}/committees/{id}/getparentcomittees?office_id=${offid}`);
+    return response.data.parent_Comittees;
   }
   async addCommittee(data) {
     let response = await axios.post(`${API_URL}/committees`, data);
     console.log(response);
+    return response;
+  }
+  async createChildren(data){
+    let response = await axios.post(`${API_URL}/AccadamicOffices/{id}/createchildren`,data);
     return response;
   }
   async getAdminInfo(id) {
@@ -121,12 +116,11 @@ export class apiservice {
     console.log(response);
     return response;
   }
-  async checkHigher(id) {
-    let response = await axios.get(
-      `${API_URL}/AccadamicOffices/${id}/checkhigher`
-    );
+  async checkHigher(id){
+    let response = await axios.get(`${API_URL}/AccadamicOffices/${id}/checkhigher`);
     console.log(response);
     return response;
+
   }
   // async setAdminTo(data){
   //   let response = await axios.post(`${API_URL}/Accounts/setAdmin`,data);
