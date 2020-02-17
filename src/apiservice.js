@@ -56,18 +56,21 @@ export class apiservice {
     console.log(response);
     return response;
   }
+  //update accounts
+  async updateUserData(data){
+      let response = await axios.put(`${API_URL}/Accounts`, data);
+      console.log(response);
+      return response;
+  }
   async updateAdminData(adminid, data) {
     let find = {
       where: { id: adminid }
     };
-    let response = await axios.post(
-      `${API_URL}/admins/upsertWithWhere`,
-      find,
-      data
-    );
+    let response = await axios.post(`${API_URL}/admins/upsertWithWhere`,find,data);
     // console.log(response);
     return response;
-  }
+  } 
+  ////
   async getOrganizations() {
     let response = await axios.get(`${API_URL}/Organizations`);
     return response;
@@ -102,7 +105,7 @@ export class apiservice {
     let response = await axios.post(`${API_URL}/courses`, course);
     return response;
   }
-  async getAcademicOffices(orgid) {
+  async getAcademicOffices(orgid) {// get accadamic office they belongs organization
     let response = await axios.get(
       `${API_URL}/Organizations/${orgid}/AcademicOffices`
     );
@@ -126,6 +129,11 @@ export class apiservice {
       `${API_URL}/AccadamicOffices/${id}/checkhigher`
     );
     console.log(response);
+    return response;
+  }
+  async howManyNotify(id) {
+    let response = await axios.get(`${API_URL}/requests/${id}/checkRequests`);
+    // console.log(response);
     return response;
   }
   // async setAdminTo(data){

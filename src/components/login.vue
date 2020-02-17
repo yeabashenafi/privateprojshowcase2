@@ -89,20 +89,20 @@ export default {
       } else {
         let data = {
           username: this.luser,
-          password: this.lpassword,
+          password: this.lpassword
         };
         api.login(data).then(response => {
           console.log(response);
           this.$store.commit("setUserID", response.data.id);
           this.$store.commit("change");
-          this.$store.commit("setusername", response.data.Username);
+          this.$store.commit("setusername", response.data.username);
           this.$store.commit("setToken", response.data.token);
           this.$store.commit("setOrgid", response.data.org_id);
           this.$store.commit("setemail", response.data.email);
           this.$store.commit("setrole", response.data.role);
           this.$router.push({ name: "userDashTest" });
         });
-      }            
+      }
     },
     resetForm() {
       this.$refs.form.reset();
@@ -122,7 +122,7 @@ export default {
         console.log(this.orgName);
         //return this.orgName;
       });
-    },
+    }
     // getOrgId(name) {
     //   console.log(name);
     //   for (var i = 0; i < this.orgAllInfo.length; i++) {

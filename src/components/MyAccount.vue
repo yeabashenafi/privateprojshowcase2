@@ -37,12 +37,14 @@
           </v-layout>
 
           <v-layout>
-            <v-text-field v-model="user.email" 
-            label="E-mail"
-            filled></v-text-field>
+            <v-text-field
+              v-model="user.email"
+              label="E-mail"
+              filled
+            ></v-text-field>
             <v-icon>mdi-account-edit</v-icon>
             <v-spacer></v-spacer>
-                  <v-text-field
+            <v-text-field
               v-model="user.role"
               filled
               disabled
@@ -51,10 +53,8 @@
             <!-- <v-text-field v-model="user[o].Nationality"></v-text-field> -->
           </v-layout>
           <v-flex class="text-center">
-            <v-btn 
-            round 
-            color="success text-white" rounded
-            @click="update()">Submit changes</v-btn
+            <v-btn round color="success text-white" rounded @click="update()"
+              >Submit changes</v-btn
             >
           </v-flex>
         </v-flex>

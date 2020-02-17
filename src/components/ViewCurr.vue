@@ -4,7 +4,7 @@
       <template v-for="(frameworks, index) in currfr">
         <v-flex v-bind:key="frameworks.index" class="ml-12">
           <v-card class="float-left mr-10 ml-3" width="23%">
-            <v-card-actions class="blue ">
+            <v-card-actions class="cyan darken-2 white--text ">
               <v-flex>
                 <v-text class="headline">Framework{{ index + 1 }}</v-text>
               </v-flex>
@@ -12,8 +12,8 @@
             <v-card-actions>
               <v-container>
                 <p>Name: {{ frameworks.program_name }}</p>
-                <p>Type: {{ frameworks.program_name }}</p>
-                <p>gradreqs: {{ frameworks.program_name }}</p>
+                <p>Type: {{ frameworks.program_type }}</p>
+                <p>gradreqs: {{ frameworks.gradreqs }}</p>
               </v-container>
             </v-card-actions>
           </v-card>
