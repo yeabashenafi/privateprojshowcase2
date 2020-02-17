@@ -45,7 +45,7 @@
               label="Office user Works in "
               v-model="office"
             ></v-select>
-            <v-select label="Role" :items="roles" v-model="role"> </v-select>
+            <!-- <v-select label="Role" :items="roles" v-model="role"> </v-select> -->
             <v-text-field
               label="Nationality"
               v-model="Nationality"
@@ -105,13 +105,15 @@ const api = new apiservice();
 export default {
   data() {
     return {
-      roles: ["Admin", "Normal"],
+      // roles: ["Admin", "Normal"],
       role: "",
       ok: false,
       email: "",
       fullname: "",
       orgs: [],
       offices: [],
+      names: [],
+      works_inDepId: "",
       office: "",
       Nationality: "",
       Educational_status: "",
@@ -133,7 +135,7 @@ export default {
         v => /.+@.+\..+/.test(v) || "E-mail must be valid"
       ],
       passwordRule: [
-        v => (v && v.length > 8) || "password must be more than 8 characters"
+        v => (v && v.length > 3) || "password must be more than 8 characters"
       ],
       nationalRule: [
         v => (v && v.length > 0) || "You can not leave nationality field"
@@ -148,17 +150,22 @@ export default {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
       }
-      var off_id = this.getAccoffId(this.office);
+      // var off_id = this.getAccoffId(this.office);
       this.ok = true;
+      for( var i=0; i<this.offices.length; i++){
+        if(this.office == this.offices[i].officeType){
+          this.works_inDepId = this.offices[i].id;
+          console.log(this.works_inDepId);
+        }
+      }
       const data = {
         fullname: this.fullname,
         email: this.email,
-        // role: this.role,
         registered_inId: this.$store.getters.org_id,
         password: this.password,
         Educational_status: this.Educational_status,
-        works_inDep: off_id,
         gender: this.gender,
+        works_inDepId: this.works_inDepId,
         Nationality: this.Nationality,
         Username: this.Username
       };
@@ -170,42 +177,51 @@ export default {
     resetForm() {
       this.$refs.form.reset();
     },
-    getOrgs() {
-      api.getOrganizations().then(response => {
-        this.orgs = response.data;
-        console.log(this.orgs);
+    // getOrgs() {
+    //   api.getOrganizations().then(response => {
+    //     this.orgs = response.data;
+    //     console.log(this.orgs);
+    //   });
+    // },
+    getOffice(){
+      api.getAcademicOffices(this.$store.getters.org_id).then(response => {
+               this.offices = response;
+               console.log(this.offices);
+           for(var i= 0; i< this.offices.length; i++){
+              this.names.push(this.offices[i].officeType);
+           }
       });
-    },
-    getAccoffId(name) {
-      var s = "";
-      for (var i = 0; i < this.offices.length; i++) {
-        if (this.offices[i].officeType) {
-          if (this.offices[i].officeType == name) {
-            return this.offices[i].id;
-          }
-        }
-      }
-      return s;
     }
+    // getAccoffId(name) {
+    //   var s = "";
+    //   for (var i = 0; i < this.offices.length; i++) {
+    //     if (this.offices[i].officeType) {
+    //       if (this.offices[i].officeType == name) {
+    //         return this.offices[i].id;
+    //       }
+    //     }
+    //   }
+    //   return s;
+    // }
   },
   computed: {
-    names: function() {
-      var x = [];
-      for (var i = 0; i < this.offices.length; i++) {
-        if (this.offices[i].officeType) {
-          x.push(this.offices[i].officeType);
-        }
-      }
+    // names: function() {
+    //   var x = [];
+    //   for (var i = 0; i < this.offices.length; i++) {
+    //     if (this.offices[i].officeType) {
+    //       x.push(this.offices[i].officeType);
+    //     }
+    //   }
 
-      return x;
-    }
+    //   return x;
+    // }
   },
   mounted() {
-    api.getAcademicOffices(this.$store.getters.org_id).then(response => {
-      this.offices = response;
-      console.log(this.offices)
-
-    });
+    this.getOffice();
+    // api.getAcademicOffices(this.$store.getters.org_id).then(response => {
+    //   this.offices = response;
+    //   console.log(this.offices);
+    // });
   }
 };
 </script>

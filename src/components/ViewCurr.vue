@@ -14,8 +14,8 @@
               <v-flex>
               <v-container>
                 <p>Name: {{ frameworks.program_name }}</p>
-                <p>Type: {{ frameworks.program_name }}</p>
-                <p>gradreqs: {{ frameworks.program_name }}</p>
+                <p>Type: {{ frameworks.program_type }}</p>
+                <p>gradreqs: {{ frameworks.gradreqs }}</p>
               </v-container>
               <v-btn color="green"  @click="sendForApproval(frameworks.id,frameworks.program_name)">Send for approval</v-btn>
               <!-- <v-btn color="red" disabled v-if="!sent(frameworks.id)">Sent for approval</v-btn> -->

@@ -49,6 +49,26 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/Accounts/${id}`);
     return response;
   }
+  async getAdmin(id) {
+    let response = await axios.get(`${API_URL}/admins/${id}`);
+    console.log(response);
+    return response;
+  }
+  //update accounts
+  async updateUserData(data){
+      let response = await axios.put(`${API_URL}/Accounts`, data);
+      console.log(response);
+      return response;
+  }
+  async updateAdminData(adminid, data) {
+    let find = {
+      where: { id: adminid }
+    };
+    let response = await axios.post(`${API_URL}/admins/upsertWithWhere`,find,data);
+    // console.log(response);
+    return response;
+  } 
+  ////
   async getOrganizations() {
     let response = await axios.get(`${API_URL}/Organizations`);
     return response;
@@ -121,6 +141,11 @@ export class apiservice {
     console.log(response);
     return response;
 
+  }
+  async howManyNotify(id) {
+    let response = await axios.get(`${API_URL}/requests/${id}/checkRequests`);
+    // console.log(response);
+    return response;
   }
   // async setAdminTo(data){
   //   let response = await axios.post(`${API_URL}/Accounts/setAdmin`,data);

@@ -35,9 +35,27 @@
               ></v-text-field>
             </v-layout>
             <v-flex class="text-center">
-              <v-btn @click="addOffice()">Add Highest body</v-btn>
-              <v-spacer></v-spacer>
+              <v-text class="headline gray light">{{ Hoffice.name }}</v-text>
             </v-flex>
+            <v-container v-show="visible" class="ml-5 mr-5">
+              <v-layout class="">
+                <v-text-field
+                  label="Add the name of the Highest Body"
+                  v-model="Hoffice.name"
+                ></v-text-field>
+                <v-spacer></v-spacer>
+                <v-text-field
+                  disabled
+                  filled
+                  label="Highest Body"
+                  class="mr-5"
+                ></v-text-field>
+              </v-layout>
+              <v-flex class="text-center">
+                <v-btn @click="addOffice()">Add Highest body</v-btn>
+                <v-spacer></v-spacer>
+              </v-flex>
+            </v-container>
           </v-container>
                     </v-container>
                 <template v-for="(office,index) in coffices">
@@ -184,15 +202,35 @@ export default {
                 //this.officeName = response.data.hasParent.officeType;
             })
         },
-    },
-    mounted() {
-this.viewOffices();
-this.checkHighest();
-// this.getCheck();
-    },
     
-  
-  
+    selectOffice() {
+      for (var i = 0; i < this.officeInfo.length; i++) {
+        if (this.selectedOffice == this.officeInfo[i].officeType) {
+          this.tempId = this.officeInfo[i].id;
+        }
+      }
+      console.log(this.tempId);
+      // Validation on fields
+      if (this.officeName.length != 0 && this.selectedOffice == "") {
+        return (this.check = true);
+      } else {
+        return (this.check = false);
+      }
+    },
+    checkHighest() {
+      api.checkHigher().then(response => {
+        this.visible = !response.data.hasParent;
+        console.log(response);
+        this.officeName = response.data.hasParent.officeType;
+      });
+    }
+  },
+  mounted() {
+    this.viewOffices();
+    this.checkHighest();
+    // this.getCheck();
+  },
+
   computed: {
     //    check: function(){
     //      if(this.officeName == '' || this.selectedOffice == ''){
@@ -202,8 +240,6 @@ this.checkHighest();
     //                 return this.check = true;
     //             }
     // }
-    }
-    
-
+  }
 };
 </script>

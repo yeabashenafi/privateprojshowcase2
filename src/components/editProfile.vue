@@ -19,31 +19,30 @@
             <v-text-field
               v-model="user.Username"
               label="username"
-              
             ></v-text-field>
             <v-icon>mdi-account-edit</v-icon>
             <!-- <v-spacer></v-spacer> -->
             <v-text-field
               v-model="user.password"
-              
               label="password"
             ></v-text-field>
             <v-icon>mdi-account-edit</v-icon>
 
             <v-text-field
               v-model="user.fullname"
-              
               label="Full Name"
             ></v-text-field>
           </v-layout>
-       
+
           <v-layout>
-            <v-text-field v-model="user.email" 
-            label="E-mail"
-            filled></v-text-field>
+            <v-text-field
+              v-model="user.email"
+              label="E-mail"
+              filled
+            ></v-text-field>
             <v-icon>mdi-account-edit</v-icon>
             <v-spacer></v-spacer>
-                  <v-text-field
+            <v-text-field
               v-model="user.role"
               filled
               disabled
@@ -52,14 +51,15 @@
             <!-- <v-text-field v-model="user[o].Nationality"></v-text-field> -->
           </v-layout>
           <v-layout>
-            <v-text-field v-model="user.Educational_status" 
-            label="Educational Status"
-            filled
-            disabled
-             ></v-text-field>
+            <v-text-field
+              v-model="user.Educational_status"
+              label="Educational Status"
+              filled
+              disabled
+            ></v-text-field>
             <v-icon>mdi-account-edit</v-icon>
             <v-spacer></v-spacer>
-                  <v-text-field
+            <v-text-field
               v-model="user.Nationality"
               filled
               disabled
@@ -68,10 +68,8 @@
             <!-- <v-text-field v-model="user[o].Nationality"></v-text-field> -->
           </v-layout>
           <v-flex class="text-center">
-            <v-btn 
-            round 
-            color="success text-white" rounded
-            @click="update()">Submit changes</v-btn
+            <v-btn round color="success text-white" rounded @click="update()"
+              >Submit changes</v-btn
             >
           </v-flex>
         </v-flex>
@@ -91,22 +89,28 @@ export default {
     };
   },
   methods: {
-    update(){
-     let data = {
-       Username: this.user.Username,
-       email: this.user.email,
-       organizationId: this.$store.getters.org_id,
-       password: this.user.password
-     }
-     api.updateAdminData(this.user.id, data).then( response => {
-       console.log(response);
-     })
-    },
-    getUserData() {
+    // update() {
+    //   let data = {
+    //     Username: this.user.Username,
+    //     fullname: this.user.fullname,
+    //     email: this.user.email,
+    //     organizationId: this.$store.getters.org_id,
+    //     password: this.user.password,
+    //     Educational_status: this.user.Educational_status,
+    //     gender:this.user.gender,
+    //     registered_inId: this.user.registered_inId,
+    //     works_inDepId:this.user.works_inDepId,
+    //     id: this.$store.getters.User_id
+    //   };
+    //   api.updateUserData(data).then(response => {
+    //     console.log(response);
+    //   });
+    // },
+    getUserData() { 
       var userId = this.$store.getters.User_id;
       api.getUser(userId).then(response => {
-           this.user = response.data;
-            console.log(this.user);
+        this.user = response.data;
+        console.log(this.user);
       });
     }
   },

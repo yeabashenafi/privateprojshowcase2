@@ -36,17 +36,21 @@
                 class="mx-5 cyan darken-3 white--text"
                 rounded
               >
-              <v-dialog v-model="dialog">
+                <v-dialog v-model="dialog">
                   <v-card>
-                      <v-card-title>You have succesfully added a comittee</v-card-title>
-                      <v-card-actions>
-                          <v-flex class="text-center">
-                              <v-btn color="green lighten-3" @click="Confirm()">ok</v-btn>
-                          </v-flex>
-                      </v-card-actions>
+                    <v-card-title
+                      >You have succesfully added a comittee</v-card-title
+                    >
+                    <v-card-actions>
+                      <v-flex class="text-center">
+                        <v-btn color="green lighten-3" @click="Confirm()"
+                          >ok</v-btn
+                        >
+                      </v-flex>
+                    </v-card-actions>
                   </v-card>
-                   have succesfully added a commitee
-              </v-dialog>
+                  have succesfully added a commitee
+                </v-dialog>
                 Add
               </v-btn>
             </div>
@@ -64,7 +68,7 @@ export default {
   data() {
     return {
       name: "",
-      dialog:false,
+      dialog: false,
       users: [],
       members: [
         {
@@ -89,15 +93,14 @@ export default {
         }
       }
       for (var j = 0; j < this.userInfo.length; j++) {
-          for(var k=0; k < this.users.length;k++){
-                if (this.users[k] == this.userInfo[j].fullname) {
-                        this.members.push({
-                        id: this.userInfo[j].id,
-                        isActive: true
-          });
-        }      
+        for (var k = 0; k < this.users.length; k++) {
+          if (this.users[k] == this.userInfo[j].fullname) {
+            this.members.push({
+              id: this.userInfo[j].id,
+              isActive: true
+            });
           }
-        
+        }
       }
       this.members.shift();
       let data = {
@@ -108,10 +111,10 @@ export default {
       };
       console.log(data);
       api.addCommittee(data).then(response => {
-         console.log(response);
-       });
-       this.dialog = true;
-       // console.log('user id '+ this.getuserid + ' office id ' + this.getofficeid);
+        console.log(response);
+      });
+      this.dialog = true;
+      // console.log('user id '+ this.getuserid + ' office id ' + this.getofficeid);
     },
     getAllUsers() {
       api.getUserInformotion().then(response => {
@@ -135,16 +138,16 @@ export default {
         console.log(this.officename);
       });
     },
-    Confirm(){
-        this.dialog = false;
-        this.name = "";
-        this.office = "";
-        this.users = [];
-        this.members = [
+    Confirm() {
+      this.dialog = false;
+      this.name = "";
+      this.office = "";
+      this.users = [];
+      this.members = [
         {
           id: "",
           isActive: true
-        },
+        }
       ];
     }
   },
