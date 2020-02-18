@@ -203,27 +203,7 @@ export default {
             })
         },
     
-    // selectOffice() {
-    //   for (var i = 0; i < this.officeInfo.length; i++) {
-    //     if (this.selectedOffice == this.officeInfo[i].officeType) {
-    //       this.tempId = this.officeInfo[i].id;
-    //     }
-    //   }
-    //   console.log(this.tempId);
-    //   // Validation on fields
-    //   if (this.officeName.length != 0 && this.selectedOffice == "") {
-    //     return (this.check = true);
-    //   } else {
-    //     return (this.check = false);
-    //   }
-    // },
-    // checkHighest() {
-    //   api.checkHigher().then(response => {
-    //     this.visible = !response.data.hasParent;
-    //     console.log(response);
-    //     this.officeName = response.data.hasParent.officeType;
-    //   });
-    // }
+    
   },
   mounted() {
     this.viewOffices();

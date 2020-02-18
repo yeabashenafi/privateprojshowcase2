@@ -106,7 +106,7 @@ export default {
     //     console.log(response);
     //   });
     // },
-    getUserData() { 
+    getUserData() {
       var userId = this.$store.getters.User_id;
       api.getUser(userId).then(response => {
         this.user = response.data;
