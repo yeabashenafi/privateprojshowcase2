@@ -3,12 +3,12 @@
     <v-app-bar app color="cyan darken-3" dark>
       <v-toolbar-title class="lighten-3">Curriculum Management</v-toolbar-title>
       <v-btn text rounded to="/">HOME</v-btn>
-      <v-btn text rounded to="/addcurriculumstructure" v-show="checkLogging"
+      <!-- <v-btn text rounded to="/addcurriculumstructure" v-show="checkLogging"
         >ADD</v-btn
       >
       <v-btn class="ml-3" text rounded to="/view" v-show="checkLogging"
         >VIEW</v-btn
-      >
+      > -->
 
       <v-spacer></v-spacer>
       <v-layout v-show="isexist">

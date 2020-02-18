@@ -11,7 +11,7 @@
                 <v-span @click="viewNotfy(index)">
                   <notification-bell
                     :count="no[index].length"
-                    :upperLimit="1"
+                    :upperLimit="5"
                     :prefixPlus="true"
                   />
                 </v-span>
@@ -50,7 +50,7 @@
                 <p class="title ">Programs which requested for Approval---- (Waits for approval )</p>
                 <p class="title cyan--text text--darken-3" >Comittee Name : {{ comName }} </p>
                <v-flex v-for="(item, index) in currInfo"  :key="item.index">
-                 <v-card color="orange lighten-2" class="mb-4 mt-5 pb-5" width="">
+                 <v-card color="orange lighten-2" class="mb-4 mt-5 pb-5" @click="seeDetail(item.id)">
                     <h4> {{ index + 1}}</h4>
                     <hr/>
                  <div class="pl-7">
@@ -58,18 +58,10 @@
                 <h3 class="pb-2">Program Name :--  {{ item.program_name }}</h3>
                 <h3>Program Type :-- {{item.program_type }}</h3>
                 <h3>Program Id :-- {{item.id }}</h3>
-
+                   <!-- <see-detail v-show="detail" :Pid="item.id"></see-detail> -->
                  </div>
                 </v-card>
                </v-flex>
-               <!-- <v-flex v-for="(item, index1) in sent"  :key="item.index">
-                 <v-card>
-                   <p>{{ index1 }}</p>
-                <h3>Program Name :  {{ item.RecieverComiteeId }}</h3>
-                <h3>Program Type : {{item.program_type }}</h3>
-                 </v-card>
-               </v-flex>
-                 -->
               </v-card-text>
               
             </v-card>
@@ -82,15 +74,18 @@
 </template>
 
 <script>
+// import seeDetail from './seeDetail'
 import NotificationBell from "vue-notification-bell";
 import { apiservice } from "../apiservice";
 const api = new apiservice();
 export default {
   components: {
-    NotificationBell
+    NotificationBell,
+    // seeDetail
   },
   data: () => {
     return {
+      detail: false,
       dialog: false,
       comittees: [],
       no: [],
@@ -141,7 +136,13 @@ export default {
 
     },
     
-     
+     seeDetail(id){
+       this.$router.push({ name: "viewStructure", params: { id: ":" + id } });
+       console.log(id + "program Id");
+      //  viewStructure(id) {
+      
+    
+     }
   },
   mounted() {
     this.getUserComittes();
