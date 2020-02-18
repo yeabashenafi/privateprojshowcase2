@@ -152,8 +152,8 @@ export default {
       }
       // var off_id = this.getAccoffId(this.office);
       this.ok = true;
-      for( var i=0; i<this.offices.length; i++){
-        if(this.office == this.offices[i].officeType){
+      for (var i = 0; i < this.offices.length; i++) {
+        if (this.office == this.offices[i].officeType) {
           this.works_inDepId = this.offices[i].id;
           console.log(this.works_inDepId);
         }
@@ -183,13 +183,13 @@ export default {
     //     console.log(this.orgs);
     //   });
     // },
-    getOffice(){
+    getOffice() {
       api.getAcademicOffices(this.$store.getters.org_id).then(response => {
-               this.offices = response;
-               console.log(this.offices);
-           for(var i= 0; i< this.offices.length; i++){
-              this.names.push(this.offices[i].officeType);
-           }
+        this.offices = response;
+        console.log(this.offices);
+        for (var i = 0; i < this.offices.length; i++) {
+          this.names.push(this.offices[i].officeType);
+        }
       });
     }
     // getAccoffId(name) {
@@ -212,7 +212,6 @@ export default {
     //       x.push(this.offices[i].officeType);
     //     }
     //   }
-
     //   return x;
     // }
   },

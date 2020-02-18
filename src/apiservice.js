@@ -37,7 +37,7 @@ export class apiservice {
     //  console.log(response.data);
     return response.data;
   }
-  async getStructure(id) {
+  async getStructure(id) {// get curriculum
     let response = await axios.get(`${API_URL}/y/${id}`);
     return response.data;
   }
@@ -57,19 +57,23 @@ export class apiservice {
     return response;
   }
   //update accounts
-  async updateUserData(data){
-      let response = await axios.put(`${API_URL}/Accounts`, data);
-      console.log(response);
-      return response;
+  async updateUserData(data) {
+    let response = await axios.put(`${API_URL}/Accounts`, data);
+    console.log(response);
+    return response;
   }
   async updateAdminData(adminid, data) {
     let find = {
       where: { id: adminid }
     };
-    let response = await axios.post(`${API_URL}/admins/upsertWithWhere`,find,data);
+    let response = await axios.post(
+      `${API_URL}/admins/upsertWithWhere`,
+      find,
+      data
+    );
     // console.log(response);
     return response;
-  } 
+  }
   ////
   async getOrganizations() {
     let response = await axios.get(`${API_URL}/Organizations`);
@@ -105,7 +109,8 @@ export class apiservice {
     let response = await axios.post(`${API_URL}/courses`, course);
     return response;
   }
-  async getAcademicOffices(orgid) {// get accadamic office they belongs organization
+  async getAcademicOffices(orgid) {
+    // get accadamic office they belongs organization
     let response = await axios.get(
       `${API_URL}/Organizations/${orgid}/AcademicOffices`
     );
@@ -134,6 +139,11 @@ export class apiservice {
   async howManyNotify(id) {
     let response = await axios.get(`${API_URL}/requests/${id}/checkRequests`);
     // console.log(response);
+    return response;
+  }
+  async getSendRequest(id){
+    let response = await axios.get(`${API_URL}/requests/${id}/viewsendRequest`);
+    console.log(response);
     return response;
   }
   // async setAdminTo(data){
