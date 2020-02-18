@@ -48,16 +48,21 @@
                             class="mx-5"
                           ></v-text-field>
                         </v-layout>
-                        <v-text class="headline"
-                          >Choose which catagories you want to fill</v-text
-                        >
-                        <v-select
-                          rounded
-                          label="Choose Category"
-                          :items="categories"
-                          v-model="category"
-                          multiple
-                        ></v-select>
+                        <v-layout row width="50%">
+                          <v-text class="py-5"
+                            >Choose which catagories you want to fill:</v-text
+                          >
+                          <v-select
+                            rounded
+                            label="Choose Category"
+                            :items="categories"
+                            v-model="category"
+                            multiple
+                          ></v-select>
+                          <v-btn @click="displayOptions" v-show="close"
+                            >Finish Selection</v-btn
+                          >
+                        </v-layout>
                         <v-textarea
                           label="Background"
                           v-model="background"
@@ -182,7 +187,7 @@
                               </v-flex>
                             </template>
                           </v-flex>
-                          <v-flex>
+                          <!-- <v-flex>
                             <p class="headline">
                               Curriculum Learning Outcome/s
                             </p>
@@ -214,7 +219,7 @@
                                 ></v-select>
                               </v-flex>
                             </template>
-                          </v-flex>
+                          </v-flex> -->
                         </v-container>
                       </v-card-actions>
                       <v-btn @click="el = 3">Continue</v-btn>
@@ -252,28 +257,52 @@
                                   </v-dialog>
                                 </v-layout>
                               </v-layout>
-                              <v-flex class="ma-5">
-                                <v-layout text-md-center>
-                                  <v-btn
-                                    color="success"
-                                    @click="SaveChange()"
-                                    text
-                                  >
-                                    Save change
-                                  </v-btn>
-                                  <v-spacer></v-spacer>
-                                  <v-btn
-                                    color="success"
-                                    @click="addCurriculum()"
-                                    text
-                                    >Send for approval</v-btn
-                                  >
-                                </v-layout>
-                              </v-flex>
                             </v-flex>
                           </template>
                         </v-flex>
                       </v-card-actions>
+                      <v-flex>
+                        <p class="headline">
+                          Curriculum Learning Outcome/s
+                        </p>
+                        <template v-for="(CLO, index) in clo">
+                          <v-flex v-bind:key="CLO.index">
+                            <v-layout>
+                              <p class="title">CLO{{ index + 1 }}</p>
+                              <v-spacer></v-spacer>
+                              <v-icon @click="reduceClo()">mdi-minus</v-icon>
+                              <v-icon @click="addCLO()">mdi-plus</v-icon>
+                            </v-layout>
+                            <v-text-field
+                              outlined
+                              label="Name of Educational Outcome"
+                              v-model="CLO.name"
+                            ></v-text-field>
+                            <v-text-field
+                              outlined
+                              label="Description"
+                              v-model="CLO.details"
+                            ></v-text-field>
+                            <v-select
+                              multiple
+                              :items="PEOS"
+                              label="Mapped PEO/PEOs"
+                              v-model="CLO.mappedPEO"
+                            ></v-select>
+                          </v-flex>
+                        </template>
+                      </v-flex>
+                      <v-flex class="ma-5">
+                        <v-layout text-md-center>
+                          <v-btn color="success" @click="SaveChange()" text>
+                            Save change
+                          </v-btn>
+                          <v-spacer></v-spacer>
+                          <v-btn color="success" @click="addCurriculum()" text
+                            >Send for approval</v-btn
+                          >
+                        </v-layout>
+                      </v-flex>
                       <CourseDetails v-if="show_courseD" :name="courses.name" />
                     </v-card>
                   </v-stepper-content>
@@ -310,6 +339,7 @@ export default {
   },
   data: () => {
     return {
+      close: true,
       show_back: false,
       show_grades: false,
       show_rational: false,
@@ -410,6 +440,23 @@ export default {
     };
   },
   methods: {
+    displayOptions() {
+      var x = 0;
+      for (x; x <= this.category.length; x++) {
+        if (this.category[x] == "Background") {
+          this.show_back = true;
+        } else if (this.category[x] == "Grading Scale") {
+          this.show_grades = true;
+        } else if (this.category[x] == "Rational") {
+          this.show_rational = true;
+        } else if (this.category[x] == "Medium of Instruction") {
+          this.show_medium = true;
+        } else if (this.category[x] == "Course Coding") {
+          this.show_coursecode = true;
+        }
+      }
+      this.close = false;
+    },
     showcd() {
       this.show_courseD = !this.show_courseD;
     },
