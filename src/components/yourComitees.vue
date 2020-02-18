@@ -65,7 +65,7 @@
                 </v-card>
                </v-flex> -->
                <v-flex class="mx-5" v-for="(request,index) in notInfo" :key="request.index">
-                 <v-card color="cyan lighten-2">
+                 <v-card color="cyan lighten-2" @click="seeDetail(request.frameworkid)">
                    <v-card-title>{{index+1}}</v-card-title>
                    <v-card-actions>
                      <p class="font-weight-bold">You have recieved an approval request from <strong>{{request.senderName}}</strong> for the framework <strong>{{request.frameworkname}}</strong></p>
@@ -106,7 +106,8 @@ export default {
       currInfo: [],
       notInfo:[{
         senderName:'',
-        frameworkname:''
+        frameworkname:'',
+        frameworkid:''
       }],
       sent: []
     };
@@ -151,7 +152,8 @@ export default {
         
           this.notInfo.push({
         senderName:response,
-        frameworkname:data.program_name
+        frameworkname:data.program_name,
+        frameworkid: data.id
       })
       console.log(this.notInfo)
         })
