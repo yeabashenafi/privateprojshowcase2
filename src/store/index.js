@@ -17,9 +17,13 @@ export default new Vuex.Store({
     Username: "",
     email: "",
     role: "",
-    parentId: ""
+    parentId: "",
+    works_inDep:""
   },
   mutations: {
+    setOffice(state,id){
+      state.works_inDep = id;
+    },
     setUserID(state, ID) {
       state.User_id = ID;
     },
@@ -53,7 +57,8 @@ export default new Vuex.Store({
     Username: state => state.Username,
     role: state => state.role,
     org_id: state => state.org_id,
-    parentId: state => state.parentId
+    parentId: state => state.parentId,
+    works_inDep: state => state.works_inDep,
   },
   plugins: [vuexpersist.plugin],
   actions: {},
