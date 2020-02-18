@@ -72,14 +72,6 @@
                    </v-card-actions>
                  </v-card>
                </v-flex>
-               <!-- <v-flex v-for="(item, index1) in sent"  :key="item.index">
-                 <v-card>
-                   <p>{{ index1 }}</p>
-                <h3>Program Name :  {{ item.RecieverComiteeId }}</h3>
-                <h3>Program Type : {{item.program_type }}</h3>
-                 </v-card>
-               </v-flex>
-                 -->
               </v-card-text>
               
             </v-card>
@@ -92,15 +84,18 @@
 </template>
 
 <script>
+// import seeDetail from './seeDetail'
 import NotificationBell from "vue-notification-bell";
 import { apiservice } from "../apiservice";
 const api = new apiservice();
 export default {
   components: {
-    NotificationBell
+    NotificationBell,
+    // seeDetail
   },
   data: () => {
     return {
+      detail: false,
       dialog: false,
       comittees: [],
       no: [],
@@ -169,7 +164,13 @@ export default {
 
     },
     
-     
+     seeDetail(id){
+       this.$router.push({ name: "viewStructure", params: { id: ":" + id } });
+       console.log(id + "program Id");
+      //  viewStructure(id) {
+      
+    
+     }
   },
   mounted() {
     this.getUserComittes();

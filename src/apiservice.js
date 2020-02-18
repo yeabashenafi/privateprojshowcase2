@@ -16,9 +16,11 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/Accounts/${id}/getFrameworks`);
     return response.data.frameworks;
   }
-  async getyourComitee(id){
-      let response =  await axios.get(`${API_URL}/committees/{id}/checkComitees?user_id=${id}`);
-      return response.data;
+  async getyourComitee(id) {
+    let response = await axios.get(
+      `${API_URL}/committees/{id}/checkComitees?user_id=${id}`
+    );
+    return response.data;
   }
   async addStructure(data) {
     let response = await axios.post(`${API_URL}/y`, data);
@@ -111,22 +113,26 @@ export class apiservice {
     let response = await axios.post(`${API_URL}/courses`, course);
     return response;
   }
-  async checkRequest(id){
-    let response = await axios.get(`${API_URL}/requests/checkcurriculum?currId=${id}`)
+  async checkRequest(id) {
+    let response = await axios.get(
+      `${API_URL}/requests/checkcurriculum?currId=${id}`
+    );
     return response.data.hasrequest;
   }
   async getAcademicOffices(orgid) {
-    let response = await axios.get(`${API_URL}/Organizations/${orgid}/AcademicOffices`
+    let response = await axios.get(
+      `${API_URL}/Organizations/${orgid}/AcademicOffices`
     );
-     return response.data;
-    
+    return response.data;
   }
-  async sendRequest(data){
-    let response = await axios.post(`${API_URL}/requests`,data)
+  async sendRequest(data) {
+    let response = await axios.post(`${API_URL}/requests`, data);
     return response;
   }
-  async getparentcomitees(offid){
-    let response = await axios.get(`${API_URL}/committees/{id}/getparentcomittees?office_id=${offid}`);
+  async getparentcomitees(offid) {
+    let response = await axios.get(
+      `${API_URL}/committees/{id}/getparentcomittees?office_id=${offid}`
+    );
     return response.data.parent_Comittees;
   }
   async getOrganization(id){
@@ -138,12 +144,11 @@ export class apiservice {
     console.log(response);
     return response;
   }
-  // }
-  // async getChildren(){
-
-  // }
-  async createChildren(data){
-    let response = await axios.post(`${API_URL}/AccadamicOffices/{id}/createchildren`,data);
+  async createChildren(data) {
+    let response = await axios.post(
+      `${API_URL}/AccadamicOffices/{id}/createchildren`,
+      data
+    );
     return response;
   }
   async getAdminInfo(id) {
@@ -152,11 +157,12 @@ export class apiservice {
     console.log(response);
     return response;
   }
-  async checkHigher(id){
-    let response = await axios.get(`${API_URL}/AccadamicOffices/${id}/checkhigher`);
+  async checkHigher(id) {
+    let response = await axios.get(
+      `${API_URL}/AccadamicOffices/${id}/checkhigher`
+    );
     console.log(response);
     return response;
-
   }
   async howManyNotify(id) {
     let response = await axios.get(`${API_URL}/requests/${id}/checkRequests`);

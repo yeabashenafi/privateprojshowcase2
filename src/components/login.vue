@@ -93,7 +93,7 @@ export default {
         };
         api.login(data).then(response => {
           console.log(response);
-          this.$store.commit("setOffice",response.data.works_inDep)
+          this.$store.commit("setOffice", response.data.works_inDep);
           this.$store.commit("setUserID", response.data.id);
           this.$store.commit("change");
           this.$store.commit("setusername", response.data.username);
