@@ -37,7 +37,7 @@ export class apiservice {
     //  console.log(response.data);
     return response.data;
   }
-  async getStructure(id) {
+  async getStructure(id) {// get curriculum
     let response = await axios.get(`${API_URL}/y/${id}`);
     return response.data;
   }
@@ -131,6 +131,10 @@ export class apiservice {
     );
     return response.data.parent_Comittees;
   }
+  async getOrganization(id){
+    let response = await axios.get(`${API_URL}/Organizations/${id}`);
+    return response.data;
+  }
   async addCommittee(data) {
     let response = await axios.post(`${API_URL}/committees`, data);
     console.log(response);
@@ -159,6 +163,11 @@ export class apiservice {
   async howManyNotify(id) {
     let response = await axios.get(`${API_URL}/requests/${id}/checkRequests`);
     // console.log(response);
+    return response;
+  }
+  async getSendRequest(id){
+    let response = await axios.get(`${API_URL}/requests/${id}/viewsendRequest`);
+    console.log(response);
     return response;
   }
   // async setAdminTo(data){
