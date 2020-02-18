@@ -38,7 +38,7 @@
                             filled
                             rounded
                             label="Program Type"
-                            class="mx-5 "
+                            class="mx-5"
                           ></v-select>
                           <v-spacer></v-spacer>
                           <v-text-field
@@ -48,9 +48,20 @@
                             class="mx-5"
                           ></v-text-field>
                         </v-layout>
+                        <v-text class="headline"
+                          >Choose which catagories you want to fill</v-text
+                        >
+                        <v-select
+                          rounded
+                          label="Choose Category"
+                          :items="categories"
+                          v-model="category"
+                          multiple
+                        ></v-select>
                         <v-textarea
                           label="Background"
                           v-model="background"
+                          v-show="show_back"
                           outlined
                           height="10"
                           class="mb-3"
@@ -59,11 +70,13 @@
                           label="Grading Scale"
                           solo
                           v-model="gradingScale"
+                          v-show="show_grades"
                         ></v-text-field>
                         <v-textarea
                           label="Rational"
                           v-model="rational"
                           solo
+                          v-show="show_rational"
                           height="10"
                         ></v-textarea>
 
@@ -71,12 +84,14 @@
                           <v-text-field
                             label="Medium of Instruction"
                             v-model="medium"
+                            v-show="show_medium"
                           ></v-text-field>
                           <v-spacer></v-spacer>
 
                           <v-text-field
                             label="Course Coding"
                             v-model="coursecoding"
+                            v-show="show_coursecode"
                           ></v-text-field>
                         </v-layout>
                         <v-text-field
@@ -295,6 +310,11 @@ export default {
   },
   data: () => {
     return {
+      show_back: false,
+      show_grades: false,
+      show_rational: false,
+      show_medium: false,
+      show_coursecode: false,
       show_courseD: false,
       refers_name: "",
       preRequisites: "",
@@ -321,6 +341,14 @@ export default {
         "PHD. (PG)",
         "Doctoral (PG)"
       ],
+      categories: [
+        "Background",
+        "Grading Scale",
+        "Rational",
+        "Medium of Instruction",
+        "Course Coding"
+      ],
+      category: [],
       name: "",
       type: "",
       background: "",
