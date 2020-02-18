@@ -15,7 +15,7 @@
             <v-container class="text-center">
             <v-btn class="mx-2 display-4"  fab dark large color="primary">
               <v-img :src="img" aspect-ratio="1.7"></v-img>
-              <!-- <v-icon dark >mdi-image</v-icon> -->
+              
             </v-btn>
             </v-container>
             <v-flex class="text-center"> 
@@ -42,14 +42,17 @@ export default {
       parent: {},
       img:require('../assets/logo.svg'),
       org:{},
-      choices:[{
-        id: 1,
-          name: 'Applications :',
-          children: [
-            { id: 2, name: 'Calendar : app' },
-            { id: 3, name: 'Chrome : app' },
-            { id: 4, name: 'Webstorm : app' },
-          ],
+      struct:[{}],
+      choices:[ {
+          id: '',
+           name: '',
+           children: [{
+             id:'',name:''
+           },]
+          //   { id: 2, name: 'Calendar : app' },
+          //   { id: 3, name: 'Chrome : app' },
+          //   { id: 4, name: 'Webstorm : app' },
+          // ],
       }],
       orgName:""
     };
@@ -60,11 +63,36 @@ export default {
         this.offices = response;
         console.log(this.offices);
         for (var i = 0; i < this.offices.length; i++) {
-          if ( !this.offices[i].hasParent && this.offices[i].hasParent != undefined) {
+          if (this.offices[i].parentId == "") {
             this.parent = this.offices[i];
           }
+          console.log(this.parent);
         }
       });
+    },
+    getHighest(){
+      api.checkHigher(this.$store.getters.org_id).then((data)=>{
+        console.log(data);
+
+        this.choices.push({
+          id: 1,
+           name: data.data.hasParent.officeType,
+          //  children: [{
+          //    id:'',name:''
+          //  },]
+        })
+        api.getAcademicOffices(this.$store.getters.org_id).then((response) =>{
+          console.log(response)
+          for(var i=1;i<response.length;i++){
+              this.choices.push({
+                id:i+1,
+                name:response[i].officeType,
+              })
+          }
+        })
+      })
+      this.choices.shift();
+      console.log(this.choices)
     },
     getOrganization(){
       api.getOrganization(this.$store.getters.org_id).then((data) => {
@@ -75,9 +103,11 @@ export default {
   },
   mounted() {
     this.getOffices();
+    this.getHighest();
     this.getOrganization();
   }
 };
 </script>
 
-<style></style>
+<style>
+</style>

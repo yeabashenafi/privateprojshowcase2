@@ -8,6 +8,10 @@ export class apiservice {
       console.log(res);
     });
   }
+  async getComiteeName(data){
+  let response =   await axios.get(`${API_URL}/committees/${data}`);
+  return response.data.name;
+  }
   async getusersFrameworks(id) {
     let response = await axios.get(`${API_URL}/Accounts/${id}/getFrameworks`);
     return response.data.frameworks;
@@ -134,6 +138,10 @@ export class apiservice {
     console.log(response);
     return response;
   }
+  // }
+  // async getChildren(){
+
+  // }
   async createChildren(data){
     let response = await axios.post(`${API_URL}/AccadamicOffices/{id}/createchildren`,data);
     return response;
