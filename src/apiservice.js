@@ -121,6 +121,10 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/committees/{id}/getparentcomittees?office_id=${offid}`);
     return response.data.parent_Comittees;
   }
+  async getOrganization(id){
+    let response = await axios.get(`${API_URL}/Organizations/${id}`);
+    return response.data;
+  }
   async addCommittee(data) {
     let response = await axios.post(`${API_URL}/committees`, data);
     console.log(response);
