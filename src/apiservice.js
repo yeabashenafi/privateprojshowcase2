@@ -181,9 +181,7 @@ export class apiservice {
     return response;
   }
   async getComponent(id) {
-    let response = await axios.get(
-      `${API_URL}/currCOmponents/${id}/getComponent`
-    );
+    let response = await axios.get(`${API_URL}/currCOmponents/${id}/getComponent`);
     console.log(response);
     return response.data;
   }
