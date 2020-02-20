@@ -19,6 +19,8 @@
                   <v-stepper-step :complete="el > 3" step="3"
                     >Step 3</v-stepper-step
                   >
+                  <v-stepper-step :complete="el > 4" step="4">
+                    step 4</v-stepper-step>
                 </v-stepper-header>
                 <v-divider></v-divider>
                 <v-stepper-items>
@@ -304,8 +306,50 @@
                         </v-layout>
                       </v-flex>
                       <CourseDetails v-if="show_courseD" :name="courses.name" />
+                      <v-card-actions>
+                         <v-btn @click="el = 4">Continue</v-btn>
+                      </v-card-actions>
                     </v-card>
                   </v-stepper-content>
+                  <!--  the forth stepper -->
+                  <v-stepper-content step="4"> 
+                    <v-card>
+                      <v-flex>
+      <v-card width="75%">
+        <v-card-title>
+          add adynamic fields
+        </v-card-title>
+        <v-card-text class="px-5">
+          <v-select
+            label="Select Fields"
+            :items="compName"
+            multiple
+            v-model="selected"
+          ></v-select>
+        </v-card-text>
+        <v-actions>
+          <v-template v-for="(select, index) in selected" :key="select.index">
+            <v-flex>
+              <!-- {{ index }} -->
+              <!-- class="px-5" -->
+              <v-text-field
+                :label="select"
+                :v-model="selected"
+                v-model="detail[index]"
+                class="px-6"
+              ></v-text-field>
+            </v-flex>
+          </v-template>
+          <v-btn @click="addProgram()">Add Program</v-btn>
+        </v-actions>
+      </v-card>
+    </v-flex>
+    <v-card-actions>
+    
+
+    </v-card-actions>
+          </v-card>
+          </v-stepper-content>
                 </v-stepper-items>
               </v-stepper>
             </v-flex>
@@ -339,6 +383,11 @@ export default {
   },
   data: () => {
     return {
+       component: [],
+      compName: [],
+      selected: [],
+      detail: [],
+      /////////
       close: true,
       show_back: false,
       show_grades: false,
@@ -440,6 +489,33 @@ export default {
     };
   },
   methods: {
+
+    //////////// daynamic field code frag
+      getComp() {
+      api.getComponent(this.$store.getters.org_id).then(response => {
+        //  console.log(response);
+        this.component = response.data;
+        console.log(this.component);
+        for (var i = 0; i < this.component.length; i++) {
+          this.compName.push(this.component[i].name);
+        }
+        console.log(this.compName);
+      });
+    },
+    addProgram() {
+      console.log(this.selected);
+      console.log(this.detail);
+      for (var i = 0; i < this.detail.length; i++) {
+          if(this.detail[i] == undefined){
+              this.detail[i] = "";
+          }
+        console.log(this.selected[i] + " : " + this.detail[i]);
+      }
+      // this.selected = '';
+      // this.detail = ''
+      // console.log(this.select);
+    },
+    /////////////end 
     displayOptions() {
       var x = 0;
       for (x; x <= this.category.length; x++) {
@@ -587,6 +663,7 @@ export default {
   },
   mounted() {
     this.getBackground();
+     this.getComp();
   }
 };
 </script>

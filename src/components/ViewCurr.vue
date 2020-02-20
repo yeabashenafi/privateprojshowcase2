@@ -17,7 +17,7 @@
                   <p>gradreqs: {{ frameworks.gradreqs }}</p>
                 </v-container>
                 <v-btn
-                  color="green"
+                  color="success white--text"
                   @click="
                     sendForApproval(frameworks.id, frameworks.program_name)
                   "

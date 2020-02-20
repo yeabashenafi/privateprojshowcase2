@@ -13,7 +13,7 @@
                     :count="no[index].length"
                     :upperLimit="9"
                     :prefixPlus="true"
-                  /> 
+                  />
                 </v-span>
               </v-layout>
             </v-flex>
@@ -32,12 +32,11 @@
             transition="dialog-bottom-transition"
             scrollable
           >
-          <!-- <v-flex>
+            <!-- <v-flex>
                 <h1>Comittee Name: {{ comName }}</h1>
           </v-flex> -->
             <v-card>
-            
-                <v-card-title>
+              <v-card-title>
                 <v-toolbar flat dark color="cyan darken-2">
                   <v-btn icon dark @click="dialog = false">
                     <v-icon>mdi-close</v-icon>
@@ -59,7 +58,6 @@
                  </v-card>
                </v-flex>
               </v-card-text>
-              
             </v-card>
           </v-dialog>
         </v-card>
@@ -76,7 +74,7 @@ import { apiservice } from "../apiservice";
 const api = new apiservice();
 export default {
   components: {
-    NotificationBell,
+    NotificationBell
     // seeDetail
   },
   data: () => {
@@ -87,7 +85,7 @@ export default {
       no: [],
       comName: "",
       req: [],
-      requests:[],
+      requests: [],
       yourComittee: [],
       currInfo: [],
       notInfo:[{
@@ -127,13 +125,12 @@ export default {
       this.req = this.no[index];
       console.log(this.comName);
       console.log(this.req.length);
-      for(var i=0; i<this.req.length; i++){
+      for (var i = 0; i < this.req.length; i++) {
         //this.notInfo.push({})
         var x = this.req[i].forCurriculumId;
         var y = this.req[i].id;
         console.log(this.req[i].id);
         api.getComiteeName(this.req[i].SenderComitteeId).then(response => {
-          
           api.getStructure(x).then(data => {
           
           //this.notInfo[i].frameworkname = response.program_name;
@@ -147,12 +144,10 @@ export default {
       console.log(this.notInfo)
         })
           //this.notInfo[i].senderName = response;
-                  })
-        
+        });
       }
-      
-      this.notInfo.shift();
 
+      this.notInfo.shift();
     },
     
      seeDetail(id,req_id){
@@ -160,13 +155,10 @@ export default {
        this.$router.push({ name: "viewStructure", params: { id: ":" + id,request:":"+req_id } });
        console.log(id + "program Id");
       //  viewStructure(id) {
-      
-    
-     }
+    }
   },
   mounted() {
     this.getUserComittes();
-
   }
 };
 </script>

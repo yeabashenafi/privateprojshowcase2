@@ -161,92 +161,86 @@ export default {
   //         this.officeName.push(this.officeInfo[i].officeType);
   //         console.log(this.officeName);
   //       }
-  //   }, 
-    methods: {
-        addChild(){
-            this.coffices.push({})
-        },
-        addChildren(){
-             for(var i=0;i<this.coffices.length;i++){
-                 this.coffices[i].parentId = this.tempId;
-                 this.coffices[i].orgId = this.$store.getters.org_id;
-             }
-             api.createChildren(this.coffices).then((data) =>{
-                 console.log(data)
-                 this.viewOffices();
-             });
-             
-        },
-        addOffice(){
-            // if(this.tempId == ''){
-            //     this.hasParent = false;
-            // }
-            let data = {
-                officeType: this.Hoffice.name,
-                parentId: this.Hoffice.id,
-                 // hasParent: this.hasParent,
-                organizationId: this.$store.getters.org_id
-            };
-            console.log(data)
-        api.addOffices(data).then(response => {
-            console.log(response);
-            if(this.tempId == ''){
-            this.tempId = response.data.id;
-            }
-        
-      })
-        },
-        viewOffices(){
-            api.getAcademicOffices(this.$store.getters.org_id).then( response => {
-                // console.log(response);
-                this.officeInfo = response;
-                console.log(this.officeInfo.length);
-                for(var i=0;i<this.officeInfo.length;i++){
-                    this.officeName.push(this.officeInfo[i].officeType);
-                    console.log(this.officeName)
-                }
-                
-                //  if(this.officeName.length != 0 && this.selectedOffice == ''){
-                //   return this.check = true;
-                // }
-                // else {
-                //     return this.check = false;
-                // }
-            });
-            // for(var i=0; i < this.officeInfo.length; i++){
-            //         console.log("hey")
-            //        this.officeName[i] = this.officeInfo[i].officeType;
-            //        this.officeName.push("");
-                    
-            //     }
-                console.log("It has been recieved",this.officeName);
-            //Validation on text fields
-           
-        },
-        selectOffice(){
-            for(var i=0; i<this.officeInfo.length; i++){
-                if(this.selectedOffice == this.officeInfo[i].officeType){
-                    this.tempId = this.officeInfo[i].id;
-                }  
-            }
-            console.log(this.tempId);
-            // Validation on fields
-           if(this.officeName.length != 0 && this.selectedOffice == ''){
-                  return this.check = true;
-                }
-                else {
-                    return this.check = false;
-                }
-        },
-        checkHighest(){
-            api.checkHigher().then((response) => {
-                this.visible = !response.data.hasParent;
-                console.log(response);
-                //this.officeName = response.data.hasParent.officeType;
-            })
-        },
-    
-    
+  //   },
+  methods: {
+    addChild() {
+      this.coffices.push({});
+    },
+    addChildren() {
+      for (var i = 0; i < this.coffices.length; i++) {
+        this.coffices[i].parentId = this.tempId;
+        this.coffices[i].orgId = this.$store.getters.org_id;
+      }
+      api.createChildren(this.coffices).then(data => {
+        console.log(data);
+        this.viewOffices();
+      });
+    },
+    addOffice() {
+      // if(this.tempId == ''){
+      //     this.hasParent = false;
+      // }
+      let data = {
+        officeType: this.Hoffice.name,
+        parentId: this.Hoffice.id,
+        // hasParent: this.hasParent,
+        organizationId: this.$store.getters.org_id
+      };
+      console.log(data);
+      api.addOffices(data).then(response => {
+        console.log(response);
+        if (this.tempId == "") {
+          this.tempId = response.data.id;
+        }
+      });
+    },
+    viewOffices() {
+      api.getAcademicOffices(this.$store.getters.org_id).then(response => {
+        // console.log(response);
+        this.officeInfo = response;
+        console.log(this.officeInfo.length);
+        for (var i = 0; i < this.officeInfo.length; i++) {
+          this.officeName.push(this.officeInfo[i].officeType);
+          console.log(this.officeName);
+        }
+
+        //  if(this.officeName.length != 0 && this.selectedOffice == ''){
+        //   return this.check = true;
+        // }
+        // else {
+        //     return this.check = false;
+        // }
+      });
+      // for(var i=0; i < this.officeInfo.length; i++){
+      //         console.log("hey")
+      //        this.officeName[i] = this.officeInfo[i].officeType;
+      //        this.officeName.push("");
+
+      //     }
+      console.log("It has been recieved", this.officeName);
+      //Validation on text fields
+    },
+    selectOffice() {
+      for (var i = 0; i < this.officeInfo.length; i++) {
+        if (this.selectedOffice == this.officeInfo[i].officeType) {
+          this.tempId = this.officeInfo[i].id;
+        }
+      }
+      console.log(this.tempId);
+      // Validation on fields
+      if (this.officeName.length != 0 && this.selectedOffice == "") {
+        return (this.check = true);
+      } else {
+        return (this.check = false);
+      }
+    },
+    checkHighest() {
+      api.checkHigher().then(response => {
+        this.visible = !response.data.hasParent;
+        console.log(response);
+        //this.officeName = response.data.hasParent.officeType;
+      });
+    }
   },
 
   //   selectOffice() {
