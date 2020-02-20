@@ -13,7 +13,7 @@
                     :count="no[index].length"
                     :upperLimit="9"
                     :prefixPlus="true"
-                  /> 
+                  />
                 </v-span>
               </v-layout>
             </v-flex>
@@ -32,12 +32,11 @@
             transition="dialog-bottom-transition"
             scrollable
           >
-          <!-- <v-flex>
+            <!-- <v-flex>
                 <h1>Comittee Name: {{ comName }}</h1>
           </v-flex> -->
             <v-card>
-            
-                <v-card-title>
+              <v-card-title>
                 <v-toolbar flat dark color="cyan darken-2">
                   <v-btn icon dark @click="dialog = false">
                     <v-icon>mdi-close</v-icon>
@@ -47,9 +46,14 @@
                 </v-toolbar>
               </v-card-title>
               <v-card-text>
-                <p class="title ">Programs which requested for Approval---- (Waits for approval )</p>
-                <p class="title cyan--text text--darken-3" >Comittee Name : {{ comName }} </p>
-               <!-- <v-flex v-for="(item, index) in currInfo" class="mx-10"  :key="item.index">
+                <p class="title ">
+                  Programs which requested for Approval---- (Waits for approval
+                  )
+                </p>
+                <p class="title cyan--text text--darken-3">
+                  Comittee Name : {{ comName }}
+                </p>
+                <!-- <v-flex v-for="(item, index) in currInfo" class="mx-10"  :key="item.index">
                  <v-card color="cyan lighten-4" @click="ViewRequest()" class="mb-4 mt-5 pb-5">
                     <h4> {{ index + 1}}</h4>
                     <hr/>
@@ -64,16 +68,27 @@
                  </div>
                 </v-card>
                </v-flex> -->
-               <v-flex class="mx-5" v-for="(request,index) in notInfo" :key="request.index">
-                 <v-card color="cyan lighten-2" @click="seeDetail(request.frameworkid)">
-                   <v-card-title>{{index+1}}</v-card-title>
-                   <v-card-actions>
-                     <p class="font-weight-bold">You have recieved an approval request from <strong>{{request.senderName}}</strong> for the framework <strong>{{request.frameworkname}}</strong></p>
-                   </v-card-actions>
-                 </v-card>
-               </v-flex>
+                <v-flex
+                  class="mx-5"
+                  v-for="(request, index) in notInfo"
+                  :key="request.index"
+                >
+                  <v-card
+                    color="cyan lighten-2"
+                    class="mb-5"
+                    @click="seeDetail(request.frameworkid)"
+                  >
+                    <v-card-title>{{ index + 1 }}</v-card-title>
+                    <v-card-actions>
+                      <p class="font-weight-bold">
+                        You have recieved an approval request from
+                        <strong>{{ request.senderName }}</strong> for the
+                        framework <strong>{{ request.frameworkname }}</strong>
+                      </p>
+                    </v-card-actions>
+                  </v-card>
+                </v-flex>
               </v-card-text>
-              
             </v-card>
           </v-dialog>
         </v-card>
@@ -90,7 +105,7 @@ import { apiservice } from "../apiservice";
 const api = new apiservice();
 export default {
   components: {
-    NotificationBell,
+    NotificationBell
     // seeDetail
   },
   data: () => {
@@ -101,14 +116,16 @@ export default {
       no: [],
       comName: "",
       req: [],
-      requests:[],
+      requests: [],
       yourComittee: [],
       currInfo: [],
-      notInfo:[{
-        senderName:'',
-        frameworkname:'',
-        frameworkid:''
-      }],
+      notInfo: [
+        {
+          senderName: "",
+          frameworkname: "",
+          frameworkid: ""
+        }
+      ],
       sent: []
     };
   },
@@ -140,43 +157,36 @@ export default {
       this.req = this.no[index];
       console.log(this.comName);
       console.log(this.req.length);
-      for(var i=0; i<this.req.length; i++){
+      for (var i = 0; i < this.req.length; i++) {
         //this.notInfo.push({})
         var x = this.req[i].forCurriculumId;
         console.log(x);
         api.getComiteeName(this.req[i].SenderComitteeId).then(response => {
-          
           api.getStructure(x).then(data => {
-          
-          //this.notInfo[i].frameworkname = response.program_name;
-        
-          this.notInfo.push({
-        senderName:response,
-        frameworkname:data.program_name,
-        frameworkid: data.id
-      })
-      console.log(this.notInfo)
-        })
-          //this.notInfo[i].senderName = response;
-                  })
-        
-      }
-      
-      this.notInfo.shift();
+            //this.notInfo[i].frameworkname = response.program_name;
 
+            this.notInfo.push({
+              senderName: response,
+              frameworkname: data.program_name,
+              frameworkid: data.id
+            });
+            console.log(this.notInfo);
+          });
+          //this.notInfo[i].senderName = response;
+        });
+      }
+
+      this.notInfo.shift();
     },
-    
-     seeDetail(id){
-       this.$router.push({ name: "viewStructure", params: { id: ":" + id } });
-       console.log(id + "program Id");
+
+    seeDetail(id) {
+      this.$router.push({ name: "viewStructure", params: { id: ":" + id } });
+      console.log(id + "program Id");
       //  viewStructure(id) {
-      
-    
-     }
+    }
   },
   mounted() {
     this.getUserComittes();
-
   }
 };
 </script>

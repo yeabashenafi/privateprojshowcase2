@@ -1,6 +1,6 @@
 <template>
   <v-layout row class="">
-    <v-flex class="col pa-4 grey lighten-3 ma-5 align-center" color=" " >
+    <v-flex class="col pa-4 grey lighten-3 ma-5 align-center" color=" ">
       <v-card class="mt-5 mx-auto py-5" width="700px" height="501">
         <v-card-title class="pa-3">
           <v-container>

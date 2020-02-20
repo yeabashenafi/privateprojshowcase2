@@ -8,9 +8,9 @@ export class apiservice {
       console.log(res);
     });
   }
-  async getComiteeName(data){
-  let response =   await axios.get(`${API_URL}/committees/${data}`);
-  return response.data.name;
+  async getComiteeName(data) {
+    let response = await axios.get(`${API_URL}/committees/${data}`);
+    return response.data.name;
   }
   async getusersFrameworks(id) {
     let response = await axios.get(`${API_URL}/Accounts/${id}/getFrameworks`);
@@ -41,7 +41,8 @@ export class apiservice {
     //  console.log(response.data);
     return response.data;
   }
-  async getStructure(id) {// get curriculum
+  async getStructure(id) {
+    // get curriculum
     let response = await axios.get(`${API_URL}/y/${id}`);
     return response.data;
   }
@@ -135,7 +136,7 @@ export class apiservice {
     );
     return response.data.parent_Comittees;
   }
-  async getOrganization(id){
+  async getOrganization(id) {
     let response = await axios.get(`${API_URL}/Organizations/${id}`);
     return response.data;
   }
@@ -169,10 +170,22 @@ export class apiservice {
     // console.log(response);
     return response;
   }
-  async getSendRequest(id){
+  async getSendRequest(id) {
     let response = await axios.get(`${API_URL}/requests/${id}/viewsendRequest`);
     console.log(response);
     return response;
+  }
+  async setnewComponent(data) {
+    let response = await axios.post(`${API_URL}/currCOmponents`, data);
+    console.log(response);
+    return response;
+  }
+  async getComponent(id) {
+    let response = await axios.get(
+      `${API_URL}/currCOmponents/${id}/getComponent`
+    );
+    console.log(response);
+    return response.data;
   }
   // async setAdminTo(data){
   //   let response = await axios.post(`${API_URL}/Accounts/setAdmin`,data);

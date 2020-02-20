@@ -20,12 +20,12 @@
               v-model="user.Username"
               label="username"
             ></v-text-field>
-            <v-icon>mdi-account-edit</v-icon>
-            <!-- <v-spacer></v-spacer> -->
+            <!-- <v-icon>mdi-account-edit</v-icon>
+            <v-spacer></v-spacer>
             <v-text-field
               v-model="user.password"
               label="password"
-            ></v-text-field>
+            ></v-text-field> -->
             <v-icon>mdi-account-edit</v-icon>
 
             <v-text-field
