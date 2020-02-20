@@ -66,8 +66,10 @@
       </v-card-actions>
       <hr>
       <v-layout class="mx-12 mb-12 pb-12 mt-6">
-        
-        <v-btn color="success white--text" align-self-left> Approved</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn color="success white--text" align-self-left> Endorse</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn color="error white--text">Reject Curriculum</v-btn>
       </v-layout>
     </v-card>
     <v-dialog v-model="visible" width="50%">
@@ -105,6 +107,8 @@ export default {
       {
         //var token = this.$store.getters.token;
         var user_id = this.$route.params.id;
+        var params= this.$route.params;
+        console.log(params);
         var id = user_id.substr(1);
         api.getStructure(id).then(response => {
           this.structure = response;

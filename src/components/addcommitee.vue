@@ -11,13 +11,20 @@
             </v-title>
           </v-flex>
           <v-card-text>
-            <v-form ref="form">
-              <v-text-field label="Commitee Name" class="px-12" v-model="name">
+            <v-form ref="form" >
+              <v-text-field 
+              label="Commitee Name" 
+              class="px-12" 
+              :rules="nameRules"
+              v-model="name">
               </v-text-field>
               <v-select
                 label="Add users to commitee"
                 :items="username"
+                :hint="orgRule.description"
                 multiple
+                chips
+                persistent-hint
                 class="px-12"
                 v-model="users"
               ></v-select>
@@ -35,6 +42,7 @@
                 @click="addCommitee()"
                 class="mx-5 cyan darken-3 white--text"
                 rounded
+                :disabled="!isValid"
               >
                 <v-dialog v-model="dialog">
                   <v-card>
@@ -68,7 +76,14 @@ export default {
   data() {
     return {
       name: "",
+      
       dialog: false,
+      orgRule:{
+        description:"",
+        max:10,
+        min:1,
+        parity:"odd"
+      },
       users: [],
       members: [
         {
@@ -76,6 +91,10 @@ export default {
           isActive: true
         }
       ],
+      nameRules:[
+        v => !!v || "Name can't be empty"
+      ],
+      
       officedata: [],
       officename: [],
       userInfo: [],
@@ -125,6 +144,17 @@ export default {
         }
       });
     },
+    getOrgRules(){
+        api.getorgRules(this.$store.getters.org_id).then(response =>{
+          
+      this.orgRule.max = response.max;
+      this.orgRule.min = response.min;
+      this.orgRule.parity = response.parity;
+      this.orgRule.description = "Members must be greater than or equal to "+this.orgRule.min+
+      " and less than "+this.orgRule.max;
+          console.log(this.orgRule);
+        })
+    },
     getOfficeData() {
       let id = this.$store.getters.org_id;
       api.getAcademicOffices(id).then(response => {
@@ -151,9 +181,29 @@ export default {
       ];
     }
   },
+   computed:{
+     isValid: function(){
+       var x= false;
+       //var y= true;
+       if(this.name == ""  || this.users.length < this.orgRule.min 
+       || this.users.length > this.orgRule.max  ){
+         return x;
+       }
+      // elseif((this.users.length >= ) && (this.users.length <= this.orgRule.max)){
+      //    return x;
+      //  };
+       else{
+         return !x;
+       }
+       
+         
+       
+     },
+   },
   mounted() {
     this.getOfficeData();
     this.getAllUsers();
+    this.getOrgRules();
   }
 };
 </script>
