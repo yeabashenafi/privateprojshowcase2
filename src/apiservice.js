@@ -152,6 +152,10 @@ export class apiservice {
     );
     return response;
   }
+  async getChildren(par_id){
+    let response = await axios.get(`${API_URL}/AccadamicOffices/${par_id}/getChildren`);
+    return response.data.childs;
+  }
   async getAdminInfo(id) {
     // returns admins full information
     let response = await axios.get(`${API_URL}/admins/${id}`);
@@ -174,6 +178,10 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/requests/${id}/viewsendRequest`);
     console.log(response);
     return response;
+  }
+  async getorgRules(id){
+    let response = await axios.get(`${API_URL}/Organizations/${id}/getRules`);
+    return response.data.rules;
   }
   async setnewComponent(data) {
     let response = await axios.post(`${API_URL}/currCOmponents`, data);

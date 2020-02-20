@@ -46,48 +46,17 @@
                 </v-toolbar>
               </v-card-title>
               <v-card-text>
-                <p class="title ">
-                  Programs which requested for Approval---- (Waits for approval
-                  )
-                </p>
-                <p class="title cyan--text text--darken-3">
-                  Comittee Name : {{ comName }}
-                </p>
-                <!-- <v-flex v-for="(item, index) in currInfo" class="mx-10"  :key="item.index">
-                 <v-card color="cyan lighten-4" @click="ViewRequest()" class="mb-4 mt-5 pb-5">
-                    <h4> {{ index + 1}}</h4>
-                    <hr/>
-                 <div class="pl-7">
-                 <h1>Comittee Name: {{ comName }}</h1> 
-                <P>Request for approval </P>
-                
-                 <h3 class="pb-2">Program Name :--  {{ item.program_name }}</h3>
-                <h3>Program Type :-- {{item.program_type }}</h3>
-                <h3>Program Id :-- {{item.id }}</h3> 
-
-                 </div>
-                </v-card>
-               </v-flex> -->
-                <v-flex
-                  class="mx-5"
-                  v-for="(request, index) in notInfo"
-                  :key="request.index"
-                >
-                  <v-card
-                    color="cyan lighten-2"
-                    class="mb-5"
-                    @click="seeDetail(request.frameworkid)"
-                  >
-                    <v-card-title>{{ index + 1 }}</v-card-title>
-                    <v-card-actions>
-                      <p class="font-weight-bold">
-                        You have recieved an approval request from
-                        <strong>{{ request.senderName }}</strong> for the
-                        framework <strong>{{ request.frameworkname }}</strong>
-                      </p>
-                    </v-card-actions>
-                  </v-card>
-                </v-flex>
+                <p class="title ">Programs which requested for Approval---- (Waits for approval )</p>
+                <p class="title cyan--text text--darken-3" >Comittee Name : {{ comName }} </p>
+               
+               <v-flex class="mx-5" v-for="(request,index) in notInfo" :key="request.index">
+                 <v-card color="cyan lighten-2" @click="seeDetail(request.frameworkid,request.req_id)">
+                   <v-card-title>{{index+1}}</v-card-title>
+                   <v-card-actions>
+                     <p class="font-weight-bold">You have recieved an approval request from <strong>{{request.senderName}}</strong> for the framework <strong>{{request.frameworkname}}</strong></p>
+                   </v-card-actions>
+                 </v-card>
+               </v-flex>
               </v-card-text>
             </v-card>
           </v-dialog>
@@ -119,13 +88,12 @@ export default {
       requests: [],
       yourComittee: [],
       currInfo: [],
-      notInfo: [
-        {
-          senderName: "",
-          frameworkname: "",
-          frameworkid: ""
-        }
-      ],
+      notInfo:[{
+        senderName:'',
+        frameworkname:'',
+        frameworkid:'',
+        req_id:''
+      }],
       sent: []
     };
   },
@@ -160,28 +128,32 @@ export default {
       for (var i = 0; i < this.req.length; i++) {
         //this.notInfo.push({})
         var x = this.req[i].forCurriculumId;
-        console.log(x);
+        var y = this.req[i].id;
+        console.log(this.req[i].id);
         api.getComiteeName(this.req[i].SenderComitteeId).then(response => {
           api.getStructure(x).then(data => {
-            //this.notInfo[i].frameworkname = response.program_name;
-
-            this.notInfo.push({
-              senderName: response,
-              frameworkname: data.program_name,
-              frameworkid: data.id
-            });
-            console.log(this.notInfo);
-          });
+          
+          //this.notInfo[i].frameworkname = response.program_name;
+        
+          this.notInfo.push({
+        senderName:response,
+        frameworkname:data.program_name,
+        frameworkid: data.id,
+        req_id:y
+      })
+      console.log(this.notInfo)
+        })
           //this.notInfo[i].senderName = response;
         });
       }
 
       this.notInfo.shift();
     },
-
-    seeDetail(id) {
-      this.$router.push({ name: "viewStructure", params: { id: ":" + id } });
-      console.log(id + "program Id");
+    
+     seeDetail(id,req_id){
+       console.log(req_id);
+       this.$router.push({ name: "viewStructure", params: { id: ":" + id,request:":"+req_id } });
+       console.log(id + "program Id");
       //  viewStructure(id) {
     }
   },
