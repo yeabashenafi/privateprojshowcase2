@@ -56,12 +56,9 @@ export default {
       });
     },
     addProgram() {
-    //   console.log(this.selected);
-    //   console.log(this.detail);
-    //   let dynamic =  [{}];
-    //   let s = [];
-    //   let d = [];
-    //   dynamic =
+      console.log(this.selected);
+      console.log(this.detail);
+   
       for (var i = 0; i < this.detail.length; i++) {
           if(this.detail[i] == undefined){
               this.detail[i] = "";
@@ -69,18 +66,7 @@ export default {
         console.log(this.selected[i] + " : " + this.detail[i]);
 
       }
-      
-    //   console.log(s);
-    //   let data = {
-    //       name: 'followme',
-    //       age: 'follow age',
-
-    //   }
-    //   let all = data + dynamic;
-    //   console.log(data);
-      // this.selected = '';
-      // this.detail = ''
-      // console.log(this.select);
+   
     }
   },
   mounted() {
