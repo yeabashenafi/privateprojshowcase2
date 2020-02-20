@@ -9,8 +9,8 @@
           <v-select
             label="Select Fields"
             :items="compName"
-            multiple
-            v-model="selected"
+             multiple
+             v-model="selected"
           ></v-select>
         </v-card-text>
         <v-actions>
@@ -49,7 +49,7 @@ export default {
         //  console.log(response);
         this.component = response.data;
         console.log(this.component);
-        for (var i = 0; i < this.component.length; i++) {
+        for (var i=0; i < this.component.length; i++) {
           this.compName.push(this.component[i].name);
         }
         console.log(this.compName);
