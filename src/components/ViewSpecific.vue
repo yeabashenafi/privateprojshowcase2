@@ -72,6 +72,15 @@
               </v-layout>
             </v-flex>
           </template>
+          <v-template v-for=" c in course" :key="c.name">
+            <v-flex>
+             <h3>course Details</h3>
+             <h3 class="font-weight-black pl-5"> course Name</h3>
+             <p>{{ c.name }}</p>
+              <p class="font-weight-black pl-5"> course ID</p>
+             <p>{{ c.id }}</p>
+            </v-flex>
+          </v-template>
         </v-flex>
         <v-card width="50%" class="mt-12 pt-8" >
           <v-card-text>
@@ -121,7 +130,8 @@ export default {
       comment: [],
       general: '',
       receipant: '',
-      topic: ''
+      topic: '',
+      course: []
     };
   },
   methods: {
@@ -143,22 +153,20 @@ export default {
           this.structure = response;
           console.log(this.structure);
         });
+         api.getCourse(id).then(response => {
+           this.course = response.data
+           console.log("cources")
+          console.log(this.course);
+        });
       }
     },
-    // submitComment(){
-    //     var user_id = this.$route.params.id;
+    // getCoursedata(){
+    //    var user_id = this.$route.params.id;
     //     var id = user_id.substr(1);
-    //   let data = {
-    //     comment: this.comment,
-    //     currId: id,
-    //     userId: this.$store.getters.User_id
-    //   };
-    //   console.log(data);
+    //    api.getCourse(id).then(response => {
+    //       console.log(response.data);
+    //     });
     // },
-    // show(text){
-    //   this.visible = true;
-    //   this.topic = text;
-    // }
     submitGeneralComment(){
        var user_id = this.$route.params.id;
         var id = user_id.substr(1);
@@ -173,6 +181,7 @@ export default {
               
   mounted() {
     this.getStructure();
+    // this.getCoursedata();
   }
 };
 </script>

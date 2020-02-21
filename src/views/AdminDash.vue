@@ -61,10 +61,10 @@
             <v-icon left> mdi-plus</v-icon>
             Add New Component
           </v-tab>
-          <v-tab>
+          <!-- <v-tab>
             <v-icon left> mdi-plus</v-icon>
             Add Field
-          </v-tab>
+          </v-tab> -->
         </v-card>
         <v-tab-item>
           <v-card flat>
@@ -124,17 +124,17 @@
             <training class="ml-3"></training>
           </v-card-text>
         </v-tab-item>
-        <v-tab-item>
+        <!-- <v-tab-item>
           <v-card-text>
             <dfieldtrain class="ml-3"></dfieldtrain>
           </v-card-text>
-        </v-tab-item>
+        </v-tab-item> -->
       </v-tabs>
     </v-card>
   </v-flex>
 </template>
 <script>
-import dfieldtrain from "../components/dfieldtrain";
+// import dfieldtrain from "../components/dfieldtrain";
 import training from "../components/training";
 // import addComponent from "../components/addComponent";
 import addcommitee from "../components/addcommitee";
@@ -154,10 +154,12 @@ export default {
     MyAccount,
     allUser,
     orgStructureTest,
-    addcommitee,
-    // addComponent,
+    addcommitee, 
     training,
-    dfieldtrain
+    // addComponent,
+    // dfieldtrain
+   
+    
   }
 };
 </script>

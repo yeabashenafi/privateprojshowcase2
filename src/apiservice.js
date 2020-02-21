@@ -94,6 +94,7 @@ export class apiservice {
     console.log(response);
     return response;
   }
+  //add offices to the specific organization
   async addOffices(data) {
     let response = await axios.post(`${API_URL}/AccadamicOffices`, data);
     return response;
@@ -112,6 +113,12 @@ export class apiservice {
   }
   async addCourse(course) {
     let response = await axios.post(`${API_URL}/courses`, course);
+    return response;
+  }
+  //get Course using curriculum id
+  async getCourse(id){
+    let response = await axios.get(`${API_URL}/y/${id}/courses`);
+    console.log(response);
     return response;
   }
   async checkRequest(id) {
@@ -169,7 +176,7 @@ export class apiservice {
     console.log(response);
     return response;
   }
-  async howManyNotify(id) {
+  async howManyNotify(id) {// no of notificatons
     let response = await axios.get(`${API_URL}/requests/${id}/checkRequests`);
     // console.log(response);
     return response;
@@ -183,6 +190,7 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/Organizations/${id}/getRules`);
     return response.data.rules;
   }
+  //set New component(add)
   async setnewComponent(data) {
     let response = await axios.post(`${API_URL}/currCOmponents`, data);
     console.log(response);
