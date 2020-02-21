@@ -78,7 +78,7 @@
              <v-flex >
               <v-textarea label="Write General Comment here"
                            outlined
-                           v-model="general"></v-textarea> 
+                           v-model="gComment"></v-textarea> 
           <v-btn color="success white--text ml-12" align-self-left 
                @click="submitGeneralComment()"> Submit comments</v-btn>
          </v-flex>
@@ -87,10 +87,9 @@
       </v-card-actions>
       <hr/>
       <v-layout class="mx-12 mb-12 pb-12 mt-6">
+        <v-btn color="success white--text" align-self-left @click="show = !show" :disabled="!commentedOn"> Endorse</v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="success white--text" align-self-left> Endorse</v-btn>
-        <v-spacer></v-spacer>
-        <v-btn color="error white--text">Reject Curriculum</v-btn>
+        <v-btn color="error white--text" :disabled="!commentedOn">Reject Curriculum</v-btn>
       </v-layout>
     </v-card>
     <v-dialog v-model="visible" width="50%">
@@ -107,6 +106,37 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="show">
+                  <v-card>
+                    <v-card-title class="teal">
+                      <v-flex>
+                        Confirm Sending Curriculum for approval
+                      </v-flex>
+                    </v-card-title>
+                    <v-card-actions>
+                      <v-flex>
+                        <v-text class="mx-12">Curriculum framework name</v-text>
+
+                        <v-text-field
+                          class="mx-12"
+                          v-model="structure.program_name"
+                          disabled
+                        ></v-text-field>
+                        <v-select
+                          label="Choose Recieving comittee"
+                          class="mx-12"
+                          :items="pcomnames"
+                          v-model="selp"
+                        ></v-select>
+                        <v-flex class="text-center">
+                          <v-btn class="align-center" @click="Endorse()"
+                            >Send for Endorsment</v-btn
+                          >
+                        </v-flex>
+                      </v-flex>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
   </span>
 </template>
 
@@ -118,10 +148,14 @@ export default {
     return {
       structure: {},
       visible: false,
+      show:false,
       comment: [],
+      pcomittees:[],
+      pcomnames:[],
       general: '',
-      receipant: '',
-      topic: ''
+      gComment  : '',
+      topic: '',
+      selp:''
     };
   },
   methods: {
@@ -159,6 +193,42 @@ export default {
     //   this.visible = true;
     //   this.topic = text;
     // }
+    Endorse(){
+      var parid ;
+      var reqid = this.$route.params.request;
+       for (var j = 0; j < this.pcomittees.length; j++) {
+        
+         if (this.selp == this.pcomittees[j].name) {
+          parid = this.pcomittees[j].id;
+         }
+       }
+        reqid = reqid.substr(1);
+       console.log(this.gComment);
+       api.Endorse(reqid,parid).then(
+         (data) =>{
+          //  let info ={
+          //    req_id:reqid,
+          //    user_id:this.$store.getters.User_id,
+          //    body:this.gComment
+          //  }
+            api.createComment(reqid,this.$store.getters.User_id,this.gComment).then(response=>{
+              console.log(response);
+            })
+            console.log(data);
+           this.show = false;
+         }
+        )
+      
+    },
+    parentCommittes(){
+      api.getparentcomitees(this.$store.getters.works_inDep).then(response => {
+        this.pcomittees = response;
+        for (var j = 0; j < this.pcomittees.length; j++) {
+          this.pcomnames.push(this.pcomittees[j].name);
+        }
+      }
+      )
+    },
     submitGeneralComment(){
        var user_id = this.$route.params.id;
         var id = user_id.substr(1);
@@ -170,9 +240,20 @@ export default {
       console.log(data);
     }
   },  
-              
+   computed:{
+     commentedOn:function(){
+       var x= false;
+       if(this.gComment == ""){
+         return x;
+       }
+       else{
+         return !x;
+       }
+     }
+   } ,          
   mounted() {
     this.getStructure();
+    this.parentCommittes();
   }
 };
 </script>

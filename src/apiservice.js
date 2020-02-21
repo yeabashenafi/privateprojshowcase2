@@ -193,6 +193,14 @@ export class apiservice {
     console.log(response);
     return response.data;
   }
+  async Endorse(req_id,upperCommitteId){
+    let response = await axios.get(`${API_URL}/requests/{id}/Endorse?req_id=${req_id}&upperCommitte_id=${upperCommitteId}`)
+    return response;
+  }  
+  async createComment(req_id,user_id,body){
+    let response = await axios.get(`${API_URL}/comments/{id}/create?req_id=${req_id}&user_id=${user_id}&body=${body}`)
+    return response;
+  }
   // async setAdminTo(data){
   //   let response = await axios.post(`${API_URL}/Accounts/setAdmin`,data);
   //   console.log(response);
