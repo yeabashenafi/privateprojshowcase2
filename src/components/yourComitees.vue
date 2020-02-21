@@ -25,7 +25,11 @@
               <!-- <p>gradreqs: {{ frameworks.program_name }}</p> -->
             </v-container>
           </v-card-actions>
-          <v-dialog
+          
+        </v-card>
+      </v-flex>
+    </template>
+    <v-dialog
             v-model="dialog"
             fullscreen
             hide-overlay
@@ -60,9 +64,6 @@
               </v-card-text>
             </v-card>
           </v-dialog>
-        </v-card>
-      </v-flex>
-    </template>
     <!-- <v-btn @click="press()">click</v-btn> -->
   </span>
 </template>
@@ -87,7 +88,7 @@ export default {
       req: [],
       requests: [],
       yourComittee: [],
-      currInfo: [],
+      //currInfo: [],
       notInfo:[{
         senderName:'',
         frameworkname:'',
@@ -117,10 +118,9 @@ export default {
         console.log(this.comittees.length);
       });
     },
-    viewNotfy(index) {
-      this.currInfo.shift();
+viewNotfy(index){
       console.log("View Notification");
-      this.dialog = !this.dialog;
+      this.dialog = ! this.dialog;
       this.comName = this.comittees[index].name;
       this.req = this.no[index];
       console.log(this.comName);
@@ -143,7 +143,7 @@ export default {
       })
       console.log(this.notInfo)
         })
-          //this.notInfo[i].senderName = response;
+          
         });
       }
 

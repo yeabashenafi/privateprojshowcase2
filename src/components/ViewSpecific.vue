@@ -72,6 +72,19 @@
               </v-layout>
             </v-flex>
           </template>
+          <v-container>
+            <v-divider></v-divider>
+            <p>Comments</p>
+
+            <v-flex v-for="(comment,index) in comments" :key="comment" >
+              <v-card>
+                <p>Comment {{index+1}}:{{comment.body}}</p>
+                <br/>
+              </v-card>
+              
+            </v-flex>
+            
+          </v-container>
         </v-flex>
         <v-card width="50%" class="mt-12 pt-8" >
           <v-card-text>
@@ -150,6 +163,7 @@ export default {
       visible: false,
       show:false,
       comment: [],
+      comments:[],
       pcomittees:[],
       pcomnames:[],
       general: '',
@@ -220,6 +234,16 @@ export default {
         )
       
     },
+    getComments(){
+      var user_id = this.$route.params.id;
+      var id = user_id.substr(1);
+      api.getCommentforCurr(id).then(response =>{
+        this.comments = response;
+      })
+    },
+    Reject(){
+      
+    },
     parentCommittes(){
       api.getparentcomitees(this.$store.getters.works_inDep).then(response => {
         this.pcomittees = response;
@@ -254,6 +278,7 @@ export default {
   mounted() {
     this.getStructure();
     this.parentCommittes();
+    this.getComments();
   }
 };
 </script>
