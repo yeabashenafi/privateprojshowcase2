@@ -79,6 +79,7 @@
             <v-flex v-for="(comment,index) in comments" :key="comment" >
               <v-card>
                 <p>Comment {{index+1}}:{{comment.body}}</p>
+                <p>Written by {{ userName[index] }}</p>
                 <br/>
               </v-card>
               
@@ -194,6 +195,7 @@ export default {
       structure: {},
       visible: false,
       show:false,
+      userName: [],
       comment: [],
       comments:[],
       pcomittees:[],
@@ -251,11 +253,6 @@ export default {
        console.log(this.gComment);
        api.Endorse(reqid,parid).then(
          (data) =>{
-          //  let info ={
-          //    req_id:reqid,
-          //    user_id:this.$store.getters.User_id,
-          //    body:this.gComment
-          //  }
             api.createComment(reqid,this.$store.getters.User_id,this.gComment).then(response=>{
               console.log(response);
             })
@@ -270,7 +267,14 @@ export default {
       var id = user_id.substr(1);
       api.getCommentforCurr(id).then(response =>{
         this.comments = response;
-      })
+        console.log('follow');
+          for(var i=0; i<this.comments.length; i++){
+             api.getUserName(this.comments[i].accountsId).then(response => {
+             console.log(response);
+             this.userName.push(response);
+           })
+          }
+      });
     },
     Reject(){
       
