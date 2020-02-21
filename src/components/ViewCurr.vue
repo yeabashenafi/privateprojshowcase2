@@ -54,7 +54,7 @@
                         ></v-select>
                         <v-flex class="text-center">
                           <v-btn class="align-center" @click="Confirm()"
-                            >Send for approval</v-btn
+                            >Send for Endorsement</v-btn
                           >
                         </v-flex>
                       </v-flex>
