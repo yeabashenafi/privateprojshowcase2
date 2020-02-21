@@ -51,6 +51,7 @@
             <v-text class="black-text">Your organization</v-text>
           </v-layout>
         </v-container>
+        <v-divider></v-divider>
         <v-container @click="yourCom" link>
           <v-layout link>
             <v-icon>mdi-check</v-icon>

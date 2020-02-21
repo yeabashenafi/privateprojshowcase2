@@ -26,7 +26,13 @@ export class apiservice {
     let response = await axios.post(`${API_URL}/y`, data);
     return response;
   }
-
+  async addOrgRules(id, token, data) {
+    let response = await axios.patch(
+      `${API_URL}/Organizations/${id}?${token}`,
+      data
+    );
+    return response;
+  }
   async login(data) {
     let response = await axios.post(`${API_URL}/Accounts/login`, data);
     return response;

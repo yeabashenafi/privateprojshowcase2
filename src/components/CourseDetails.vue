@@ -21,6 +21,16 @@
         ></v-text-field>
         <v-flex row>
           <v-text-field
+            label="Add Course Learning Outcome (CLO)"
+            disabled
+            class="mx-3"
+          ></v-text-field>
+          <a @click="show_clo_dialog"
+            ><v-icon right class="py-6">mdi-plus</v-icon></a
+          >
+        </v-flex>
+        <v-flex row>
+          <v-text-field
             label="Add Course Out-Line"
             disabled="true"
             class="mx-3"
@@ -153,6 +163,44 @@
             </v-card>
           </v-dialog>
         </v-flex>
+        <v-dialog v-model="show_clo">
+          <v-card color="white">
+            <v-flex text-center>
+              <p class="headline">
+                Curriculum Learning Outcome/s
+              </p>
+            </v-flex>
+            <template v-for="(CLO, index) in clo">
+              <v-flex v-bind:key="CLO.index">
+                <v-layout>
+                  <p class="title">CLO{{ index + 1 }}</p>
+                  <v-spacer></v-spacer>
+                  <v-icon @click="reduceClo()">mdi-minus</v-icon>
+                  <v-icon @click="addCLO()">mdi-plus</v-icon>
+                </v-layout>
+                <v-text-field
+                  outlined
+                  label="Name of Educational Outcome"
+                  v-model="CLO.name"
+                ></v-text-field>
+                <v-text-field
+                  outlined
+                  label="Description"
+                  v-model="CLO.details"
+                ></v-text-field>
+                <v-select
+                  multiple
+                  :items="PEOS"
+                  label="Mapped PEO/PEOs"
+                  v-model="CLO.mappedPEO"
+                ></v-select>
+              </v-flex>
+            </template>
+            <v-flex text-center
+              ><v-btn color="primary" @click="shut_dialog">Done</v-btn></v-flex
+            >
+          </v-card>
+        </v-dialog>
       </v-card>
     </v-dialog>
   </v-flex>
@@ -163,6 +211,7 @@ const api = new apiservice();
 export default {
   data() {
     return {
+      show_clo: false,
       show_assess: false,
       show_tools: false,
       show_method: false,
@@ -179,6 +228,20 @@ export default {
         {
           chap_name: "",
           detail: ""
+        }
+      ],
+      clo: [
+        {
+          name: "",
+          details: "",
+          mappedPEO: []
+        }
+      ],
+      peo: [
+        {
+          name: "",
+          details: "",
+          mappedPO: []
         }
       ],
       chap_name: "",
@@ -227,6 +290,21 @@ export default {
       this.show_courseD = !this.show_courseD;
       // this.$root.$emit("finishcd");
     },
+    show_clo_dialog() {
+      console.log("Welcome");
+      this.show_clo = !this.show_clo;
+    },
+    shut_dialog() {
+      this.show_clo = !this.show_clo;
+    },
+    reduceClo() {
+      if (this.clo.length > 1) {
+        this.clo.pop();
+      }
+    },
+    addCLO() {
+      this.clo.push({});
+    },
     finish_assessment() {
       // let data = {
       //   assessment: this.assessment
@@ -263,6 +341,15 @@ export default {
       console.log(name);
       this.show_courseD = true;
       //console.log(this.show_courseD)
+    }
+  },
+  computed: {
+    PEOS: function() {
+      var y = [];
+      for (var j = 1; j <= this.peo.length; j++) {
+        y.push("PEO" + j);
+      }
+      return y;
     }
   },
   mounted() {

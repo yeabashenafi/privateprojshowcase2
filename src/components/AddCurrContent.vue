@@ -139,39 +139,6 @@
                               </v-flex>
                             </template>
                           </v-flex>
-                          <!-- <v-flex>
-                            <p class="headline">
-                              Curriculum Learning Outcome/s
-                            </p>
-                            <template v-for="(CLO, index) in clo">
-                              <v-flex v-bind:key="CLO.index">
-                                <v-layout>
-                                  <p class="title">CLO{{ index + 1 }}</p>
-                                  <v-spacer></v-spacer>
-                                  <v-icon @click="reduceClo()"
-                                    >mdi-minus</v-icon
-                                  >
-                                  <v-icon @click="addCLO()">mdi-plus</v-icon>
-                                </v-layout>
-                                <v-text-field
-                                  outlined
-                                  label="Name of Educational Outcome"
-                                  v-model="CLO.name"
-                                ></v-text-field>
-                                <v-text-field
-                                  outlined
-                                  label="Description"
-                                  v-model="CLO.details"
-                                ></v-text-field>
-                                <v-select
-                                  multiple
-                                  :items="PEOS"
-                                  label="Mapped PEO/PEOs"
-                                  v-model="CLO.mappedPEO"
-                                ></v-select>
-                              </v-flex>
-                            </template>
-                          </v-flex> -->
                         </v-container>
                       </v-card-actions>
                       <v-spacer></v-spacer>
@@ -214,37 +181,6 @@
                           </template>
                         </v-flex>
                       </v-card-actions>
-                      <v-flex>
-                        <p class="headline">
-                          Curriculum Learning Outcome/s
-                        </p>
-                        <template v-for="(CLO, index) in clo">
-                          <v-flex v-bind:key="CLO.index">
-                            <v-layout>
-                              <p class="title">CLO{{ index + 1 }}</p>
-                              <v-spacer></v-spacer>
-                              <v-icon @click="reduceClo()">mdi-minus</v-icon>
-                              <v-icon @click="addCLO()">mdi-plus</v-icon>
-                            </v-layout>
-                            <v-text-field
-                              outlined
-                              label="Name of Educational Outcome"
-                              v-model="CLO.name"
-                            ></v-text-field>
-                            <v-text-field
-                              outlined
-                              label="Description"
-                              v-model="CLO.details"
-                            ></v-text-field>
-                            <v-select
-                              multiple
-                              :items="PEOS"
-                              label="Mapped PEO/PEOs"
-                              v-model="CLO.mappedPEO"
-                            ></v-select>
-                          </v-flex>
-                        </template>
-                      </v-flex>
                       <v-flex class="ma-5">
                         <v-layout text-md-center>
                           <v-btn color="success" @click="SaveChange()" text>
@@ -560,9 +496,6 @@ export default {
     addPEO() {
       this.peo.push({});
     },
-    addCLO() {
-      this.clo.push({});
-    },
     addCurriculum() {
       this.ok = true;
       // this.setpoID();
@@ -644,11 +577,6 @@ export default {
         this.learningMethod.pop();
       }
     },
-    reduceClo() {
-      if (this.clo.length > 1) {
-        this.clo.pop();
-      }
-    },
     reducePeo() {
       if (this.peo.length > 1) {
         this.peo.pop();
@@ -667,13 +595,6 @@ export default {
         x.push("PO" + i);
       }
       return x;
-    },
-    PEOS: function() {
-      var y = [];
-      for (var j = 1; j <= this.peo.length; j++) {
-        y.push("PEO" + j);
-      }
-      return y;
     }
   },
   mounted() {
