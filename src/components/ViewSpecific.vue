@@ -171,6 +171,8 @@
 </template>
 
 <script>
+const PDFDocument = require('pdfkit');
+const doc = new PDFDocument();
 import { apiservice } from "../apiservice";
 const api = new apiservice();
 export default {
@@ -189,13 +191,10 @@ export default {
     };
   },
   methods: {
-    // send() {
-    //   this.visible = false;
-      
-    //   this.comment.push( this.topic + " : " + this.receipant);
-    //   console.log(this.comment);
-    //   this.receipant = ''
-    // },
+    downloadPdf(){
+        doc.pipe(createWriteStream('file.pdf'));
+        doc.end();
+    },
     getStructure() {
       {
         //var token = this.$store.getters.token;
