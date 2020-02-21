@@ -211,6 +211,10 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/requests/{id}/Endorse?req_id=${req_id}&upperCommitte_id=${upperCommitteId}`)
     return response;
   }  
+  async generatePDF(data){
+    let response = await axios.post(`${API_URL}/y/generatePDF`,data);
+    return response;
+  }
   async reject(req_id){
     let response = await axios.get(`${API_URL}/requests/{id}/RejectCurr?req_id=${req_id}`);
     return response;
