@@ -57,6 +57,18 @@
           <v-tab>
             <v-icon left>mdi-plus</v-icon>
             Add Rules
+          <!-- <v-tab>
+            <v-icon left> mdi-plus</v-icon>
+            Add Component
+          </v-tab> -->
+          </v-tab>
+          <v-tab>
+            <v-icon left> mdi-plus</v-icon>
+            Add New Component
+          </v-tab>
+          <v-tab>
+            <v-icon left> mdi-plus</v-icon>
+            Add Field
           </v-tab>
         </v-card>
         <v-tab-item>
@@ -114,11 +126,29 @@
             </v-card-text>
           </v-card>
         </v-tab-item>
+        <!-- <v-tab-item>
+          <v-card-text>
+            <add-component class="ml-3"></add-component>
+          </v-card-text>
+        </v-tab-item> -->
+        <v-tab-item>
+          <v-card-text>
+            <training class="ml-3"></training>
+          </v-card-text>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card-text>
+            <dfieldtrain class="ml-3"></dfieldtrain>
+          </v-card-text>
+        </v-tab-item>
       </v-tabs>
     </v-card>
   </v-flex>
 </template>
 <script>
+import dfieldtrain from "../components/dfieldtrain";
+import training from "../components/training";
+// import addComponent from "../components/addComponent";
 import addcommitee from "../components/addcommitee";
 import MyAccount from "../components/MyAccount";
 import addOrganization from "../components/addorganization.vue";
@@ -136,9 +166,12 @@ export default {
     register,
     MyAccount,
     allUser,
+    setRules,
     orgStructureTest,
     addcommitee,
-    setRules
+    // addComponent,
+    training,
+    dfieldtrain
   }
 };
 </script>

@@ -67,7 +67,7 @@ const routes = [
     component: () => import("../views/userDashTest.vue")
   },
   {
-    path: "/view:id",
+    path: "/view:id/request/:request",
     name: "viewStructure",
     component: () => import("../components/ViewSpecific.vue")
   },
