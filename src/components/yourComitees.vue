@@ -140,7 +140,7 @@ viewNotfy(index){
         frameworkname:data.program_name,
         frameworkid: data.id,
         req_id:y
-      })
+      });
       console.log(this.notInfo)
         })
           

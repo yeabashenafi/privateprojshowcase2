@@ -9,8 +9,8 @@
           <v-select
             label="Select Fields"
             :items="compName"
-            multiple
-            v-model="selected"
+             multiple
+             v-model="selected"
           ></v-select>
         </v-card-text>
         <v-actions>
@@ -22,6 +22,7 @@
                 :label="select"
                 :v-model="selected"
                 v-model="detail[index]"
+                :placeholder="descr[index]"
               ></v-text-field>
             </v-flex>
           </v-template>
@@ -40,33 +41,49 @@ export default {
       component: [],
       compName: [],
       selected: [],
-      detail: []
+      descr:[],
+      detail: [],
+      data: [{}]
     };
   },
   methods: {
     getComp() {
       api.getComponent(this.$store.getters.org_id).then(response => {
-        //  console.log(response);
         this.component = response.data;
         console.log(this.component);
-        for (var i = 0; i < this.component.length; i++) {
+        for (var i=0; i < this.component.length; i++) {
           this.compName.push(this.component[i].name);
+          this.descr.push(this.component[i].desc);
         }
         console.log(this.compName);
+        console.log(this.descr);
       });
     },
     addProgram() {
-      console.log(this.selected);
-      console.log(this.detail);
+      // console.log(this.selected);
+      // console.log(this.detail);
    
       for (var i = 0; i < this.detail.length; i++) {
           if(this.detail[i] == undefined){
               this.detail[i] = "";
           }
-        console.log(this.selected[i] + " : " + this.detail[i]);
-
+         
+          // this.data.push(this.selected[i]);
+        // console.log(this.selected[i] + " : " + this.detail[i]);
+            
       }
-   
+      // console.log(this.data);
+      let data = {
+        name: 'minilik'
+      }
+
+    var object = Object.assign({}, ...Object.entries({...this.selected}).map(([a,b]) => ({ [b]: this.detail[a] })))
+    console.log(object);
+    const combined = {...object, ...data};//combine the two objects
+    console.log(combined);
+    // api.addStructure(object).then(response => {
+    //   console.log(response);
+    // })
     }
   },
   mounted() {

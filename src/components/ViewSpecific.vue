@@ -85,6 +85,36 @@
             </v-flex>
             
           </v-container>
+          <v-template v-for=" c in course" :key="c.name">
+            <v-flex>
+             <h3>course Details</h3>
+             <!-- <h3 class="font-weight-black pl-5"> course Name</h3> -->
+             <!-- <p>{{ c.name }}</p> -->
+              <!-- <p class="font-weight-black pl-5"> course ID : {{ c.id }}</p> -->
+             <v-layout>
+               <p class="font-weight-black pl-5">Course title : </p>
+               <p>{{ c.title }}</p>
+             </v-layout>
+             <v-layout>
+               <p>Course Code: </p>
+               <p>{{ c.code }}</p>
+             </v-layout>
+             <v-layout>
+               <p>contact Hour</p>
+               <p>{{ c.contactHour}}</p>
+             </v-layout>
+             <p class="font-weight-black pl-5">Class Year :{{ c.classYear  }}</p>
+             <p>Semister: {{ c.semister }} </p>
+             <p>Pre-requesties: {{c.pre_requisites }}</p>
+             <p>Description : {{ c.description }}</p>
+             <v-template v-for="(out,index) in c.outlines" :key="out.index">
+               <v-flex>
+                  <h3>Course Outlines : {{index}}</h3>
+                  <p>{{ out }}</p>
+               </v-flex>
+             </v-template>
+            </v-flex>
+          </v-template>
         </v-flex>
         <v-card width="50%" class="mt-12 pt-8" >
           <v-card-text>
@@ -191,17 +221,19 @@ export default {
           this.structure = response;
           console.log(this.structure);
         });
+         api.getCourse(id).then(response => {
+           this.course = response.data
+           console.log("cources")
+          console.log(this.course);
+        });
       }
     },
-    // submitComment(){
-    //     var user_id = this.$route.params.id;
+    // getCoursedata(){
+    //    var user_id = this.$route.params.id;
     //     var id = user_id.substr(1);
-    //   let data = {
-    //     comment: this.comment,
-    //     currId: id,
-    //     userId: this.$store.getters.User_id
-    //   };
-    //   console.log(data);
+    //    api.getCourse(id).then(response => {
+    //       console.log(response.data);
+    //     });
     // },
     // show(text){
     //   this.visible = true;
