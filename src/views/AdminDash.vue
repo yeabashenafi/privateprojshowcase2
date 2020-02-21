@@ -53,6 +53,11 @@
             <v-icon left>mdi-plus</v-icon>
             Add Committee
           </v-tab>
+
+          <v-tab>
+            <v-icon left>mdi-plus</v-icon>
+            Add Rules
+          </v-tab>
         </v-card>
         <v-tab-item>
           <v-card flat>
@@ -102,6 +107,13 @@
             </v-card-text>
           </v-card>
         </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+            <v-card-text>
+              <set-rules></set-rules>
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
       </v-tabs>
     </v-card>
   </v-flex>
@@ -113,6 +125,7 @@ import addOrganization from "../components/addorganization.vue";
 import orgStructureTest from "../components/orgStructureTest.vue";
 import allUser from "../components/allUser";
 import register from "../components/register.vue";
+import setRules from "../components/setRules.vue";
 
 export default {
   data() {
@@ -124,7 +137,8 @@ export default {
     MyAccount,
     allUser,
     orgStructureTest,
-    addcommitee
+    addcommitee,
+    setRules
   }
 };
 </script>
