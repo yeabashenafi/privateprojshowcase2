@@ -207,6 +207,18 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/comments/{id}/create?req_id=${req_id}&user_id=${user_id}&body=${body}`)
     return response;
   }
+  //Get Request data
+  async getRequest(token){
+    let response = await axios.get(`${API_URL}/requests?access_token=${token}`)
+    return response;
+  }
+  //get committee by Id and return detail of the committee
+  async getCommitteeById(id){
+    let response = await axios.get(`${API_URL}/committees/${id}`);
+    console.log(response);
+    return response;
+  }
+
   // async setAdminTo(data){
   //   let response = await axios.post(`${API_URL}/Accounts/setAdmin`,data);
   //   console.log(response);

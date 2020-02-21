@@ -52,7 +52,8 @@ export default {
       let data = {
         max_no_of_Committee_Members: this.max,
         min_no_of_Committee_Members: this.min,
-        partity_of_committee: this.radio
+        partity_of_committee: this.radio,
+        percentage_for_endorsment: this.percent
       };
       var orgID = this.$store.getters.org_id;
       var token = this.$store.getters.token;
