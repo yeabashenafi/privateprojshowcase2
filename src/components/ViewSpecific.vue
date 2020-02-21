@@ -132,6 +132,7 @@
       <v-layout class="mx-12 mb-12 pb-12 mt-6">
         <v-btn color="success white--text" align-self-left @click="show = !show" :disabled="!commentedOn"> Endorse</v-btn>
         <v-spacer></v-spacer>
+        <!-- <v-btn @click="generatePdf()">Generate Pdf</v-btn> -->
         <v-btn color="error white--text" :disabled="!commentedOn">Reject Curriculum</v-btn>
       </v-layout>
     </v-card>
@@ -144,7 +145,7 @@
           <v-textarea label="your comment"
           v-model="receipant"></v-textarea>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions> 
           <v-btn @click="send()">send</v-btn>
         </v-card-actions>
       </v-card>
@@ -186,6 +187,8 @@
 <script>
 import { apiservice } from "../apiservice";
 const api = new apiservice();
+//const PDFDocument = require('pdfkit');
+
 export default {
   data: () => {
     return {
@@ -209,6 +212,21 @@ export default {
     //   this.comment.push( this.topic + " : " + this.receipant);
     //   console.log(this.comment);
     //   this.receipant = ''
+    // },
+     generatePdf(){
+       console.log(typeof this.structure)
+       api.generatePDF(this.structure).then(response => {
+         console.log(response);
+       })
+     },  
+    //   const fs = require('fs');
+    //   const doc = new PDFDocument;
+
+    //   doc.pipe(fs.createWriteStream('Curriculum.pdf'));
+    //   doc.font('fonts/PalatinoBold.ttf')
+    //      .fontSize(25)
+    //      .text('Some text with an embedded font!', 100, 100);
+    //   doc.end();    
     // },
     getStructure() {
       {
@@ -274,6 +292,7 @@ export default {
       })
     },
     Reject(){
+
       
     },
     parentCommittes(){
