@@ -100,6 +100,7 @@ export class apiservice {
     console.log(response);
     return response;
   }
+  //add offices to the specific organization
   async addOffices(data) {
     let response = await axios.post(`${API_URL}/AccadamicOffices`, data);
     return response;
@@ -118,6 +119,12 @@ export class apiservice {
   }
   async addCourse(course) {
     let response = await axios.post(`${API_URL}/courses`, course);
+    return response;
+  }
+  //get Course using curriculum id
+  async getCourse(id){
+    let response = await axios.get(`${API_URL}/y/${id}/courses`);
+    console.log(response);
     return response;
   }
   async checkRequest(id) {
@@ -175,7 +182,7 @@ export class apiservice {
     console.log(response);
     return response;
   }
-  async howManyNotify(id) {
+  async howManyNotify(id) {// no of notificatons
     let response = await axios.get(`${API_URL}/requests/${id}/checkRequests`);
     // console.log(response);
     return response;
@@ -189,6 +196,7 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/Organizations/${id}/getRules`);
     return response.data.rules;
   }
+  //set New component(add)
   async setnewComponent(data) {
     let response = await axios.post(`${API_URL}/currCOmponents`, data);
     console.log(response);
@@ -203,6 +211,10 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/requests/{id}/Endorse?req_id=${req_id}&upperCommitte_id=${upperCommitteId}`)
     return response;
   }  
+  async reject(req_id){
+    let response = await axios.get(`${API_URL}/requests/{id}/RejectCurr?req_id=${req_id}`);
+    return response;
+  }
   async createComment(req_id,user_id,body){
     let response = await axios.get(`${API_URL}/comments/{id}/create?req_id=${req_id}&user_id=${user_id}&body=${body}`)
     return response;
@@ -219,6 +231,14 @@ export class apiservice {
     return response;
   }
 
+  async getUserName(user_id){
+    let response = await axios.get(`${API_URL}/Accounts/${user_id}`)
+    return response.data.fullname;
+  }
+  async getCommentforCurr(currId){
+    let response = await axios.get(`${API_URL}/comments/{id}/getComment?curr_id=${currId}`)
+    return response.data.comments;
+  }
   // async setAdminTo(data){
   //   let response = await axios.post(`${API_URL}/Accounts/setAdmin`,data);
   //   console.log(response);

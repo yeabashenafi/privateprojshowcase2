@@ -78,6 +78,50 @@
               </v-layout>
             </v-flex>
           </template>
+          <v-container>
+            <v-divider></v-divider>
+            <p>Comments</p>
+
+            <v-flex v-for="(comment,index) in comments" :key="comment" >
+              <v-card>
+                <p>Comment {{index+1}}:{{comment.body}}</p>
+                <p>Written by {{ userName[index] }}</p>
+                <br/>
+              </v-card>
+              
+            </v-flex>
+            
+          </v-container>
+          <v-template v-for=" c in course" :key="c.name">
+            <v-flex>
+             <h3>course Details</h3>
+             <!-- <h3 class="font-weight-black pl-5"> course Name</h3> -->
+             <!-- <p>{{ c.name }}</p> -->
+              <!-- <p class="font-weight-black pl-5"> course ID : {{ c.id }}</p> -->
+             <v-layout>
+               <p class="font-weight-black pl-5">Course title : </p>
+               <p>{{ c.title }}</p>
+             </v-layout>
+             <v-layout>
+               <p>Course Code: </p>
+               <p>{{ c.code }}</p>
+             </v-layout>
+             <v-layout>
+               <p>contact Hour</p>
+               <p>{{ c.contactHour}}</p>
+             </v-layout>
+             <p class="font-weight-black pl-5">Class Year :{{ c.classYear  }}</p>
+             <p>Semister: {{ c.semister }} </p>
+             <p>Pre-requesties: {{c.pre_requisites }}</p>
+             <p>Description : {{ c.description }}</p>
+             <v-template v-for="(out,index) in c.outlines" :key="out.index">
+               <v-flex>
+                  <h3>Course Outlines : {{index}}</h3>
+                  <p>{{ out }}</p>
+               </v-flex>
+             </v-template>
+            </v-flex>
+          </v-template>
         </v-flex>
         <v-card width="50%" class="mt-12 pt-8">
           <v-card-text>
@@ -176,6 +220,8 @@
 </template>
 
 <script>
+// const PDFDocument = require('pdfkit');
+// const doc = new PDFDocument();
 import { apiservice } from "../apiservice";
 const api = new apiservice();
 export default {
@@ -188,23 +234,22 @@ export default {
       percent: "",
       structure: {},
       visible: false,
-      show: false,
+      show:false,
+      userName: [],
       comment: [],
-      pcomittees: [],
-      pcomnames: [],
-      general: "",
-      gComment: "",
-      topic: "",
-      selp: ""
+      comments:[],
+      pcomittees:[],
+      pcomnames:[],
+      general: '',
+      gComment  : '',
+      topic: '',
+      selp:''
     };
   },
   methods: {
-    // send() {
-    //   this.visible = false;
-
-    //   this.comment.push( this.topic + " : " + this.receipant);
-    //   console.log(this.comment);
-    //   this.receipant = ''
+    // downloadPdf(){
+    //     doc.pipe(createWriteStream('file.pdf'));
+    //     doc.end();
     // },
     getStructure() {
       {
@@ -217,40 +262,63 @@ export default {
           this.structure = response;
           console.log(this.structure);
         });
+         api.getCourse(id).then(response => {
+           this.course = response.data
+           console.log("cources")
+          console.log(this.course);
+        });
       }
     },
-  // getCommite(){
-
-  //   // api.getCommitteeById().then(response => {
-
-  //   // })
-  // }
-    Endorse() {
-      var parid;
+    // getCoursedata(){
+    //    var user_id = this.$route.params.id;
+    //     var id = user_id.substr(1);
+    //    api.getCourse(id).then(response => {
+    //       console.log(response.data);
+    //     });
+    // },
+    // show(text){
+    //   this.visible = true;
+    //   this.topic = text;
+    // }
+    Endorse(){
+      var parid ;
       var reqid = this.$route.params.request;
       for (var j = 0; j < this.pcomittees.length; j++) {
         if (this.selp == this.pcomittees[j].name) {
           parid = this.pcomittees[j].id;
-        }
-      }
-      reqid = reqid.substr(1);
-      console.log(this.gComment);
-      api.Endorse(reqid, parid).then(data => {
-        //  let info ={
-        //    req_id:reqid,
-        //    user_id:this.$store.getters.User_id,
-        //    body:this.gComment
-        //  }
-        api
-          .createComment(reqid, this.$store.getters.User_id, this.gComment)
-          .then(response => {
-            console.log(response);
-          });
-        console.log(data);
-        this.show = false;
+         }
+       }
+        reqid = reqid.substr(1);
+       console.log(this.gComment);
+       api.Endorse(reqid,parid).then(
+         (data) =>{
+            api.createComment(reqid,this.$store.getters.User_id,this.gComment).then(response=>{
+              console.log(response);
+            })
+            console.log(data);
+           this.show = false;
+         }
+        )
+      
+    },
+    getComments(){
+      var user_id = this.$route.params.id;
+      var id = user_id.substr(1);
+      api.getCommentforCurr(id).then(response =>{
+        this.comments = response;
+        console.log('follow');
+          for(var i=0; i<this.comments.length; i++){
+             api.getUserName(this.comments[i].accountsId).then(response => {
+             console.log(response);
+             this.userName.push(response);
+           })
+          }
       });
     },
-    parentCommittes() {
+    Reject(){
+      
+    },
+    parentCommittes(){
       api.getparentcomitees(this.$store.getters.works_inDep).then(response => {
         this.pcomittees = response;
         for (var j = 0; j < this.pcomittees.length; j++) {
@@ -302,6 +370,7 @@ export default {
     this.getStructure();
     this.parentCommittes();
     this.get_progress();
+    this.getComments();
   }
 };
 </script>

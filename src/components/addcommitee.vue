@@ -34,6 +34,11 @@
                 class="px-12"
                 v-model="office"
               ></v-select>
+              <v-select
+                      label="Select Committee level"
+                      v-model="position"
+                      :items="level"
+                       class="px-12"></v-select>
             </v-form>
           </v-card-text>
           <v-flex class="text-center pa-9">
@@ -75,8 +80,9 @@ const api = new apiservice();
 export default {
   data() {
     return {
+      position: 0,
       name: "",
-      
+      level: [1,2,3,4,5],
       dialog: false,
       orgRule:{
         description:"",
@@ -126,6 +132,7 @@ export default {
         name: this.name,
         IsPartofId: this.$store.getters.org_id,
         members: this.members,
+        level: this.position,
         offId: this.getofficeid
       };
       console.log(data);
