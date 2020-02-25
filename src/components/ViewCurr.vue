@@ -3,7 +3,7 @@
     <v-flex class="mt-5 ml-12">
       <template v-for="(frameworks, index) in currfr">
         <v-flex v-bind:key="frameworks.index" class="ml-12">
-          <v-card class="float-left mr-10 ml-3" width="23%">
+          <v-card class="float-left mr-10 ml-3" width="35%">
             <v-card-actions class="teal">
               <v-flex>
                 <v-text class="headline">Framework{{ index + 1 }}</v-text>
@@ -16,13 +16,23 @@
                   <p>Type: {{ frameworks.program_type }}</p>
                   <p>gradreqs: {{ frameworks.gradreqs }}</p>
                 </v-container>
-                <v-btn
+                <v-layout>
+                   <v-btn
                   color="success white--text"
                   @click="
-                    sendForApproval(frameworks.id, frameworks.program_name)
+                    sendForApproval(frameworks.id, frameworks.program_name,frameworks.committeeId)
                   "
-                  >Send for approval</v-btn
+                  >Endorse</v-btn
                 >
+                <v-progress-circular
+                ref="progress"
+                width=10
+                value=10
+                color="deep-orange lighten-2"
+                class="ml-10"
+                ></v-progress-circular>
+                </v-layout>
+               
                 <!-- <v-btn color="red" disabled v-if="!sent(frameworks.id)">Sent for approval</v-btn> -->
                 <v-dialog v-model="show">
                   <v-card>
@@ -54,7 +64,7 @@
                         ></v-select>
                         <v-flex class="text-center">
                           <v-btn class="align-center" @click="Confirm()"
-                            >Send for Endorsement</v-btn
+                            >Endorse</v-btn
                           >
                         </v-flex>
                       </v-flex>
@@ -87,6 +97,7 @@ export default {
       ],
       show: false,
       name: "",
+      senderCommitteeId:'',
       comittees: [],
       pcomittees: [],
       chosenframeid: "",
@@ -97,8 +108,9 @@ export default {
     };
   },
   methods: {
-    sendForApproval(id, name) {
+    sendForApproval(id, name,senderCommitteId) {
       this.chosenframeid = id;
+      this.senderCommitteeId = senderCommitteId;
       this.name = name;
       this.show = true;
       this.getUserComittes();
@@ -107,14 +119,16 @@ export default {
       console.log(this.$store.getters.org_id);
     },
     Confirm() {
-      var childid;
+      // var childid;
       var parid;
 
-      for (var i = 0; i < this.comittees.length; i++) {
-        if (this.selc == this.comittees[i].name) {
-          childid = this.comittees[i].id;
-        }
-      }
+      this.$refs.progress.value += 10;
+
+      // for (var i = 0; i < this.comittees.length; i++) {
+      //   if (this.selc == this.comittees[i].name) {
+      //     childid = this.comittees[i].id;
+      //   }
+      // }
 
       for (var j = 0; j < this.pcomittees.length; j++) {
         console.log(this.selp, " ", this.pcomittees[j].name);
@@ -123,7 +137,9 @@ export default {
         }
       }
       let data = {
-        SenderComitteeId: childid,
+        timestamp:Date.now(),
+        isPending:true,
+        SenderComitteeId: this.senderCommitteeId,
         RecieverComiteeId: parid,
         forCurriculumId: this.chosenframeid
       };
@@ -134,7 +150,8 @@ export default {
     },
     getCurriculums() {
       api.getusersFrameworks(this.$store.getters.User_id).then(response => {
-        this.currfr = response;
+        this.currfr = response[0];
+        console.log(this.currfr);
 
         for (var i = 0; i < this.currfr.length; i++) {
           api.checkRequest(this.currfr[i].id).then(response => {

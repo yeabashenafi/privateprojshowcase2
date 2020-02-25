@@ -4,7 +4,22 @@ import Home from "../views/Home.vue";
 import dashboard from "../components/dashboard.vue";
 
 Vue.use(VueRouter);
+// function guardRoute(to,from,next){
+//   var isAuthenticated = false;
 
+//   if(this.store.getters.logged){
+//     isAuthenticated = true;
+//   }
+//   else{
+//     isAuthenticated = false;
+//   }
+//   if(isAuthenticated){
+//     next();
+//   }
+//   else{
+//     next('/login')
+//   }
+// }
 const routes = [
   {
     path: "/view",
@@ -43,8 +58,10 @@ const routes = [
   },
   {
     path: "/orgDashboard",
+    
     name: "orgdashboard",
-    component: () => import("../views/orgDash.vue")
+    component: () => import("../views/orgDash.vue"),
+    
   },
   {
     path: "/addOrgStructure",
@@ -54,7 +71,17 @@ const routes = [
   {
     path: "/AdminDash",
     name: "AdminDash",
-    component: () => import("../views/AdminDash.vue")
+    component: () => import("../views/AdminDash.vue"),
+    // beforeEnter(to,from,next){
+    //   if(this.$store.getters.logged){
+    //     next()
+    //   }
+    //   else{
+    //     next({
+    //       name:"login"
+    //     })
+    //   }
+    // }
   },
   {
     path: "/orgTest",

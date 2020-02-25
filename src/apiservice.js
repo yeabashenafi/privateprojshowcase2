@@ -212,7 +212,8 @@ export class apiservice {
     return response;
   }  
   async generatePDF(data){
-    let response = await axios.post(`${API_URL}/y/generatePDF`,data);
+    console.log("the id is",data)
+    let response = await axios.get(`${API_URL}/y/generatePDF?text=${data}`);
     return response;
   }
   async reject(req_id){
@@ -234,7 +235,29 @@ export class apiservice {
     console.log(response);
     return response;
   }
+  async uploadImage(image){
 
+    const url = API_URL+'/Container/remoteMethod/upload';
+    return new Promise(function(resolve,reject){
+      
+      var xhr = new XMLHttpRequest();
+      var fd = new FormData();
+      
+      xhr.open("POST",url,true);
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+          resolve(JSON.parse(xhr.responseText));
+        }
+        else{
+          reject("error");
+        }
+      };
+      fd.append('file',image);
+      xhr.send(fd);
+    })
+    
+  }
+  
   async getUserName(user_id){
     let response = await axios.get(`${API_URL}/Accounts/${user_id}`)
     return response.data.fullname;

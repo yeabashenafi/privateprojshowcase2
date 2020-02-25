@@ -89,20 +89,21 @@
                 <br/>
               </v-card>
               
-            </v-flex>
+            </v-flex> 
             
           </v-container>
-          <v-template v-for=" c in course" :key="c.name">
-            <v-flex>
-             <h3>course Details</h3>
+          <h3 class="text-center display-1 font-weight-black">course Details</h3>
+          <template v-for=" c in course" >
+            <v-flex :key="c.name">
+             
              <!-- <h3 class="font-weight-black pl-5"> course Name</h3> -->
              <!-- <p>{{ c.name }}</p> -->
               <!-- <p class="font-weight-black pl-5"> course ID : {{ c.id }}</p> -->
              <v-layout>
-               <p class="font-weight-black pl-5">Course title : </p>
-               <p>{{ c.title }}</p>
+               <p class="font-weight-black headline pl-5">Course title : </p>
+               <p class="headline">{{ c.name}}</p>
              </v-layout>
-             <v-layout>
+             <!-- <v-layout>
                <p>Course Code: </p>
                <p>{{ c.code }}</p>
              </v-layout>
@@ -110,7 +111,8 @@
                <p>contact Hour</p>
                <p>{{ c.contactHour}}</p>
              </v-layout>
-             <p class="font-weight-black pl-5">Class Year :{{ c.classYear  }}</p>
+             <p>{{c.name}}</p> -->
+             <!-- <p class="font-weight-black pl-5">Class Year :{{ c.classYear  }}</p>
              <p>Semister: {{ c.semister }} </p>
              <p>Pre-requesties: {{c.pre_requisites }}</p>
              <p>Description : {{ c.description }}</p>
@@ -119,9 +121,9 @@
                   <h3>Course Outlines : {{index}}</h3>
                   <p>{{ out }}</p>
                </v-flex>
-             </v-template>
+             </v-template> -->
             </v-flex>
-          </v-template>
+          </template>
         </v-flex>
         <v-card width="50%" class="mt-12 pt-8">
           <v-card-text>
@@ -131,13 +133,6 @@
                 outlined
                 v-model="gComment"
               ></v-textarea>
-              <v-btn
-                color="success white--text ml-12"
-                align-self-left
-                @click="submitGeneralComment()"
-              >
-                Submit comments</v-btn
-              >
             </v-flex>
           </v-card-text>
         </v-card>
@@ -161,14 +156,14 @@
         <v-btn
           color="success white--text"
           align-self-left
-          @click="show = !show"
+          @click="checkConfirmation()"
           :disabled="!commentedOn"
         >
           Endorse</v-btn
         >
         <v-spacer></v-spacer>
-        <!-- <v-btn @click="generatePdf()">Generate Pdf</v-btn> -->
-        <v-btn color="error white--text" :disabled="!commentedOn">Reject Curriculum</v-btn>
+        <v-btn @click="generatePdf()">Generate Pdf</v-btn> 
+        <v-btn color="error white--text" @click="Reject()" :disabled="!commentedOn">Reject Curriculum</v-btn>
       </v-layout>
     </v-card>
     <v-dialog v-model="visible" width="50%">
@@ -188,7 +183,7 @@
       <v-card>
         <v-card-title class="teal">
           <v-flex>
-            Confirm Sending Curriculum for approval
+            Confirm Endorsement Request
           </v-flex>
         </v-card-title>
         <v-card-actions>
@@ -243,6 +238,7 @@ export default {
       pcomnames:[],
       general: '',
       gComment  : '',
+      receipant:'',
       topic: '',
       selp:''
     };
@@ -252,9 +248,14 @@ export default {
     //     doc.pipe(createWriteStream('file.pdf'));
     //     doc.end();
     // },
+     checkConfirmation(){
+
+     },
      generatePdf(){
-       console.log(typeof this.structure)
-       api.generatePDF(this.structure).then(response => {
+       var id = this.$route.params.id
+       id = id.substr(1,)
+       console.log(typeof id);
+       api.generatePDF(id).then(response => {
          console.log(response);
        })
      },  
@@ -280,7 +281,7 @@ export default {
         });
          api.getCourse(id).then(response => {
            this.course = response.data
-           console.log("cources")
+           console.log("courses")
           console.log(this.course);
         });
       }
@@ -332,7 +333,19 @@ export default {
       });
     },
     Reject(){
-
+      var req_id = this.$route.params.request;
+      req_id = req_id.substr(1,);
+      api.reject(req_id).then(() => {
+        
+        api.createComment(req_id,this.$store.getters.User_id,this.gComment).then(response=>{
+              console.log(response);
+              this.$router.go(-1);
+            })
+        
+      }
+        
+      )
+      
       
     },
     parentCommittes(){
@@ -385,7 +398,7 @@ export default {
   },
   mounted() {
     this.getStructure();
-    this.parentCommittes();
+    //this.parentCommittes();
     this.get_progress();
     this.getComments();
   }
