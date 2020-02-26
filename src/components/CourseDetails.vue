@@ -289,6 +289,7 @@ export default {
         console.log(response);
       });
       this.show_courseD = !this.show_courseD;
+      window.alert("Successfully Added");
       // this.$root.$emit("finishcd");
     },
     show_clo_dialog() {
