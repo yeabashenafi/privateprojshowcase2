@@ -2,24 +2,20 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import dashboard from "../components/dashboard.vue";
+import store from "../store";
 
 Vue.use(VueRouter);
-// function guardRoute(to,from,next){
-//   var isAuthenticated = false;
+ function guardRoute(to,from,next){
 
-//   if(this.store.getters.logged){
-//     isAuthenticated = true;
-//   }
-//   else{
-//     isAuthenticated = false;
-//   }
-//   if(isAuthenticated){
-//     next();
-//   }
-//   else{
-//     next('/login')
-//   }
-// }
+   if(store.getters.logged){
+     next()
+   }
+   else{
+    next({
+      name:"login"
+    })
+   }
+ }
 const routes = [
   {
     path: "/view",
@@ -72,16 +68,7 @@ const routes = [
     path: "/AdminDash",
     name: "AdminDash",
     component: () => import("../views/AdminDash.vue"),
-    // beforeEnter(to,from,next){
-    //   if(this.$store.getters.logged){
-    //     next()
-    //   }
-    //   else{
-    //     next({
-    //       name:"login"
-    //     })
-    //   }
-    // }
+    beforeEnter:guardRoute
   },
   {
     path: "/orgTest",
@@ -91,12 +78,14 @@ const routes = [
   {
     path: "/userDashTest",
     name: "userDashTest",
-    component: () => import("../views/userDashTest.vue")
+    component: () => import("../views/userDashTest.vue"),
+    beforeEnter:guardRoute
   },
   {
     path: "/view:id/request/:request",
     name: "viewStructure",
-    component: () => import("../components/ViewSpecific.vue")
+    component: () => import("../components/ViewSpecific.vue"),
+    beforeEnter:guardRoute
   },
   {
     path: "/",

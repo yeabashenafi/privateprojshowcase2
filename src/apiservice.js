@@ -8,6 +8,10 @@ export class apiservice {
       console.log(res);
     });
   }
+  async getOfficeById(data){
+    let response = await axios.get(`${API_URL}/AccadamicOffices/${data}`)
+    return response;
+  }
   async getComiteeName(data) {
     let response = await axios.get(`${API_URL}/committees/${data}`);
     return response.data.name;
@@ -145,7 +149,7 @@ export class apiservice {
   }
   async getparentcomitees(offid) {
     let response = await axios.get(
-      `${API_URL}/committees/{id}/getparentcomittees?office_id=${offid}`
+      `${API_URL}/committees/{id}/getparentcomittees?comm_id=${offid}`
     );
     return response.data.parent_Comittees;
   }
@@ -265,6 +269,17 @@ export class apiservice {
   async getCommentforCurr(currId){
     let response = await axios.get(`${API_URL}/comments/{id}/getComment?curr_id=${currId}`)
     return response.data.comments;
+  }
+  async getOrgEndorsementPerc(org_id){
+    let response = await axios.get(`${API_URL}/Organizations/${org_id}`)
+    return response.data.percentage_for_endorsment;
+  }
+  async perToEndorse(id,val){
+    let data= {
+      endorsePercentage:val
+    }
+    let response = await axios.patch(`${API_URL}/y/${id}`,data);
+    return response;
   }
   // async setAdminTo(data){
   //   let response = await axios.post(`${API_URL}/Accounts/setAdmin`,data);
