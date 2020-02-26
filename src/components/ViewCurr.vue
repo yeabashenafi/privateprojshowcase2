@@ -119,8 +119,9 @@ export default {
       this.chosenframeid = id;
       this.senderCommitteeId = senderCommitteId;
       this.name = name;
-      
-      this.increasecurrEndorse(this.chosenframeid,endPerc+10);
+      var value = (1/this.currfr[index].members.length) * 100;
+      console.log(value+endPerc);
+     // this.increasecurrEndorse(this.chosenframeid,endPerc+value);
       this.getCurriculums(); 
       //this.$refs.progress.value = this.getCurrEndPerc(index);
       if(this.getCurrEndPerc(index) >= this.endPer){
