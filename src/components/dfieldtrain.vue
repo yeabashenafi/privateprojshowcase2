@@ -9,8 +9,8 @@
           <v-select
             label="Select Fields"
             :items="compName"
-             multiple
-             v-model="selected"
+            multiple
+            v-model="selected"
           ></v-select>
         </v-card-text>
         <v-actions>
@@ -41,7 +41,7 @@ export default {
       component: [],
       compName: [],
       selected: [],
-      descr:[],
+      descr: [],
       detail: [],
       data: [{}]
     };
@@ -51,7 +51,7 @@ export default {
       api.getComponent(this.$store.getters.org_id).then(response => {
         this.component = response.data;
         console.log(this.component);
-        for (var i=0; i < this.component.length; i++) {
+        for (var i = 0; i < this.component.length; i++) {
           this.compName.push(this.component[i].name);
           this.descr.push(this.component[i].desc);
         }
@@ -62,28 +62,32 @@ export default {
     addProgram() {
       // console.log(this.selected);
       // console.log(this.detail);
-   
+
       for (var i = 0; i < this.detail.length; i++) {
-          if(this.detail[i] == undefined){
-              this.detail[i] = "";
-          }
-         
-          // this.data.push(this.selected[i]);
+        if (this.detail[i] == undefined) {
+          this.detail[i] = "";
+        }
+
+        // this.data.push(this.selected[i]);
         // console.log(this.selected[i] + " : " + this.detail[i]);
-            
       }
       // console.log(this.data);
       let data = {
-        name: 'minilik'
-      }
+        name: "minilik"
+      };
 
-    var object = Object.assign({}, ...Object.entries({...this.selected}).map(([a,b]) => ({ [b]: this.detail[a] })))
-    console.log(object);
-    const combined = {...object, ...data};//combine the two objects
-    console.log(combined);
-    // api.addStructure(object).then(response => {
-    //   console.log(response);
-    // })
+      var object = Object.assign(
+        {},
+        ...Object.entries({ ...this.selected }).map(([a, b]) => ({
+          [b]: this.detail[a]
+        }))
+      );
+      console.log(object);
+      const combined = { ...object, ...data }; //combine the two objects
+      console.log(combined);
+      // api.addStructure(object).then(response => {
+      //   console.log(response);
+      // })
     }
   },
   mounted() {

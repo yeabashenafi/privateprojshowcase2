@@ -82,44 +82,44 @@
             <v-divider></v-divider>
             <p>Comments</p>
 
-            <v-flex v-for="(comment,index) in comments" :key="comment" >
+            <v-flex v-for="(comment, index) in comments" :key="comment">
               <v-card>
-                <p>Comment {{index+1}}:{{comment.body}}</p>
+                <p>Comment {{ index + 1 }}:{{ comment.body }}</p>
                 <p>Written by {{ userName[index] }}</p>
-                <br/>
+                <br />
               </v-card>
-              
             </v-flex>
-            
           </v-container>
-          <v-template v-for=" c in course" :key="c.name">
+          <v-template v-for="c in course" :key="c.name">
             <v-flex>
-             <h3>course Details</h3>
-             <!-- <h3 class="font-weight-black pl-5"> course Name</h3> -->
-             <!-- <p>{{ c.name }}</p> -->
+              <h3>course Details</h3>
+              <!-- <h3 class="font-weight-black pl-5"> course Name</h3> -->
+              <!-- <p>{{ c.name }}</p> -->
               <!-- <p class="font-weight-black pl-5"> course ID : {{ c.id }}</p> -->
-             <v-layout>
-               <p class="font-weight-black pl-5">Course title : </p>
-               <p>{{ c.title }}</p>
-             </v-layout>
-             <v-layout>
-               <p>Course Code: </p>
-               <p>{{ c.code }}</p>
-             </v-layout>
-             <v-layout>
-               <p>contact Hour</p>
-               <p>{{ c.contactHour}}</p>
-             </v-layout>
-             <p class="font-weight-black pl-5">Class Year :{{ c.classYear  }}</p>
-             <p>Semister: {{ c.semister }} </p>
-             <p>Pre-requesties: {{c.pre_requisites }}</p>
-             <p>Description : {{ c.description }}</p>
-             <v-template v-for="(out,index) in c.outlines" :key="out.index">
-               <v-flex>
-                  <h3>Course Outlines : {{index}}</h3>
+              <v-layout>
+                <p class="font-weight-black pl-5">Course title :</p>
+                <p>{{ c.title }}</p>
+              </v-layout>
+              <v-layout>
+                <p>Course Code:</p>
+                <p>{{ c.code }}</p>
+              </v-layout>
+              <v-layout>
+                <p>contact Hour</p>
+                <p>{{ c.contactHour }}</p>
+              </v-layout>
+              <p class="font-weight-black pl-5">
+                Class Year :{{ c.classYear }}
+              </p>
+              <p>Semister: {{ c.semister }}</p>
+              <p>Pre-requesties: {{ c.pre_requisites }}</p>
+              <p>Description : {{ c.description }}</p>
+              <v-template v-for="(out, index) in c.outlines" :key="out.index">
+                <v-flex>
+                  <h3>Course Outlines : {{ index }}</h3>
                   <p>{{ out }}</p>
-               </v-flex>
-             </v-template>
+                </v-flex>
+              </v-template>
             </v-flex>
           </v-template>
         </v-flex>
@@ -145,14 +145,14 @@
       <v-layout>
         <v-text class="py-4">Progress of Endorsment:</v-text>
         <v-text-field class="mx-2" v-model="percent">
-          <template v-slot:progress>
+          <!-- <template v-slot:progress>
             <v-progress-linear
               :value="progress"
               :color="color"
               absolute
               height="7"
             ></v-progress-linear>
-          </template>
+          </template> -->
         </v-text-field>
         <!-- <v-progress-linear class="py-3"></v-progress-linear> -->
       </v-layout>
@@ -168,7 +168,9 @@
         >
         <v-spacer></v-spacer>
         <!-- <v-btn @click="generatePdf()">Generate Pdf</v-btn> -->
-        <v-btn color="error white--text" :disabled="!commentedOn">Reject Curriculum</v-btn>
+        <v-btn color="error white--text" :disabled="!commentedOn"
+          >Reject Curriculum</v-btn
+        >
       </v-layout>
     </v-card>
     <v-dialog v-model="visible" width="50%">
@@ -179,7 +181,7 @@
         <v-card-text>
           <v-textarea label="your comment" v-model="receipant"></v-textarea>
         </v-card-text>
-        <v-card-actions> 
+        <v-card-actions>
           <v-btn @click="send()">send</v-btn>
         </v-card-actions>
       </v-card>
@@ -235,16 +237,16 @@ export default {
       percent: "",
       structure: {},
       visible: false,
-      show:false,
+      show: false,
       userName: [],
       comment: [],
-      comments:[],
-      pcomittees:[],
-      pcomnames:[],
-      general: '',
-      gComment  : '',
-      topic: '',
-      selp:''
+      comments: [],
+      pcomittees: [],
+      pcomnames: [],
+      general: "",
+      gComment: "",
+      topic: "",
+      selp: ""
     };
   },
   methods: {
@@ -252,12 +254,12 @@ export default {
     //     doc.pipe(createWriteStream('file.pdf'));
     //     doc.end();
     // },
-     generatePdf(){
-       console.log(typeof this.structure)
-       api.generatePDF(this.structure).then(response => {
-         console.log(response);
-       })
-     },  
+    generatePdf() {
+      console.log(typeof this.structure);
+      api.generatePDF(this.structure).then(response => {
+        console.log(response);
+      });
+    },
     //   const fs = require('fs');
     //   const doc = new PDFDocument;
 
@@ -265,7 +267,7 @@ export default {
     //   doc.font('fonts/PalatinoBold.ttf')
     //      .fontSize(25)
     //      .text('Some text with an embedded font!', 100, 100);
-    //   doc.end();    
+    //   doc.end();
     // },
     getStructure() {
       {
@@ -278,9 +280,9 @@ export default {
           this.structure = response;
           console.log(this.structure);
         });
-         api.getCourse(id).then(response => {
-           this.course = response.data
-           console.log("cources")
+        api.getCourse(id).then(response => {
+          this.course = response.data;
+          console.log("cources");
           console.log(this.course);
         });
       }
@@ -296,46 +298,42 @@ export default {
     //   this.visible = true;
     //   this.topic = text;
     // }
-    Endorse(){
-      var parid ;
+    Endorse() {
+      var parid;
       var reqid = this.$route.params.request;
       for (var j = 0; j < this.pcomittees.length; j++) {
         if (this.selp == this.pcomittees[j].name) {
           parid = this.pcomittees[j].id;
-         }
-       }
-        reqid = reqid.substr(1);
-       console.log(this.gComment);
-       api.Endorse(reqid,parid).then(
-         (data) =>{
-            api.createComment(reqid,this.$store.getters.User_id,this.gComment).then(response=>{
-              console.log(response);
-            })
-            console.log(data);
-           this.show = false;
-         }
-        )
-      
-    },
-    getComments(){
-      var user_id = this.$route.params.id;
-      var id = user_id.substr(1);
-      api.getCommentforCurr(id).then(response =>{
-        this.comments = response;
-        console.log('follow');
-          for(var i=0; i<this.comments.length; i++){
-             api.getUserName(this.comments[i].accountsId).then(response => {
-             console.log(response);
-             this.userName.push(response);
-           })
-          }
+        }
+      }
+      reqid = reqid.substr(1);
+      console.log(this.gComment);
+      api.Endorse(reqid, parid).then(data => {
+        api
+          .createComment(reqid, this.$store.getters.User_id, this.gComment)
+          .then(response => {
+            console.log(response);
+          });
+        console.log(data);
+        this.show = false;
       });
     },
-    Reject(){
-
-      
+    getComments() {
+      var user_id = this.$route.params.id;
+      var id = user_id.substr(1);
+      api.getCommentforCurr(id).then(response => {
+        this.comments = response;
+        console.log("follow");
+        for (var i = 0; i < this.comments.length; i++) {
+          api.getUserName(this.comments[i].accountsId).then(response => {
+            console.log(response);
+            this.userName.push(response);
+          });
+        }
+      });
     },
-    parentCommittes(){
+    Reject() {},
+    parentCommittes() {
       api.getparentcomitees(this.$store.getters.works_inDep).then(response => {
         this.pcomittees = response;
         for (var j = 0; j < this.pcomittees.length; j++) {

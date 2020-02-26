@@ -122,7 +122,7 @@ export class apiservice {
     return response;
   }
   //get Course using curriculum id
-  async getCourse(id){
+  async getCourse(id) {
     let response = await axios.get(`${API_URL}/y/${id}/courses`);
     console.log(response);
     return response;
@@ -165,8 +165,10 @@ export class apiservice {
     );
     return response;
   }
-  async getChildren(par_id){
-    let response = await axios.get(`${API_URL}/AccadamicOffices/${par_id}/getChildren`);
+  async getChildren(par_id) {
+    let response = await axios.get(
+      `${API_URL}/AccadamicOffices/${par_id}/getChildren`
+    );
     return response.data.childs;
   }
   async getAdminInfo(id) {
@@ -182,7 +184,8 @@ export class apiservice {
     console.log(response);
     return response;
   }
-  async howManyNotify(id) {// no of notificatons
+  async howManyNotify(id) {
+    // no of notificatons
     let response = await axios.get(`${API_URL}/requests/${id}/checkRequests`);
     // console.log(response);
     return response;
@@ -192,7 +195,7 @@ export class apiservice {
     console.log(response);
     return response;
   }
-  async getorgRules(id){
+  async getorgRules(id) {
     let response = await axios.get(`${API_URL}/Organizations/${id}/getRules`);
     return response.data.rules;
   }
@@ -203,44 +206,54 @@ export class apiservice {
     return response;
   }
   async getComponent(id) {
-    let response = await axios.get(`${API_URL}/currCOmponents/${id}/getComponent`);
+    let response = await axios.get(
+      `${API_URL}/currCOmponents/${id}/getComponent`
+    );
     console.log(response);
     return response.data;
   }
-  async Endorse(req_id,upperCommitteId){
-    let response = await axios.get(`${API_URL}/requests/{id}/Endorse?req_id=${req_id}&upperCommitte_id=${upperCommitteId}`)
-    return response;
-  }  
-  async generatePDF(data){
-    let response = await axios.post(`${API_URL}/y/generatePDF`,data);
+  async Endorse(req_id, upperCommitteId) {
+    let response = await axios.get(
+      `${API_URL}/requests/{id}/Endorse?req_id=${req_id}&upperCommitte_id=${upperCommitteId}`
+    );
     return response;
   }
-  async reject(req_id){
-    let response = await axios.get(`${API_URL}/requests/{id}/RejectCurr?req_id=${req_id}`);
+  async generatePDF(data) {
+    let response = await axios.post(`${API_URL}/y/generatePDF`, data);
     return response;
   }
-  async createComment(req_id,user_id,body){
-    let response = await axios.get(`${API_URL}/comments/{id}/create?req_id=${req_id}&user_id=${user_id}&body=${body}`)
+  async reject(req_id) {
+    let response = await axios.get(
+      `${API_URL}/requests/{id}/RejectCurr?req_id=${req_id}`
+    );
+    return response;
+  }
+  async createComment(req_id, user_id, body) {
+    let response = await axios.get(
+      `${API_URL}/comments/{id}/create?req_id=${req_id}&user_id=${user_id}&body=${body}`
+    );
     return response;
   }
   //Get Request data
-  async getRequest(token){
-    let response = await axios.get(`${API_URL}/requests?access_token=${token}`)
+  async getRequest(token) {
+    let response = await axios.get(`${API_URL}/requests?access_token=${token}`);
     return response;
   }
   //get committee by Id and return detail of the committee
-  async getCommitteeById(id){
+  async getCommitteeById(id) {
     let response = await axios.get(`${API_URL}/committees/${id}`);
     console.log(response);
     return response;
   }
 
-  async getUserName(user_id){
-    let response = await axios.get(`${API_URL}/Accounts/${user_id}`)
+  async getUserName(user_id) {
+    let response = await axios.get(`${API_URL}/Accounts/${user_id}`);
     return response.data.fullname;
   }
-  async getCommentforCurr(currId){
-    let response = await axios.get(`${API_URL}/comments/{id}/getComment?curr_id=${currId}`)
+  async getCommentforCurr(currId) {
+    let response = await axios.get(
+      `${API_URL}/comments/{id}/getComment?curr_id=${currId}`
+    );
     return response.data.comments;
   }
   // async setAdminTo(data){

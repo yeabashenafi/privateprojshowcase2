@@ -57,7 +57,7 @@
           <v-tab>
             <v-icon left>mdi-plus</v-icon>
             Add Rules
-          <!-- <v-tab>
+            <!-- <v-tab>
             <v-icon left> mdi-plus</v-icon>
             Add Component
           </v-tab> -->
@@ -168,12 +168,10 @@ export default {
     allUser,
     setRules,
     orgStructureTest,
-    addcommitee, 
-    training,
+    addcommitee,
+    training
     // addComponent,
     // dfieldtrain
-   
-    
   }
 };
 </script>
