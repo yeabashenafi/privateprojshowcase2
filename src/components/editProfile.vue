@@ -27,7 +27,7 @@
               label="password"
             ></v-text-field> -->
             <v-icon>mdi-account-edit</v-icon>
-
+            <v-spacer></v-spacer>
             <v-text-field
               v-model="user.fullname"
               label="Full Name"
@@ -37,7 +37,7 @@
           <v-layout>
             <v-text-field
               v-model="user.email"
-              label="E-mail"
+               label="E-mail"
               filled
             ></v-text-field>
             <v-icon>mdi-account-edit</v-icon>

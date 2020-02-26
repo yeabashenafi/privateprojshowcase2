@@ -19,12 +19,37 @@
                   <v-stepper-step :complete="el > 3" step="3"
                     >Step 3</v-stepper-step
                   >
+                  <v-stepper-step :complete="el > 4" step="4">
+                    Step 4
+                  </v-stepper-step>
                   <!-- <v-stepper-step :complete="el > 4" step="4">
                     step 4</v-stepper-step> -->
                 </v-stepper-header>
                 <v-divider></v-divider>
                 <v-stepper-items>
                   <v-stepper-content step="1">
+                    <v-card>
+                      <v-flex>
+                        <v-card-text class="display-1 text-center"
+                          >Begin the curriculum addition process</v-card-text
+                        >
+                        <v-layout>
+                          <v-spacer></v-spacer>
+                          <v-select
+                            v-model="selCommName"
+                            class="mx-12"
+                            label="Select the committee that will own the framework"
+                            :items="comNames"
+                          ></v-select>
+                          <v-spacer></v-spacer>
+                        </v-layout>
+                        <v-btn @click="getCommId()" color="primary"
+                          >Begin</v-btn
+                        >
+                      </v-flex>
+                    </v-card>
+                  </v-stepper-content>
+                  <v-stepper-content step="2">
                     <v-card>
                       <v-card-title>
                         <v-flex class="text-center">
@@ -68,13 +93,13 @@
                         </v-flex>
                         <v-card-actions> </v-card-actions>
                       </v-card>
-                      <v-btn class="mt-5 primary--text" @click="el = 2"
+                      <v-btn class="mt-5 primary--text" @click="el = 3"
                         >Continue</v-btn
                       >
                     </v-card>
                   </v-stepper-content>
 
-                  <v-stepper-content step="2">
+                  <v-stepper-content step="3">
                     <v-card class="mb-5  pb-10">
                       <v-card-title>
                         <v-flex class="text-center">
@@ -144,12 +169,12 @@
                         </v-container>
                       </v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn class="mt-5 primary--text" @click="el = 3"
+                      <v-btn class="mt-5 primary--text" @click="el = 4"
                         >Continue</v-btn
                       >
                     </v-card>
                   </v-stepper-content>
-                  <v-stepper-content step="3">
+                  <v-stepper-content step="4">
                     <v-card>
                       <v-card-title>
                         <v-flex class="text-center">
@@ -330,6 +355,8 @@ export default {
     return {
       component: [],
       compName: [],
+      selCommName: "",
+      selCommId: "",
       selected: [],
       detail: [],
       descr: [],
@@ -411,7 +438,8 @@ export default {
         }
       ],
       references: "",
-
+      comittees: [],
+      comNames: [],
       gradingScale: "",
       learningMethod: [
         {
@@ -436,6 +464,15 @@ export default {
   },
   methods: {
     //////////// daynamic field code frag
+    getCommId() {
+      this.el = 2;
+
+      for (var com in this.comittees) {
+        if (this.selCommName == this.comittees[com].name) {
+          this.selCommId = this.comittees[com].id;
+        }
+      }
+    },
     getComp() {
       api.getComponent(this.$store.getters.org_id).then(response => {
         //  console.log(response);
@@ -510,7 +547,7 @@ export default {
         }
         // console.log(this.selected[i] + " : " + this.detail[i]);
       }
-      var user = this.$store.getters.User_id;
+      // var user = this.$store.getters.User_id;
       var org = this.$store.getters.org_id;
       var object = Object.assign(
         {},
@@ -523,7 +560,7 @@ export default {
         program_outcome: this.po,
         program_educational_outcome: this.peo,
         course_learning_outcome: this.clo,
-        OwnersId: user,
+        committeeId: this.selCommId,
         organizationalId: org
       };
       const combined = { ...object, ...data }; //combine the two objects
@@ -596,6 +633,15 @@ export default {
       if (this.po.length > 1) {
         this.po.pop();
       }
+    },
+    getUserComittes() {
+      api.getyourComitee(this.$store.getters.User_id).then(data => {
+        this.comittees = data.Comitees;
+        for (var comittee in this.comittees) {
+          this.comNames.push(this.comittees[comittee].name);
+          console.log();
+        }
+      });
     }
   },
   computed: {
@@ -610,6 +656,7 @@ export default {
   mounted() {
     this.getBackground();
     this.getComp();
+    this.getUserComittes();
   }
 };
 </script>

@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import { apiservice } from "../apiservice";
-const api = new apiservice();
+ import { apiservice } from "../apiservice";
+ const api = new apiservice();
 export default {
   data: () => {
     return {
@@ -65,24 +65,26 @@ export default {
       location: "",
       background: "",
       year_of_establishment: "",
-      image: null,
+      image: [],
       Motto: ""
     };
   },
   methods: {
     add() {
-      let data = {
-        Name: this.name,
-        location: this.location,
-        background: this.background,
+      // const files = e.target.files;
+      // let data = {
+      //   Name: this.name,
+      //   location: this.location,
+      //   background: this.background,
 
-        year_of_establishment: this.year_of_establishment,
-        Motto: this.Motto
-      };
-      console.log(data);
-      api.addOrganization(data).then(response => {
-        console.log(response);
-      });
+      //   year_of_establishment: this.year_of_establishment,
+      //   Motto: this.Motto
+      // };
+      api.uploadImage(this.image);
+     // console.log(this.image);
+      // api.addOrganization(data).then(response => {
+      //   console.log(response);
+      // });
       // const req = {
       //   fullname: this.name + 'admin',
       //   password: this.name + 'pass45'
