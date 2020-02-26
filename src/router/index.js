@@ -58,10 +58,9 @@ const routes = [
   },
   {
     path: "/orgDashboard",
-    
+
     name: "orgdashboard",
-    component: () => import("../views/orgDash.vue"),
-    
+    component: () => import("../views/orgDash.vue")
   },
   {
     path: "/addOrgStructure",
@@ -71,7 +70,7 @@ const routes = [
   {
     path: "/AdminDash",
     name: "AdminDash",
-    component: () => import("../views/AdminDash.vue"),
+    component: () => import("../views/AdminDash.vue")
     // beforeEnter(to,from,next){
     //   if(this.$store.getters.logged){
     //     next()

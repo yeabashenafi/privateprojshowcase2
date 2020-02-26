@@ -117,8 +117,12 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/y/${id}`);
     return response;
   }
-  async addCourse(course) {
-    let response = await axios.post(`${API_URL}/courses`, course);
+  //Adding the course details
+  async addCourse(token, course) {
+    let response = await axios.post(
+      `${API_URL}/courses?access_token=${token}`,
+      course
+    );
     return response;
   }
   //get Course using curriculum id

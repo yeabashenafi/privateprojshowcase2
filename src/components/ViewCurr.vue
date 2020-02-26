@@ -17,22 +17,26 @@
                   <p>gradreqs: {{ frameworks.gradreqs }}</p>
                 </v-container>
                 <v-layout>
-                   <v-btn
-                  color="success white--text"
-                  @click="
-                    sendForApproval(frameworks.id, frameworks.program_name,frameworks.committeeId)
-                  "
-                  >Endorse</v-btn
-                >
-                <v-progress-circular
-                ref="progress"
-                width=10
-                value=10
-                color="deep-orange lighten-2"
-                class="ml-10"
-                ></v-progress-circular>
+                  <v-btn
+                    color="success white--text"
+                    @click="
+                      sendForApproval(
+                        frameworks.id,
+                        frameworks.program_name,
+                        frameworks.committeeId
+                      )
+                    "
+                    >Endorse</v-btn
+                  >
+                  <v-progress-circular
+                    ref="progress"
+                    width="10"
+                    value="10"
+                    color="deep-orange lighten-2"
+                    class="ml-10"
+                  ></v-progress-circular>
                 </v-layout>
-               
+
                 <!-- <v-btn color="red" disabled v-if="!sent(frameworks.id)">Sent for approval</v-btn> -->
                 <v-dialog v-model="show">
                   <v-card>
@@ -97,7 +101,7 @@ export default {
       ],
       show: false,
       name: "",
-      senderCommitteeId:'',
+      senderCommitteeId: "",
       comittees: [],
       pcomittees: [],
       chosenframeid: "",
@@ -108,7 +112,7 @@ export default {
     };
   },
   methods: {
-    sendForApproval(id, name,senderCommitteId) {
+    sendForApproval(id, name, senderCommitteId) {
       this.chosenframeid = id;
       this.senderCommitteeId = senderCommitteId;
       this.name = name;
@@ -137,8 +141,8 @@ export default {
         }
       }
       let data = {
-        timestamp:Date.now(),
-        isPending:true,
+        timestamp: Date.now(),
+        isPending: true,
         SenderComitteeId: this.senderCommitteeId,
         RecieverComiteeId: parid,
         forCurriculumId: this.chosenframeid
