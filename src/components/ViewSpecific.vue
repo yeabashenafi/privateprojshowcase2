@@ -131,13 +131,13 @@
                 outlined
                 v-model="gComment"
               ></v-textarea>
-              <v-btn
+              <!-- <v-btn
                 color="success white--text ml-12"
                 align-self-left
                 @click="submitGeneralComment()"
               >
                 Submit comments</v-btn
-              >
+              > -->
             </v-flex>
           </v-card-text>
         </v-card>
@@ -145,14 +145,14 @@
       <v-layout>
         <v-text class="py-4">Progress of Endorsment:</v-text>
         <v-text-field class="mx-2" v-model="percent">
-          <template v-slot:progress>
+          <!-- <template v-slot:progress>
             <v-progress-linear
               :value="progress"
               :color="color"
               absolute
               height="7"
             ></v-progress-linear>
-          </template>
+          </template> -->
         </v-text-field>
         <!-- <v-progress-linear class="py-3"></v-progress-linear> -->
       </v-layout>
@@ -230,8 +230,8 @@ export default {
     return {
       custom: true,
       value: "",
-      numerator: "",
-      denominator: "",
+      numerator: 0,
+      denominator: 0,
       percent: "",
       structure: {},
       visible: false,
@@ -244,7 +244,9 @@ export default {
       general: '',
       gComment  : '',
       topic: '',
-      selp:''
+      selp:'',
+      memLength: 0,
+      reqData: {}
     };
   },
   methods: {
@@ -297,6 +299,22 @@ export default {
     //   this.topic = text;
     // }
     Endorse(){
+       this.numerator = (1/this.memLength)*100;
+       //put this data
+       let data = {
+         timestamp: this.reqData.timestamp,
+         isPending: this.reqData.isPending,
+         persentage: this.numerator,
+         id: this.reqData.id,
+         SenderComitteeId: this.reqData.SenderComitteeId,
+         RecieverComiteeId: this.reqData.RecieverComiteeId,
+         forCurriculumId: this.reqData.forCurriculumId
+       }
+       console.log("Persentge........." + this.numerator);
+       api.updatePersent(data).then( res => {
+         console.log("This is from updatePersent");
+         console.log(res);
+       });
       var parid ;
       var reqid = this.$route.params.request;
       for (var j = 0; j < this.pcomittees.length; j++) {
@@ -336,6 +354,7 @@ export default {
       
     },
     parentCommittes(){
+      // this.$store.getters.works_inDep
       api.getparentcomitees(this.$store.getters.works_inDep).then(response => {
         this.pcomittees = response;
         for (var j = 0; j < this.pcomittees.length; j++) {
@@ -353,18 +372,52 @@ export default {
       };
       console.log(data);
     },
+    /// Working completion persentage !!
     get_progress() {
-      var tokenR = this.$store.getters.token;
-      api.getRequest(tokenR).then(response => {
-        console.log(response.data[0].percentage);
-        this.numerator = response.data[0].percentage;
-        var orgid = this.$store.getters.org_id;
-        api.getOrganization(orgid).then(response => {
+      // var tokenR = this.$store.getters.token;
+      var reqid = this.$route.params.request;
+      reqid = reqid.substr(1);
+      api.getRequestData(reqid).then(response => {
+        console.log("this From getProcess arry");
+         this.reqData = response.data;
+        console.log(this.reqData);
+
+         this.numerator = response.data.persentage;
+         console.log( 'Persentage : ' + this.numerator);
+         let comId = response.data.RecieverComiteeId;
+         console.log("This is from committee id");
+         console.log(comId);
+          api.getCommitteeById(comId).then( res => {
+               console.log(res);
+               console.log("From getCommitteeById llllllll");
+              //  console.log(res.data.members);
+               this.memLength = res.data.members.length;
+               console.log(this.memLength);
+       
+          });
+      //              api.getparentcomitees(comId).then(response => {
+      //             this.pcomittees = response;
+      //             for (var j = 0; j < this.pcomittees.length; j++) {
+      //               this.pcomnames.push(this.pcomittees[j].name);
+      //   }
+      // });
+          var orgid = this.$store.getters.org_id;
+           api.getOrganization(orgid).then(response => {
           console.log(response.percentage_for_endorsment);
-          this.denominator = response.percentage_for_endorsment;
-          this.percent = this.numerator + "/" + this.denominator + "%";
-        });
+             this.denominator = response.percentage_for_endorsment;
+             this.percent = this.numerator + "/" + this.denominator + "%";
+            });
       });
+    },
+    // get the request 
+    getRequest(){
+      var reqid = this.$route.params.request;
+        reqid = reqid.substr(1);
+      console.log("this is from getRequest request Id" + reqid);
+      api.getRequestData(reqid).then(response => {
+        console.log("from get requestData result ");
+        console.log(response);
+      })
     }
   },
   computed: {
@@ -376,14 +429,20 @@ export default {
         return !x;
       }
     },
-    progress() {
-      return Math.min(100, this.value.length * 10);
-    },
+    // progress() {
+    //   // return Math.min(100, this.value.length * 10);
+     
+    // },
+     persent() {
+        // return this.numerator;
+        return this.numerator + "/" + this.denominator + "%";
+      },
     color() {
       return ["error", "warning", "success"][Math.floor(this.progress / 40)];
     }
   },
-  mounted() {
+  mounted(){
+    this.getRequest();
     this.getStructure();
     this.parentCommittes();
     this.get_progress();

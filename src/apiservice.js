@@ -243,9 +243,21 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/comments/{id}/getComment?curr_id=${currId}`)
     return response.data.comments;
   }
+  // get the Request by Id....
+  async getRequestData(id){
+    let response = await axios.get(`${API_URL}/requests/${id}`);
+    console.log(response);
+    return response;
+  }
+  // put the data which is updated
+  async updatePersent(data){
+    let response = await axios.put(`${API_URL}/requests`, data);
+    console.log(response);
+    return response;
+  }
   // async setAdminTo(data){
   //   let response = await axios.post(`${API_URL}/Accounts/setAdmin`,data);
-  //   console.log(response);
+  //   console.log(response);.
   //   return response;
   // }
 }
