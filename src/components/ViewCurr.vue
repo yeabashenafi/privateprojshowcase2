@@ -3,7 +3,7 @@
     <v-flex class="mt-5 ml-12">
       <template v-for="(frameworks, index) in currfr">
         <v-flex v-bind:key="frameworks.index" class="ml-12">
-          <v-card class="float-left mr-10 ml-3" width="23%">
+          <v-card class="float-left mr-10 ml-3" width="35%">
             <v-card-actions class="teal">
               <v-flex>
                 <v-text class="headline">Framework{{ index + 1 }}</v-text>
@@ -15,14 +15,25 @@
                   <p>Name: {{ frameworks.program_name }}</p>
                   <p>Type: {{ frameworks.program_type }}</p>
                   <p>gradreqs: {{ frameworks.gradreqs }}</p>
+                  <p>Percentage:{{getCurrEndPerc(index)}}/{{endPer}}</p>
                 </v-container>
-                <v-btn
+                <v-layout>
+                   <v-btn
                   color="success white--text"
                   @click="
-                    sendForApproval(frameworks.id, frameworks.program_name)
+                    sendForApproval(index,frameworks.id, frameworks.program_name,frameworks.committeeId,getCurrEndPerc(index))
                   "
-                  >Send for approval</v-btn
+                  >Endorse</v-btn
                 >
+                <v-progress-circular
+                ref="progress"
+                width="10"
+                :value="frameworks.endorsePercentage"
+                color="deep-orange lighten-2"
+                class="ml-5 "
+                ></v-progress-circular>
+                </v-layout>
+
                 <!-- <v-btn color="red" disabled v-if="!sent(frameworks.id)">Sent for approval</v-btn> -->
                 <v-dialog v-model="show">
                   <v-card>
@@ -43,6 +54,7 @@
                         <v-select
                           label="Choose sending comittee"
                           class="mx-12"
+                          @input="getParentComittes(frameworks.committeeId)"
                           :items="cnames"
                           v-model="selc"
                         ></v-select>
@@ -54,7 +66,7 @@
                         ></v-select>
                         <v-flex class="text-center">
                           <v-btn class="align-center" @click="Confirm()"
-                            >Send for Endorsement</v-btn
+                            >Endorse</v-btn
                           >
                         </v-flex>
                       </v-flex>
@@ -86,7 +98,10 @@ export default {
         }
       ],
       show: false,
+      num:10,
       name: "",
+      endPer:0,
+      senderCommitteeId:'',
       comittees: [],
       pcomittees: [],
       chosenframeid: "",
@@ -97,24 +112,37 @@ export default {
     };
   },
   methods: {
-    sendForApproval(id, name) {
+    add(){
+      this.num = this.num +10
+    },
+    sendForApproval(index,id, name,senderCommitteId,endPerc) {
       this.chosenframeid = id;
+      this.senderCommitteeId = senderCommitteId;
       this.name = name;
-      this.show = true;
+      // var value = (1/this.currfr[index].members.length) * 100;
+      //console.log(value+endPerc);
+      this.increasecurrEndorse(this.chosenframeid,endPerc+10);
+      this.getCurriculums(); 
+      //this.$refs.progress.value = this.getCurrEndPerc(index);
+      if(this.getCurrEndPerc(index) >= this.endPer){
+        this.show = true;
       this.getUserComittes();
-      this.getParentComittes();
-
+      // this.getParentComittes();
       console.log(this.$store.getters.org_id);
+      }
+      
     },
     Confirm() {
-      var childid;
+      // var childid;
       var parid;
+      
+      
 
-      for (var i = 0; i < this.comittees.length; i++) {
-        if (this.selc == this.comittees[i].name) {
-          childid = this.comittees[i].id;
-        }
-      }
+      // for (var i = 0; i < this.comittees.length; i++) {
+      //   if (this.selc == this.comittees[i].name) {
+      //     childid = this.comittees[i].id;
+      //   }
+      // }
 
       for (var j = 0; j < this.pcomittees.length; j++) {
         console.log(this.selp, " ", this.pcomittees[j].name);
@@ -123,7 +151,9 @@ export default {
         }
       }
       let data = {
-        SenderComitteeId: childid,
+        timestamp: Date.now(),
+        isPending: true,
+        SenderComitteeId: this.senderCommitteeId,
         RecieverComiteeId: parid,
         forCurriculumId: this.chosenframeid
       };
@@ -134,7 +164,8 @@ export default {
     },
     getCurriculums() {
       api.getusersFrameworks(this.$store.getters.User_id).then(response => {
-        this.currfr = response;
+        this.currfr = response[0];
+        console.log(this.currfr);
 
         for (var i = 0; i < this.currfr.length; i++) {
           api.checkRequest(this.currfr[i].id).then(response => {
@@ -153,8 +184,6 @@ export default {
     getUserComittes() {
       api.getyourComitee(this.$store.getters.User_id).then(data => {
         this.comittees = data.Comitees;
-        console.log(this.comittees[0]);
-
         for (var i = 0; i < this.comittees.length; i++) {
           this.cnames.push(this.comittees[i].name);
           console.log(this.cnames);
@@ -172,13 +201,30 @@ export default {
         }
       });
     },
-    getParentComittes() {
-      api.getparentcomitees(this.$store.getters.works_inDep).then(data => {
+    getParentComittes(value) {
+      console.log(value);
+      api.getparentcomitees(value).then(data => {
         this.pcomittees = data;
+        console.log(this.pcomittees);
         for (var j = 0; j < this.pcomittees.length; j++) {
           this.pcomnames.push(this.pcomittees[j].name);
         }
       });
+    },
+    getPerctoEndorse(){
+      api.getOrgEndorsementPerc(this.$store.getters.org_id).then((response) =>{
+          this.endPer = response;
+          console.log(this.endPer);
+      })
+    },
+    increasecurrEndorse(curr,val){
+      console.log(val)
+      api.perToEndorse(curr,val).then((resp) =>{
+        console.log(resp);
+      })
+    },
+    getCurrEndPerc(index){
+      return this.currfr[index].endorsePercentage; 
     }
   },
   computed: {
@@ -189,6 +235,7 @@ export default {
   },
   mounted() {
     this.getCurriculums();
+    this.getPerctoEndorse();
   }
 };
 </script>

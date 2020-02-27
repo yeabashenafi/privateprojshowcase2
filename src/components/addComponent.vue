@@ -33,7 +33,6 @@
           <v-btn @click="addExistingComp()"> Add Description</v-btn>
           <v-btn @click="getComp()"> Refresh</v-btn>
         </v-layout>
-        
       </v-card-text>
     </v-card>
   </v-flex>
@@ -106,9 +105,7 @@ export default {
         }
         console.log(this.compName);
       });
-       
-    },
-    
+    }
   },
   mounted() {
     this.getComp();

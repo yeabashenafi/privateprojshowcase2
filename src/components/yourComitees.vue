@@ -25,45 +25,59 @@
               <!-- <p>gradreqs: {{ frameworks.program_name }}</p> -->
             </v-container>
           </v-card-actions>
-          
         </v-card>
       </v-flex>
     </template>
     <v-dialog
-            v-model="dialog"
-            fullscreen
-            hide-overlay
-            transition="dialog-bottom-transition"
-            scrollable
-          >
-            <!-- <v-flex>
+      v-model="dialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+      scrollable
+    >
+      <!-- <v-flex>
                 <h1>Comittee Name: {{ comName }}</h1>
           </v-flex> -->
-            <v-card>
-              <v-card-title>
-                <v-toolbar flat dark color="cyan darken-2">
-                  <v-btn icon dark @click="dialog = false">
-                    <v-icon>mdi-close</v-icon>
-                  </v-btn>
-                  <v-toolbar-title>Notifications</v-toolbar-title>
-                  <v-spacer></v-spacer>
-                </v-toolbar>
-              </v-card-title>
-              <v-card-text>
-                <p class="title ">Programs which requested for Approval---- (Waits for approval )</p>
-                <p class="title cyan--text text--darken-3" >Comittee Name : {{ comName }} </p>
-               
-               <v-flex class="mx-5" v-for="(request,index) in notInfo" :key="request.index">
-                 <v-card color="cyan lighten-2" @click="seeDetail(request.frameworkid,request.req_id)">
-                   <v-card-title>{{index+1}}</v-card-title>
-                   <v-card-actions>
-                     <p class="font-weight-bold">You have recieved an approval request from <strong>{{request.senderName}}</strong> for the framework <strong>{{request.frameworkname}}</strong></p>
-                   </v-card-actions>
-                 </v-card>
-               </v-flex>
-              </v-card-text>
+      <v-card>
+        <v-card-title>
+          <v-toolbar flat dark color="cyan darken-2">
+            <v-btn icon dark @click="dialog = false">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <v-toolbar-title>Notifications</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+        </v-card-title>
+        <v-card-text>
+          <p class="title ">
+            Programs which requested for Approval---- (Waits for approval )
+          </p>
+          <p class="title cyan--text text--darken-3">
+            Comittee Name : {{ comName }}
+          </p>
+
+          <v-flex
+            class="mx-5"
+            v-for="(request, index) in notInfo"
+            :key="request.index"
+          >
+            <v-card
+              color="cyan lighten-2"
+              @click="seeDetail(request.frameworkid, request.req_id)"
+            >
+              <v-card-title>{{ index + 1 }}</v-card-title>
+              <v-card-actions>
+                <p class="font-weight-bold">
+                  You have recieved an approval request from
+                  <strong>{{ request.senderName }}</strong> for the framework
+                  <strong>{{ request.frameworkname }}</strong>
+                </p>
+              </v-card-actions>
             </v-card>
-          </v-dialog>
+          </v-flex>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
     <!-- <v-btn @click="press()">click</v-btn> -->
   </span>
 </template>
@@ -89,12 +103,14 @@ export default {
       requests: [],
       yourComittee: [],
       //currInfo: [],
-      notInfo:[{
-        senderName:'',
-        frameworkname:'',
-        frameworkid:'',
-        req_id:''
-      }],
+      notInfo: [
+        {
+          senderName: "",
+          frameworkname: "",
+          frameworkid: "",
+          req_id: ""
+        }
+      ],
       sent: []
     };
   },
@@ -118,9 +134,9 @@ export default {
         console.log(this.comittees.length);
       });
     },
-viewNotfy(index){
+    viewNotfy(index) {
       console.log("View Notification");
-      this.dialog = ! this.dialog;
+      this.dialog = !this.dialog;
       this.comName = this.comittees[index].name;
       this.req = this.no[index];
       console.log(this.comName);
@@ -132,28 +148,29 @@ viewNotfy(index){
         console.log(this.req[i].id);
         api.getComiteeName(this.req[i].SenderComitteeId).then(response => {
           api.getStructure(x).then(data => {
-          
-          //this.notInfo[i].frameworkname = response.program_name;
-        
-          this.notInfo.push({
-        senderName:response,
-        frameworkname:data.program_name,
-        frameworkid: data.id,
-        req_id:y
-      });
-      console.log(this.notInfo)
-        })
-          
+            //this.notInfo[i].frameworkname = response.program_name;
+
+            this.notInfo.push({
+              senderName: response,
+              frameworkname: data.program_name,
+              frameworkid: data.id,
+              req_id: y
+            });
+            console.log(this.notInfo);
+          });
         });
       }
 
       this.notInfo.shift();
     },
-    
-     seeDetail(id,req_id){
-       console.log(req_id);
-       this.$router.push({ name: "viewStructure", params: { id: ":" + id,request:":"+req_id } });
-       console.log(id + "program Id");
+
+    seeDetail(id, req_id) {
+      console.log(req_id);
+      this.$router.push({
+        name: "viewStructure",
+        params: { id: ":" + id, request: ":" + req_id }
+      });
+      console.log(id + "program Id");
       //  viewStructure(id) {
     }
   },

@@ -8,7 +8,17 @@
           >
 
           <v-card-actions>
-            <v-treeview :items="choices"></v-treeview>
+            <!-- <v-treeview :items="choices"></v-treeview> -->
+            <v-timeline
+            reverse
+            align-top
+            >
+              <v-timeline-item
+              v-for="office in structure"
+              :key="office"
+              >
+              <p class="headline">{{office}}</p></v-timeline-item>
+            </v-timeline>
           </v-card-actions>
         </v-card>
         <v-spacer></v-spacer>
@@ -41,6 +51,7 @@ export default {
     return {
       offices: [],
       parent: {},
+      structure: [],
       img: require("../assets/logo.svg"),
       org: {},
       struct: [{}],
@@ -76,49 +87,48 @@ export default {
         }
       });
     },
-    getHighest(){
-      var x= [{
-        name:'',
-        id:''
-      }]
-      var y =[];
-      var children=[];
-      api.checkHigher(this.$store.getters.org_id).then((data)=>{
+    getHighest() {
+      var x = [
+        {
+          name: "",
+          id: ""
+        }
+      ];
+      var y = [];
+      var children = [];
+      api.checkHigher(this.$store.getters.org_id).then(data => {
         console.log(data);
-      api.getChildren(data.data.hasParent.id).then(response=>{
-        for(var i=0;i<response.length;i++){
-          x.push({
-            name:response[i].officeType,
-            id:response[i].id
-          });
-          
-        }
-        x.shift();
-        for(var s=0;s<x.length;s++){
-          api.getChildren(x[s].id).then(result =>{
-            y.push(result[0])
-          })
-        }
-        console.log(y);
-        console.log(x);
-        for(var j=0;j<x.length;j++){
-        children.push({
-          id:j+2,
-          name:x[j].name
-        })
-          
-        }
-      
-      console.log(children);
-      })
-      
-      
+        api.getChildren(data.data.hasParent.id).then(response => {
+          for (var i = 0; i < response.length; i++) {
+            x.push({
+              name: response[i].officeType,
+              id: response[i].id
+            });
+          }
+          x.shift();
+          for (var s = 0; s < x.length; s++) {
+            api.getChildren(x[s].id).then(result => {
+              y.push(result[0]);
+            });
+          }
+          console.log(y);
+          console.log(x);
+          for (var j = 0; j < x.length; j++) {
+            children.push({
+              id: j + 2,
+              name: x[j].name
+            });
+          }
+
+          console.log(children);
+        });
+
         this.choices.push({
           id: 1,
-           name: data.data.hasParent.officeType,
-           
-           children: children
-        })
+          name: data.data.hasParent.officeType,
+
+          children: children
+        });
         // api.getAcademicOffices(this.$store.getters.org_id).then((response) =>{
         //   console.log(response)
         //   for(var i=1;i<response.length;i++){
@@ -128,9 +138,32 @@ export default {
         //       })
         //   }
         // })
-      })
+      });
       this.choices.shift();
       console.log(this.choices);
+    },
+    getStructure(){
+      var id;
+      
+      // var checker = true;
+      api.getOfficeById(this.$store.getters.works_inDep).then((response)=>{
+        this.structure.push(response.data.officeType);
+        id = response.data.parentId
+          
+          
+          api.getOfficeById(id).then((data)=>{
+          id = data.data.parentId;
+          this.structure.push(data.data.officeType);
+          
+           
+          
+        })
+          
+          
+        
+        
+        console.log(this.structure);
+      })
     },
     getOrganization() {
       api.getOrganization(this.$store.getters.org_id).then(data => {
@@ -142,6 +175,7 @@ export default {
   mounted() {
     this.getOffices();
     this.getHighest();
+    this.getStructure();
     this.getOrganization();
   }
 };

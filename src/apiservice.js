@@ -8,6 +8,10 @@ export class apiservice {
       console.log(res);
     });
   }
+  async getOfficeById(data){
+    let response = await axios.get(`${API_URL}/AccadamicOffices/${data}`)
+    return response;
+  }
   async getComiteeName(data) {
     let response = await axios.get(`${API_URL}/committees/${data}`);
     return response.data.name;
@@ -117,12 +121,16 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/y/${id}`);
     return response;
   }
-  async addCourse(course) {
-    let response = await axios.post(`${API_URL}/courses`, course);
+  //Adding the course details
+  async addCourse(token, course) {
+    let response = await axios.post(
+      `${API_URL}/courses?access_token=${token}`,
+      course
+    );
     return response;
   }
   //get Course using curriculum id
-  async getCourse(id){
+  async getCourse(id) {
     let response = await axios.get(`${API_URL}/y/${id}/courses`);
     console.log(response);
     return response;
@@ -145,7 +153,7 @@ export class apiservice {
   }
   async getparentcomitees(offid) {
     let response = await axios.get(
-      `${API_URL}/committees/{id}/getparentcomittees?office_id=${offid}`
+      `${API_URL}/committees/{id}/getparentcomittees?comm_id=${offid}`
     );
     return response.data.parent_Comittees;
   }
@@ -165,8 +173,10 @@ export class apiservice {
     );
     return response;
   }
-  async getChildren(par_id){
-    let response = await axios.get(`${API_URL}/AccadamicOffices/${par_id}/getChildren`);
+  async getChildren(par_id) {
+    let response = await axios.get(
+      `${API_URL}/AccadamicOffices/${par_id}/getChildren`
+    );
     return response.data.childs;
   }
   async getAdminInfo(id) {
@@ -182,7 +192,8 @@ export class apiservice {
     console.log(response);
     return response;
   }
-  async howManyNotify(id) {// no of notificatons
+  async howManyNotify(id) {
+    // no of notificatons
     let response = await axios.get(`${API_URL}/requests/${id}/checkRequests`);
     // console.log(response);
     return response;
@@ -192,7 +203,7 @@ export class apiservice {
     console.log(response);
     return response;
   }
-  async getorgRules(id){
+  async getorgRules(id) {
     let response = await axios.get(`${API_URL}/Organizations/${id}/getRules`);
     return response.data.rules;
   }
@@ -203,56 +214,84 @@ export class apiservice {
     return response;
   }
   async getComponent(id) {
-    let response = await axios.get(`${API_URL}/currCOmponents/${id}/getComponent`);
+    let response = await axios.get(
+      `${API_URL}/currCOmponents/${id}/getComponent`
+    );
     console.log(response);
     return response.data;
   }
-  async Endorse(req_id,upperCommitteId){
-    let response = await axios.get(`${API_URL}/requests/{id}/Endorse?req_id=${req_id}&upperCommitte_id=${upperCommitteId}`)
-    return response;
-  }  
-  async generatePDF(data){
-    let response = await axios.post(`${API_URL}/y/generatePDF`,data);
+  async Endorse(req_id, upperCommitteId) {
+    let response = await axios.get(
+      `${API_URL}/requests/{id}/Endorse?req_id=${req_id}&upperCommitte_id=${upperCommitteId}`
+    );
     return response;
   }
-  async reject(req_id){
-    let response = await axios.get(`${API_URL}/requests/{id}/RejectCurr?req_id=${req_id}`);
+  async generatePDF(data) {
+    console.log("the id is", data);
+    let response = await axios.get(`${API_URL}/y/generatePDF?text=${data}`);
     return response;
   }
-  async createComment(req_id,user_id,body){
-    let response = await axios.get(`${API_URL}/comments/{id}/create?req_id=${req_id}&user_id=${user_id}&body=${body}`)
+  async reject(req_id) {
+    let response = await axios.get(
+      `${API_URL}/requests/{id}/RejectCurr?req_id=${req_id}`
+    );
+    return response;
+  }
+  async createComment(req_id, user_id, body) {
+    let response = await axios.get(
+      `${API_URL}/comments/{id}/create?req_id=${req_id}&user_id=${user_id}&body=${body}`
+    );
     return response;
   }
   //Get Request data
-  async getRequest(token){
-    let response = await axios.get(`${API_URL}/requests?access_token=${token}`)
+  async getRequest(token) {
+    let response = await axios.get(`${API_URL}/requests?access_token=${token}`);
     return response;
   }
   //get committee by Id and return detail of the committee
-  async getCommitteeById(id){
+  async getCommitteeById(id) {
     let response = await axios.get(`${API_URL}/committees/${id}`);
     console.log(response);
     return response;
   }
+  async uploadImage(image) {
+    const url = API_URL + "/Container/remoteMethod/upload";
+    return new Promise(function(resolve, reject) {
+      var xhr = new XMLHttpRequest();
+      var fd = new FormData();
 
-  async getUserName(user_id){
-    let response = await axios.get(`${API_URL}/Accounts/${user_id}`)
+      xhr.open("POST", url, true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          resolve(JSON.parse(xhr.responseText));
+        } else {
+          reject("error");
+        }
+      };
+      fd.append("file", image);
+      xhr.send(fd);
+    });
+  }
+
+  async getUserName(user_id) {
+    let response = await axios.get(`${API_URL}/Accounts/${user_id}`);
     return response.data.fullname;
   }
-  async getCommentforCurr(currId){
-    let response = await axios.get(`${API_URL}/comments/{id}/getComment?curr_id=${currId}`)
+  async getCommentforCurr(currId) {
+    let response = await axios.get(
+      `${API_URL}/comments/{id}/getComment?curr_id=${currId}`
+    );
     return response.data.comments;
   }
-  // get the Request by Id....
-  async getRequestData(id){
-    let response = await axios.get(`${API_URL}/requests/${id}`);
-    console.log(response);
-    return response;
+  async getOrgEndorsementPerc(org_id){
+    let response = await axios.get(`${API_URL}/Organizations/${org_id}`)
+    return response.data.percentage_for_endorsment;
   }
-  // put the data which is updated
-  async updatePersent(data){
-    let response = await axios.put(`${API_URL}/requests`, data);
-    console.log(response);
+  async perToEndorse(id,val){
+    let data= {
+      endorsePercentage:val
+    }
+    let response = await axios.patch(`${API_URL}/y/${id}`,data);
     return response;
   }
   // async setAdminTo(data){

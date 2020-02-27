@@ -11,12 +11,13 @@
             </v-title>
           </v-flex>
           <v-card-text>
-            <v-form ref="form" >
-              <v-text-field 
-              label="Commitee Name" 
-              class="px-12" 
-              :rules="nameRules"
-              v-model="name">
+            <v-form ref="form">
+              <v-text-field
+                label="Commitee Name"
+                class="px-12"
+                :rules="nameRules"
+                v-model="name"
+              >
               </v-text-field>
               <v-select
                 label="Add users to commitee"
@@ -35,10 +36,11 @@
                 v-model="office"
               ></v-select>
               <v-select
-                      label="Select Committee level"
-                      v-model="position"
-                      :items="level"
-                       class="px-12"></v-select>
+                label="Select Committee level"
+                v-model="position"
+                :items="level"
+                class="px-12"
+              ></v-select>
             </v-form>
           </v-card-text>
           <v-flex class="text-center pa-9">
@@ -82,13 +84,13 @@ export default {
     return {
       position: 0,
       name: "",
-      level: [1,2,3,4,5],
+      level: [1, 2, 3, 4, 5],
       dialog: false,
-      orgRule:{
-        description:"",
-        max:10,
-        min:1,
-        parity:"odd"
+      orgRule: {
+        description: "",
+        max: 10,
+        min: 1,
+        parity: "odd"
       },
       users: [],
       members: [
@@ -97,10 +99,8 @@ export default {
           isActive: true
         }
       ],
-      nameRules:[
-        v => !!v || "Name can't be empty"
-      ],
-      
+      nameRules: [v => !!v || "Name can't be empty"],
+
       officedata: [],
       officename: [],
       userInfo: [],
@@ -151,16 +151,18 @@ export default {
         }
       });
     },
-    getOrgRules(){
-        api.getorgRules(this.$store.getters.org_id).then(response =>{
-          
-      this.orgRule.max = response.max;
-      this.orgRule.min = response.min;
-      this.orgRule.parity = response.parity;
-      this.orgRule.description = "Members must be greater than or equal to "+this.orgRule.min+
-      " and less than "+this.orgRule.max;
-          console.log(this.orgRule);
-        })
+    getOrgRules() {
+      api.getorgRules(this.$store.getters.org_id).then(response => {
+        this.orgRule.max = response.max;
+        this.orgRule.min = response.min;
+        this.orgRule.parity = response.parity;
+        this.orgRule.description =
+          "Members must be greater than or equal to " +
+          this.orgRule.min +
+          " and less than " +
+          this.orgRule.max;
+        console.log(this.orgRule);
+      });
     },
     getOfficeData() {
       let id = this.$store.getters.org_id;
@@ -188,25 +190,25 @@ export default {
       ];
     }
   },
-   computed:{
-     isValid: function(){
-       var x= false;
-       //var y= true;
-       if(this.name == ""  || this.users.length < this.orgRule.min 
-       || this.users.length > this.orgRule.max  ){
-         return x;
-       }
+  computed: {
+    isValid: function() {
+      var x = false;
+      //var y= true;
+      if (
+        this.name == "" ||
+        this.users.length < this.orgRule.min ||
+        this.users.length > this.orgRule.max
+      ) {
+        return x;
+      }
       // elseif((this.users.length >= ) && (this.users.length <= this.orgRule.max)){
       //    return x;
       //  };
-       else{
-         return !x;
-       }
-       
-         
-       
-     },
-   },
+      else {
+        return !x;
+      }
+    }
+  },
   mounted() {
     this.getOfficeData();
     this.getAllUsers();

@@ -2,9 +2,18 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import dashboard from "../components/dashboard.vue";
+import store from "../store";
 
 Vue.use(VueRouter);
-
+function guardRoute(to, from, next) {
+  if (store.getters.logged) {
+    next();
+  } else {
+    next({
+      name: "login"
+    });
+  }
+}
 const routes = [
   {
     path: "/view",
@@ -43,6 +52,7 @@ const routes = [
   },
   {
     path: "/orgDashboard",
+
     name: "orgdashboard",
     component: () => import("../views/orgDash.vue")
   },
@@ -54,7 +64,8 @@ const routes = [
   {
     path: "/AdminDash",
     name: "AdminDash",
-    component: () => import("../views/AdminDash.vue")
+    component: () => import("../views/AdminDash.vue"),
+    beforeEnter: guardRoute
   },
   {
     path: "/orgTest",
@@ -64,12 +75,14 @@ const routes = [
   {
     path: "/userDashTest",
     name: "userDashTest",
-    component: () => import("../views/userDashTest.vue")
+    component: () => import("../views/userDashTest.vue"),
+    beforeEnter: guardRoute
   },
   {
     path: "/view:id/request/:request",
     name: "viewStructure",
-    component: () => import("../components/ViewSpecific.vue")
+    component: () => import("../components/ViewSpecific.vue"),
+    beforeEnter: guardRoute
   },
   {
     path: "/",

@@ -68,9 +68,9 @@
           </v-card-text>
           <v-actions>
             <v-layout>
-          <v-btn @click="addExistingDesc()"> Add Description</v-btn>
-          <v-btn @click="getComp()"> Refresh</v-btn>
-        </v-layout>
+              <v-btn @click="addExistingDesc()"> Add Description</v-btn>
+              <v-btn @click="getComp()"> Refresh</v-btn>
+            </v-layout>
           </v-actions>
         </v-card>
       </v-layout>
@@ -109,8 +109,8 @@ export default {
         "program_educational_outcome",
         "course_learning_outcome"
       ],
-       component: [],
-       compName: [],
+      component: [],
+      compName: []
     };
   },
   methods: {
@@ -132,11 +132,11 @@ export default {
           console.log(response);
         });
       }
-        // for(var k=0; k<this.compName.length; k++){
-        //     if( this.comp[k] == this.compName[k]){
-        //     this.comp.splice(k,1);
-        //     }
-        //     }
+      // for(var k=0; k<this.compName.length; k++){
+      //     if( this.comp[k] == this.compName[k]){
+      //     this.comp.splice(k,1);
+      //     }
+      //     }
     },
     addComponent() {
       for (var i = 0; i < this.data.length; i++) {
@@ -151,30 +151,27 @@ export default {
         });
       }
     },
-  getComp() {
+    getComp() {
       api.getComponent(this.$store.getters.org_id).then(response => {
         //  console.log(response);
         this.component = response.data;
         console.log(this.component);
         for (var i = 0; i < this.component.length; i++) {
           this.compName.push(this.component[i].name);
-          
         }
-     
+
         console.log(this.compName);
-         for(var k=0; k<this.comp.length; k++){ 
-           for(var j=0; j<this.compName.length; j++){
-                if( this.comp[k] == this.compName[j]){
-                   this.comp.splice(k,1);
-                // delete this.comp[k];
-           }
+        for (var k = 0; k < this.comp.length; k++) {
+          for (var j = 0; j < this.compName.length; j++) {
+            if (this.comp[k] == this.compName[j]) {
+              this.comp.splice(k, 1);
+              // delete this.comp[k];
             }
-            }//end of loop
+          }
+        } //end of loop
         //  this.compName= ''
       });
-        
-    },
-
+    }
   },
   mounted() {
     this.getComp();

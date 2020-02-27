@@ -284,10 +284,12 @@ export default {
         }
       ];
       console.log(data);
-      api.addCourse(data).then(response => {
+      var token = this.$store.getters.token;
+      api.addCourse(token, data).then(response => {
         console.log(response);
       });
       this.show_courseD = !this.show_courseD;
+      window.alert("Successfully Added");
       // this.$root.$emit("finishcd");
     },
     show_clo_dialog() {
