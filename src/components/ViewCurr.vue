@@ -15,23 +15,29 @@
                   <p>Name: {{ frameworks.program_name }}</p>
                   <p>Type: {{ frameworks.program_type }}</p>
                   <p>gradreqs: {{ frameworks.gradreqs }}</p>
-                  <p>Percentage:{{getCurrEndPerc(index)}}/{{endPer}}</p>
+                  <p>Percentage:{{ getCurrEndPerc(index) }}/{{ endPer }}</p>
                 </v-container>
                 <v-layout>
-                   <v-btn
-                  color="success white--text"
-                  @click="
-                    sendForApproval(index,frameworks.id, frameworks.program_name,frameworks.committeeId,getCurrEndPerc(index))
-                  "
-                  >Endorse</v-btn
-                >
-                <v-progress-circular
-                ref="progress"
-                width="10"
-                :value="frameworks.endorsePercentage"
-                color="deep-orange lighten-2"
-                class="ml-5 "
-                ></v-progress-circular>
+                  <v-btn
+                    color="success white--text"
+                    @click="
+                      sendForApproval(
+                        index,
+                        frameworks.id,
+                        frameworks.program_name,
+                        frameworks.committeeId,
+                        getCurrEndPerc(index)
+                      )
+                    "
+                    >Endorse</v-btn
+                  >
+                  <v-progress-circular
+                    ref="progress"
+                    width="10"
+                    :value="frameworks.endorsePercentage"
+                    color="deep-orange lighten-2"
+                    class="ml-5 "
+                  ></v-progress-circular>
                 </v-layout>
 
                 <!-- <v-btn color="red" disabled v-if="!sent(frameworks.id)">Sent for approval</v-btn> -->
@@ -98,10 +104,10 @@ export default {
         }
       ],
       show: false,
-      num:10,
+      num: 10,
       name: "",
-      endPer:0,
-      senderCommitteeId:'',
+      endPer: 0,
+      senderCommitteeId: "",
       comittees: [],
       pcomittees: [],
       chosenframeid: "",
@@ -112,31 +118,28 @@ export default {
     };
   },
   methods: {
-    add(){
-      this.num = this.num +10
+    add() {
+      this.num = this.num + 10;
     },
-    sendForApproval(index,id, name,senderCommitteId,endPerc) {
+    sendForApproval(index, id, name, senderCommitteId, endPerc) {
       this.chosenframeid = id;
       this.senderCommitteeId = senderCommitteId;
       this.name = name;
       // var value = (1/this.currfr[index].members.length) * 100;
       //console.log(value+endPerc);
-      this.increasecurrEndorse(this.chosenframeid,endPerc+10);
-      this.getCurriculums(); 
+      this.increasecurrEndorse(this.chosenframeid, endPerc + 10);
+      this.getCurriculums();
       //this.$refs.progress.value = this.getCurrEndPerc(index);
-      if(this.getCurrEndPerc(index) >= this.endPer){
+      if (this.getCurrEndPerc(index) >= this.endPer) {
         this.show = true;
-      this.getUserComittes();
-      // this.getParentComittes();
-      console.log(this.$store.getters.org_id);
+        this.getUserComittes();
+        // this.getParentComittes();
+        console.log(this.$store.getters.org_id);
       }
-      
     },
     Confirm() {
       // var childid;
       var parid;
-      
-      
 
       // for (var i = 0; i < this.comittees.length; i++) {
       //   if (this.selc == this.comittees[i].name) {
@@ -211,20 +214,20 @@ export default {
         }
       });
     },
-    getPerctoEndorse(){
-      api.getOrgEndorsementPerc(this.$store.getters.org_id).then((response) =>{
-          this.endPer = response;
-          console.log(this.endPer);
-      })
+    getPerctoEndorse() {
+      api.getOrgEndorsementPerc(this.$store.getters.org_id).then(response => {
+        this.endPer = response;
+        console.log(this.endPer);
+      });
     },
-    increasecurrEndorse(curr,val){
-      console.log(val)
-      api.perToEndorse(curr,val).then((resp) =>{
+    increasecurrEndorse(curr, val) {
+      console.log(val);
+      api.perToEndorse(curr, val).then(resp => {
         console.log(resp);
-      })
+      });
     },
-    getCurrEndPerc(index){
-      return this.currfr[index].endorsePercentage; 
+    getCurrEndPerc(index) {
+      return this.currfr[index].endorsePercentage;
     }
   },
   computed: {

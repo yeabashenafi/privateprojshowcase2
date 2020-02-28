@@ -9,15 +9,10 @@
 
           <v-card-actions>
             <!-- <v-treeview :items="choices"></v-treeview> -->
-            <v-timeline
-            reverse
-            align-top
-            >
-              <v-timeline-item
-              v-for="office in structure"
-              :key="office"
+            <v-timeline reverse align-top>
+              <v-timeline-item v-for="office in structure" :key="office">
+                <p class="headline">{{ office }}</p></v-timeline-item
               >
-              <p class="headline">{{office}}</p></v-timeline-item>
             </v-timeline>
           </v-card-actions>
         </v-card>
@@ -142,28 +137,21 @@ export default {
       this.choices.shift();
       console.log(this.choices);
     },
-    getStructure(){
+    getStructure() {
       var id;
-      
+
       // var checker = true;
-      api.getOfficeById(this.$store.getters.works_inDep).then((response)=>{
+      api.getOfficeById(this.$store.getters.works_inDep).then(response => {
         this.structure.push(response.data.officeType);
-        id = response.data.parentId
-          
-          
-          api.getOfficeById(id).then((data)=>{
+        id = response.data.parentId;
+
+        api.getOfficeById(id).then(data => {
           id = data.data.parentId;
           this.structure.push(data.data.officeType);
-          
-           
-          
-        })
-          
-          
-        
-        
+        });
+
         console.log(this.structure);
-      })
+      });
     },
     getOrganization() {
       api.getOrganization(this.$store.getters.org_id).then(data => {

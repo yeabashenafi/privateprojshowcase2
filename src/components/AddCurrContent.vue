@@ -561,7 +561,7 @@ export default {
         program_educational_outcome: this.peo,
         course_learning_outcome: this.clo,
         committeeId: this.selCommId,
-        endorsePercentage:0,
+        endorsePercentage: 0,
         organizationalId: org
       };
       const combined = { ...object, ...data }; //combine the two objects
