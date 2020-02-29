@@ -3,7 +3,7 @@
     <v-flex class="mt-5 ml-12">
       <template v-for="(frameworks, index) in currfr">
         <v-flex v-bind:key="frameworks.index" class="ml-12">
-          <v-card class="float-left mr-10 ml-3" width="35%">
+          <v-card class="float-left mr-10 ml-3" width="50%">
             <v-card-actions class="teal">
               <v-flex>
                 <v-text class="headline">Framework{{ index + 1 }}</v-text>
@@ -15,11 +15,12 @@
                   <p>Name: {{ frameworks.program_name }}</p>
                   <p>Type: {{ frameworks.program_type }}</p>
                   <p>gradreqs: {{ frameworks.gradreqs }}</p>
-                  <p>Percentage:{{getCurrEndPerc(index)}}/{{endPer}}</p>
+                  <p>Endorsement Percentage:{{getCurrEndPerc(index)}}/{{endPer}}</p>
                 </v-container>
                 <v-layout>
                    <v-btn
                   color="success white--text"
+                  :disabled="!checkValidity(index)"
                   @click="
                     sendForApproval(index,frameworks.id, frameworks.program_name,frameworks.committeeId,getCurrEndPerc(index))
                   "
@@ -83,12 +84,12 @@
 </template>
 
 <script>
-// import confirmSubmission from "./confirmSubmission";
+
 import { apiservice } from "../apiservice";
 const api = new apiservice();
 export default {
   components: {
-    // confirmSubmission
+  
   },
   data() {
     return {
@@ -98,9 +99,10 @@ export default {
         }
       ],
       show: false,
-      num:10,
+      num: 10,
       name: "",
       endPer:0,
+      endorsedValue:0,
       senderCommitteeId:'',
       comittees: [],
       pcomittees: [],
@@ -112,37 +114,37 @@ export default {
     };
   },
   methods: {
-    add(){
-      this.num = this.num +10
-    },
     sendForApproval(index,id, name,senderCommitteId,endPerc) {
       this.chosenframeid = id;
       this.senderCommitteeId = senderCommitteId;
       this.name = name;
-      // var value = (1/this.currfr[index].members.length) * 100;
-      //console.log(value+endPerc);
-      this.increasecurrEndorse(this.chosenframeid,endPerc+10);
-      this.getCurriculums(); 
-      //this.$refs.progress.value = this.getCurrEndPerc(index);
-      if(this.getCurrEndPerc(index) >= this.endPer){
-        this.show = true;
-      this.getUserComittes();
-      // this.getParentComittes();
-      console.log(this.$store.getters.org_id);
+      var value;
+      api.getCommittelength(senderCommitteId).then((response) =>{
+        value = response;
+        var num = (1/value)*100 + endPerc;
+        this.increasecurrEndorse(this.chosenframeid,num);
+        this.getCurriculums();
+        // var value;
+        
+        this.currfr[index].endorsedBy.push(this.$store.getters.User_id)
+        api.addEndorsingUser(this.currfr[index].endorsedBy,this.currfr[index].id).then((resp) => {
+          console.log(resp)
+          this.$emit('Refresh')
+        })
+        //console.log(this.currfr[index].endorsedBy.find(this.$store.getters.User_id))
+        api.getCurrPercById(this.chosenframeid).then((data) => {
+          let val = data;
+          if(val >= this.endPer){
+             this.show = true;
+             this.getUserComittes();
+           }
+        })       
       }
-      
+      )      
     },
     Confirm() {
       // var childid;
       var parid;
-      
-      
-
-      // for (var i = 0; i < this.comittees.length; i++) {
-      //   if (this.selc == this.comittees[i].name) {
-      //     childid = this.comittees[i].id;
-      //   }
-      // }
 
       for (var j = 0; j < this.pcomittees.length; j++) {
         console.log(this.selp, " ", this.pcomittees[j].name);
@@ -162,22 +164,20 @@ export default {
         this.show = !this.show;
       });
     },
+    checkValidity(i){
+      //var x = "yes queen"
+      var y = this.currfr[i].endorsedBy.find(x => x == this.$store.getters.User_id)
+      if(y){
+        return false;
+      }
+      else{
+        return true;
+      }
+      
+    },
     getCurriculums() {
       api.getusersFrameworks(this.$store.getters.User_id).then(response => {
         this.currfr = response[0];
-        console.log(this.currfr);
-
-        for (var i = 0; i < this.currfr.length; i++) {
-          api.checkRequest(this.currfr[i].id).then(response => {
-            if (response) {
-              this.currfr[i].sent = true;
-            } else {
-              this.currfr[i].sent = false;
-            }
-          });
-          // this.currfr[i].sent = this.checkRequest(this.currfr[i].id);
-          // console.log(this.currfr[i].sent)
-        }
         console.log(this.currfr);
       });
     },
@@ -186,7 +186,6 @@ export default {
         this.comittees = data.Comitees;
         for (var i = 0; i < this.comittees.length; i++) {
           this.cnames.push(this.comittees[i].name);
-          console.log(this.cnames);
         }
       });
     },
@@ -201,6 +200,7 @@ export default {
         }
       });
     },
+
     getParentComittes(value) {
       console.log("get parent Committee " + value);
       api.getparentcomitees(value).then(data => {
@@ -211,27 +211,33 @@ export default {
         }
       });
     },
-    getPerctoEndorse(){
-      api.getOrgEndorsementPerc(this.$store.getters.org_id).then((response) =>{
-          this.endPer = response;
-          console.log(this.endPer);
-      })
+    getPerctoEndorse() {
+      api.getOrgEndorsementPerc(this.$store.getters.org_id).then(response => {
+        this.endPer = response;
+        console.log(this.endPer);
+      });
     },
     increasecurrEndorse(curr,val){
       console.log(val)
       api.perToEndorse(curr,val).then((resp) =>{
-        console.log(resp);
+        
+        this.endorsedValue = resp.data.endorsePercentage
+        console.log(this.endorsedValue);
       })
     },
-    getCurrEndPerc(index){
-      return this.currfr[index].endorsePercentage; 
+    getCurrEndPerc(index) {
+      return this.currfr[index].endorsePercentage;
     }
   },
   computed: {
-    // sent:function(id){
-    //   console.log(this.checkRequest(id))
-    //   return this.checkRequest(id)
-    // }
+      validator:function(yes){
+        if(yes == 0){
+          return true;
+        }
+        else{
+          return false;
+        }
+      }
   },
   mounted() {
     this.getCurriculums();

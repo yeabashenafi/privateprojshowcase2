@@ -8,8 +8,8 @@ export class apiservice {
       console.log(res);
     });
   }
-  async getOfficeById(data){
-    let response = await axios.get(`${API_URL}/AccadamicOffices/${data}`)
+  async getOfficeById(data) {
+    let response = await axios.get(`${API_URL}/AccadamicOffices/${data}`);
     return response;
   }
   async getComiteeName(data) {
@@ -244,6 +244,11 @@ export class apiservice {
     );
     return response;
   }
+  //Get curriculum endorsement percentage by id
+  async getCurrPercById(id){
+    let response = await axios.get(`${API_URL}/y/${id}`)
+    return response.data.endorsePercentage;
+  }
   //Get Request data
   async getRequest(token) {
     let response = await axios.get(`${API_URL}/requests?access_token=${token}`);
@@ -284,11 +289,15 @@ export class apiservice {
     );
     return response.data.comments;
   }
-  async getOrgEndorsementPerc(org_id){
-    let response = await axios.get(`${API_URL}/Organizations/${org_id}`)
+  async getOrgEndorsementPerc(org_id) {
+    let response = await axios.get(`${API_URL}/Organizations/${org_id}`);
     return response.data.percentage_for_endorsment;
   }
-  // patch the endorsment
+
+  async getCommittelength(comm_id){
+    let response = await axios.get(`${API_URL}/committees/${comm_id}`)
+    return response.data.members.length
+  }
   async perToEndorse(id,val){
     let data= {
       endorsePercentage:val
@@ -309,6 +318,17 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/requests/${id}`);
     console.log(response);
     return response;
+  }
+  async addEndorsingUser(data,curr_id){ 
+    let value = {
+      endorsedBy:data
+    }
+    let response = await axios.patch(`${API_URL}/y/${curr_id}`,value );
+    return response;
+  }
+  async getFullStruct(org_id){
+    let response = await axios.get(`${API_URL}/AccadamicOffices/getfullstruct?off_id=${org_id}`)
+    return response.data.office;
   }
   // async setAdminTo(data){
   //   let response = await axios.post(`${API_URL}/Accounts/setAdmin`,data);

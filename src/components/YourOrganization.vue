@@ -11,13 +11,14 @@
             <!-- <v-treeview :items="choices"></v-treeview> -->
             <v-timeline
             reverse
+            class="ml-5"
             align-top
             >
               <v-timeline-item
               v-for="office in structure"
               :key="office"
               >
-              <p class="headline">{{office}}</p></v-timeline-item>
+              <p class="title">{{office.officeType }}</p></v-timeline-item>
             </v-timeline>
           </v-card-actions>
         </v-card>
@@ -125,44 +126,17 @@ export default {
 
         this.choices.push({
           id: 1,
-          name: data.data.hasParent.officeType,
-
-          children: children
-        });
-        // api.getAcademicOffices(this.$store.getters.org_id).then((response) =>{
-        //   console.log(response)
-        //   for(var i=1;i<response.length;i++){
-        //       this.choices.push({
-        //         id:i+1,
-        //         name:response[i].officeType,
-        //       })
-        //   }
-        // })
-      });
+           name: data.data.hasParent.officeType,
+           
+           children: children
+        })
+      })
       this.choices.shift();
       console.log(this.choices);
     },
-    getStructure(){
-      var id;
-      
-      // var checker = true;
-      api.getOfficeById(this.$store.getters.works_inDep).then((response)=>{
-        this.structure.push(response.data.officeType);
-        id = response.data.parentId
-          
-          
-          api.getOfficeById(id).then((data)=>{
-          id = data.data.parentId;
-          this.structure.push(data.data.officeType);
-          
-           
-          
-        })
-          
-          
-        
-        
-        console.log(this.structure);
+    getStructure(){      
+      api.getFullStruct(this.$store.getters.works_inDep).then((data) => {
+        this.structure = data
       })
     },
     getOrganization() {

@@ -29,6 +29,11 @@
                 class="px-12"
                 v-model="users"
               ></v-select>
+              <v-flex class="py-5">
+                <v-btn class="mx-8" text color="grey" @click="addRole"
+                  >Add Roles to Members</v-btn
+                >
+              </v-flex>
               <v-select
                 label="Select Offices"
                 :items="officename"
@@ -69,7 +74,30 @@
                 Add
               </v-btn>
             </div>
-            <!-- </v-card-actions> -->
+            <v-dialog v-model="showrole" width="50%">
+              <v-card>
+                <v-layout>
+                  <v-card-text>Members</v-card-text>
+                  <v-card-text>Roles</v-card-text>
+                </v-layout>
+                <template v-for="user in users">
+                  <v-flex v-bind:key="user">
+                    <v-layout>
+                      <v-card-text>{{ user }}</v-card-text>
+                      <v-radio-group row v-model="Roleradio">
+                        <v-radio value="Head" label="Head"></v-radio>
+                        <v-radio value="Secretary" label="Secretary"></v-radio>
+                        <v-radio
+                          value="Normal member"
+                          label="Normal member"
+                        ></v-radio>
+                      </v-radio-group>
+                    </v-layout>
+                    <v-divider></v-divider>
+                  </v-flex>
+                </template>
+              </v-card>
+            </v-dialog>
           </v-flex>
         </v-card>
       </v-layout>
@@ -82,6 +110,7 @@ const api = new apiservice();
 export default {
   data() {
     return {
+      showrole: false,
       position: 0,
       name: "",
       level: [1, 2, 3, 4, 5],
@@ -96,11 +125,13 @@ export default {
       members: [
         {
           id: "",
-          isActive: true
+          isActive: true,
+          role: ""
         }
       ],
       nameRules: [v => !!v || "Name can't be empty"],
 
+      Roleradio: [],
       officedata: [],
       officename: [],
       userInfo: [],
@@ -122,7 +153,8 @@ export default {
           if (this.users[k] == this.userInfo[j].fullname) {
             this.members.push({
               id: this.userInfo[j].id,
-              isActive: true
+              isActive: true,
+              role: this.Roleradio
             });
           }
         }
@@ -141,6 +173,9 @@ export default {
       });
       this.dialog = true;
       // console.log('user id '+ this.getuserid + ' office id ' + this.getofficeid);
+    },
+    addRole() {
+      this.showrole = !this.showrole;
     },
     getAllUsers() {
       api.getUserInformotion().then(response => {
