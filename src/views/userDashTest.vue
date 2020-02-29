@@ -55,7 +55,9 @@
       <v-tab-item>
         <v-card flat>
           <v-card-text>
-            <view-curr></view-curr>
+            <view-curr
+            @Refresh='refresh()'
+            v-if="view"></view-curr>
           </v-card-text>
         </v-card>
       </v-tab-item>
@@ -71,8 +73,15 @@ import AddCurrContent from "../components/AddCurrContent.vue";
 export default {
   data() {
     return {
-      name: "userDashTest"
+      name: "userDashTest",
+      view: true,
     };
+  },
+  methods:{
+    refresh(){
+      this.view = ! this.view;
+      this.view = ! this.view
+    }
   },
   components: {
     YourOrganization,
