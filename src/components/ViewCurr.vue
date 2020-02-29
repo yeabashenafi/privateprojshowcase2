@@ -202,7 +202,7 @@ export default {
       });
     },
     getParentComittes(value) {
-      console.log(value);
+      console.log("get parent Committee " + value);
       api.getparentcomitees(value).then(data => {
         this.pcomittees = data;
         console.log(this.pcomittees);

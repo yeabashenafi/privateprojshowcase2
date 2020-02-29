@@ -14,6 +14,13 @@ function guardRoute(to, from, next) {
     });
   }
 }
+// function requireAuth(to,from,next){
+//   if(store.getters.logged){
+//     next();
+//   }else{
+//   next('/login');
+// }
+// }
 const routes = [
   {
     path: "/view",
@@ -65,7 +72,10 @@ const routes = [
     path: "/AdminDash",
     name: "AdminDash",
     component: () => import("../views/AdminDash.vue"),
-    beforeEnter: guardRoute
+    beforeEnter: guardRoute,
+    // meta: {
+    //   permision : 'admin'
+    // }
   },
   {
     path: "/orgTest",

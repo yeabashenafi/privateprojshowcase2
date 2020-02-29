@@ -151,6 +151,7 @@ export class apiservice {
     let response = await axios.post(`${API_URL}/requests`, data);
     return response;
   }
+  // get the committee in the office
   async getparentcomitees(offid) {
     let response = await axios.get(
       `${API_URL}/committees/{id}/getparentcomittees?comm_id=${offid}`
@@ -287,11 +288,26 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/Organizations/${org_id}`)
     return response.data.percentage_for_endorsment;
   }
+  // patch the endorsment
   async perToEndorse(id,val){
     let data= {
       endorsePercentage:val
     }
     let response = await axios.patch(`${API_URL}/y/${id}`,data);
+    return response;
+  }
+  // patch request persentage..
+  async patchRequestPersentage(id,persent){
+    let data = {
+      persentage:persent
+    }
+    let response = await axios.patch(`${API_URL}/requests/${id}`, data);
+    console.log(response);
+    return response;
+  }
+  async getRequestData(id){
+    let response = await axios.get(`${API_URL}/requests/${id}`);
+    console.log(response);
     return response;
   }
   // async setAdminTo(data){
