@@ -56,8 +56,8 @@
 </template>
 
 <script>
- import { apiservice } from "../apiservice";
- const api = new apiservice();
+import { apiservice } from "../apiservice";
+const api = new apiservice();
 export default {
   data: () => {
     return {
@@ -81,7 +81,7 @@ export default {
       //   Motto: this.Motto
       // };
       api.uploadImage(this.image);
-     // console.log(this.image);
+      // console.log(this.image);
       // api.addOrganization(data).then(response => {
       //   console.log(response);
       // });

@@ -30,21 +30,23 @@
                   <v-stepper-content step="1">
                     <v-card>
                       <v-flex>
-                        <v-card-text class="display-1 text-center">Begin the curriculum addition process</v-card-text>
+                        <v-card-text class="display-1 text-center"
+                          >Begin the curriculum addition process</v-card-text
+                        >
                         <v-layout>
                           <v-spacer></v-spacer>
                           <v-select
-                          v-model="selCommName"
-                         
-                          class="mx-12"
-                          label="Select the committee that will own the framework"
-                          :items="comNames"
+                            v-model="selCommName"
+                            class="mx-12"
+                            label="Select the committee that will own the framework"
+                            :items="comNames"
                           ></v-select>
                           <v-spacer></v-spacer>
                         </v-layout>
-                        <v-btn @click="getCommId()" color="primary">Begin</v-btn>
-                      </v-flex> 
-                      
+                        <v-btn @click="getCommId()" color="primary"
+                          >Begin</v-btn
+                        >
+                      </v-flex>
                     </v-card>
                   </v-stepper-content>
                   <v-stepper-content step="2">
@@ -54,47 +56,49 @@
                           <p class="headline">General descriptions</p>
                         </v-flex>
                       </v-card-title>
-                         <v-card>
-                      <v-flex>
-      <v-card width="75%" flat>
-        <v-card-title>
-          add adynamic fields
-        </v-card-title>
-        <v-card-text class="px-5">
-          <v-select
-            label="Select Fields"
-            :items="compName"
-            multiple
-            v-model="selected"
-          ></v-select>
-        </v-card-text>
-        <v-actions>
-          <v-template v-for="(select, index) in selected" :key="select.index">
-            <v-flex>
-              <!-- {{ index }} -->
-              <!-- class="px-5" -->
-              <v-text-field
-                :label="select"
-                :v-model="selected"
-                v-model="detail[index]"
-                :placeholder="descr[index]"
-                class="px-6"
-              ></v-text-field>
-            </v-flex>
-          </v-template>
-          <!-- <v-btn class="success white--text" @click="addProgram()">Add Program</v-btn> -->
-        </v-actions>
-      </v-card>
-    </v-flex>
-    <v-card-actions>
-    
-
-    </v-card-actions>
-          </v-card>
-                      <v-btn class="mt-5 primary--text" @click="el = 3">Continue</v-btn>
+                      <v-card>
+                        <v-flex>
+                          <v-card width="75%" flat>
+                            <v-card-title>
+                              add adynamic fields
+                            </v-card-title>
+                            <v-card-text class="px-5">
+                              <v-select
+                                label="Select Fields"
+                                :items="compName"
+                                multiple
+                                v-model="selected"
+                              ></v-select>
+                            </v-card-text>
+                            <v-actions>
+                              <v-template
+                                v-for="(select, index) in selected"
+                                :key="select.index"
+                              >
+                                <v-flex>
+                                  <!-- {{ index }} -->
+                                  <!-- class="px-5" -->
+                                  <v-text-field
+                                    :label="select"
+                                    :v-model="selected"
+                                    v-model="detail[index]"
+                                    :placeholder="descr[index]"
+                                    class="px-6"
+                                  ></v-text-field>
+                                </v-flex>
+                              </v-template>
+                              <!-- <v-btn class="success white--text" @click="addProgram()">Add Program</v-btn> -->
+                            </v-actions>
+                          </v-card>
+                        </v-flex>
+                        <v-card-actions> </v-card-actions>
+                      </v-card>
+                      <v-btn class="mt-5 primary--text" @click="el = 3"
+                        >Continue</v-btn
+                      >
                     </v-card>
                   </v-stepper-content>
-                        
+
                   <v-stepper-content step="3">
                     <v-card class="mb-5  pb-10">
                       <v-card-title>
@@ -165,7 +169,9 @@
                         </v-container>
                       </v-card-actions>
                       <v-spacer></v-spacer>
-                      <v-btn class="mt-5 primary--text" @click="el = 4">Continue</v-btn>
+                      <v-btn class="mt-5 primary--text" @click="el = 4"
+                        >Continue</v-btn
+                      >
                     </v-card>
                   </v-stepper-content>
                   <v-stepper-content step="4">
@@ -218,7 +224,9 @@
                       <CourseDetails v-if="show_courseD" :name="courses.name" />
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                         <v-btn class="ml-12 mt-5 red--text" @click="el = 1">Back to first</v-btn>
+                        <v-btn class="ml-12 mt-5 red--text" @click="el = 1"
+                          >Back to first</v-btn
+                        >
                       </v-card-actions>
                     </v-card>
                   </v-stepper-content>
@@ -345,13 +353,13 @@ export default {
   },
   data: () => {
     return {
-       component: [],
+      component: [],
       compName: [],
-      selCommName:'',
-      selCommId:'',
+      selCommName: "",
+      selCommId: "",
       selected: [],
       detail: [],
-      descr:[],
+      descr: [],
       /////////
       close: true,
       show_back: false,
@@ -430,8 +438,8 @@ export default {
         }
       ],
       references: "",
-      comittees:[],
-      comNames:[],
+      comittees: [],
+      comNames: [],
       gradingScale: "",
       learningMethod: [
         {
@@ -455,23 +463,17 @@ export default {
     };
   },
   methods: {
-
     //////////// daynamic field code frag
-      getCommId(){
-        this.el = 2 
-        
-        for(var com in this.comittees){
-        
-          if(this.selCommName == this.comittees[com].name){
-            this.selCommId = this.comittees[com].id
-            
-          }  
-          }
-          
+    getCommId() {
+      this.el = 2;
 
+      for (var com in this.comittees) {
+        if (this.selCommName == this.comittees[com].name) {
+          this.selCommId = this.comittees[com].id;
         }
-              ,
-      getComp() {
+      }
+    },
+    getComp() {
       api.getComponent(this.$store.getters.org_id).then(response => {
         //  console.log(response);
         this.component = response.data;
@@ -498,7 +500,7 @@ export default {
     // //   console.log(response);
     // // })
     // },
-    /////////////end 
+    /////////////end
     // displayOptions() {
     //   var x = 0;
     //   for (x; x <= this.category.length; x++) {
@@ -539,31 +541,36 @@ export default {
     addCurriculum() {
       this.ok = true;
       // this.setpoID();
-       for (var i = 0; i < this.detail.length; i++) {
-          if(this.detail[i] == undefined){
-              this.detail[i] = "";
-          }
+      for (var i = 0; i < this.detail.length; i++) {
+        if (this.detail[i] == undefined) {
+          this.detail[i] = "";
+        }
         // console.log(this.selected[i] + " : " + this.detail[i]);
       }
       // var user = this.$store.getters.User_id;
       var org = this.$store.getters.org_id;
-      var object = Object.assign({}, ...Object.entries({...this.selected}).map(([a,b]) => ({ [b]: this.detail[a] })))
-     //  console.log(object);
-      let data = { 
+      var object = Object.assign(
+        {},
+        ...Object.entries({ ...this.selected }).map(([a, b]) => ({
+          [b]: this.detail[a]
+        }))
+      );
+      //  console.log(object);
+      let data = {
         program_outcome: this.po,
         program_educational_outcome: this.peo,
         course_learning_outcome: this.clo,
         committeeId: this.selCommId,
-        endorsePercentage:0,
+        endorsePercentage: 0,
         organizationalId: org
       };
-      const combined = {...object, ...data}; //combine the two objects
+      const combined = { ...object, ...data }; //combine the two objects
       console.log(combined);
       // console.log(data);
 
       api.addStructure(combined).then(response => {
         console.log(response.data.id);
-        console.log(response.data)
+        console.log(response.data);
         for (var i = 0; i < this.courses.length; i++) {
           this.courses[i].curriculumManagementId = response.data.id;
           api.addCourse(this.courses[i]).then(response => {
@@ -571,7 +578,7 @@ export default {
           });
         }
       });
-       // gradreqs: this.gradReqs
+      // gradreqs: this.gradReqs
       // program_nomenclature: this.nomenclature,
       //  gradingmethods: this.gradingMethods,
       //   medium: this.medium,
@@ -628,15 +635,15 @@ export default {
         this.po.pop();
       }
     },
-    getUserComittes(){
+    getUserComittes() {
       api.getyourComitee(this.$store.getters.User_id).then(data => {
         this.comittees = data.Comitees;
-        for (var comittee in this.comittees){
-          this.comNames.push(this.comittees[comittee].name)
+        for (var comittee in this.comittees) {
+          this.comNames.push(this.comittees[comittee].name);
           console.log();
         }
-    });
-  }
+      });
+    }
   },
   computed: {
     POS: function() {

@@ -34,7 +34,7 @@
                 class="ml-5 "
                 ></v-progress-circular>
                 </v-layout>
-               
+
                 <!-- <v-btn color="red" disabled v-if="!sent(frameworks.id)">Sent for approval</v-btn> -->
                 <v-dialog v-model="show">
                   <v-card>
@@ -99,7 +99,7 @@ export default {
         }
       ],
       show: false,
-      num:10,
+      num: 10,
       name: "",
       endPer:0,
       endorsedValue:0,
@@ -153,8 +153,8 @@ export default {
         }
       }
       let data = {
-        timestamp:Date.now(),
-        isPending:true,
+        timestamp: Date.now(),
+        isPending: true,
         SenderComitteeId: this.senderCommitteeId,
         RecieverComiteeId: parid,
         forCurriculumId: this.chosenframeid
@@ -210,11 +210,11 @@ export default {
         }
       });
     },
-    getPerctoEndorse(){
-      api.getOrgEndorsementPerc(this.$store.getters.org_id).then((response) =>{
-          this.endPer = response;
-          console.log(this.endPer);
-      })
+    getPerctoEndorse() {
+      api.getOrgEndorsementPerc(this.$store.getters.org_id).then(response => {
+        this.endPer = response;
+        console.log(this.endPer);
+      });
     },
     increasecurrEndorse(curr,val){
       console.log(val)
@@ -224,8 +224,8 @@ export default {
         console.log(this.endorsedValue);
       })
     },
-    getCurrEndPerc(index){
-      return this.currfr[index].endorsePercentage; 
+    getCurrEndPerc(index) {
+      return this.currfr[index].endorsePercentage;
     }
   },
   computed: {

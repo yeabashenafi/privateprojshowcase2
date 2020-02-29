@@ -11,12 +11,13 @@
             </v-title>
           </v-flex>
           <v-card-text>
-            <v-form ref="form" >
-              <v-text-field 
-              label="Commitee Name" 
-              class="px-12" 
-              :rules="nameRules"
-              v-model="name">
+            <v-form ref="form">
+              <v-text-field
+                label="Commitee Name"
+                class="px-12"
+                :rules="nameRules"
+                v-model="name"
+              >
               </v-text-field>
               <v-select
                 label="Add users to commitee"
@@ -28,6 +29,11 @@
                 class="px-12"
                 v-model="users"
               ></v-select>
+              <v-flex class="py-5">
+                <v-btn class="mx-8" text color="grey" @click="addRole"
+                  >Add Roles to Members</v-btn
+                >
+              </v-flex>
               <v-select
                 label="Select Offices"
                 :items="officename"
@@ -35,10 +41,11 @@
                 v-model="office"
               ></v-select>
               <v-select
-                      label="Select Committee level"
-                      v-model="position"
-                      :items="level"
-                       class="px-12"></v-select>
+                label="Select Committee level"
+                v-model="position"
+                :items="level"
+                class="px-12"
+              ></v-select>
             </v-form>
           </v-card-text>
           <v-flex class="text-center pa-9">
@@ -67,7 +74,30 @@
                 Add
               </v-btn>
             </div>
-            <!-- </v-card-actions> -->
+            <v-dialog v-model="showrole" width="50%">
+              <v-card>
+                <v-layout>
+                  <v-card-text>Members</v-card-text>
+                  <v-card-text>Roles</v-card-text>
+                </v-layout>
+                <template v-for="user in users">
+                  <v-flex v-bind:key="user">
+                    <v-layout>
+                      <v-card-text>{{ user }}</v-card-text>
+                      <v-radio-group row v-model="Roleradio">
+                        <v-radio value="Head" label="Head"></v-radio>
+                        <v-radio value="Secretary" label="Secretary"></v-radio>
+                        <v-radio
+                          value="Normal member"
+                          label="Normal member"
+                        ></v-radio>
+                      </v-radio-group>
+                    </v-layout>
+                    <v-divider></v-divider>
+                  </v-flex>
+                </template>
+              </v-card>
+            </v-dialog>
           </v-flex>
         </v-card>
       </v-layout>
@@ -80,27 +110,28 @@ const api = new apiservice();
 export default {
   data() {
     return {
+      showrole: false,
       position: 0,
       name: "",
-      level: [1,2,3,4,5],
+      level: [1, 2, 3, 4, 5],
       dialog: false,
-      orgRule:{
-        description:"",
-        max:10,
-        min:1,
-        parity:"odd"
+      orgRule: {
+        description: "",
+        max: 10,
+        min: 1,
+        parity: "odd"
       },
       users: [],
       members: [
         {
           id: "",
-          isActive: true
+          isActive: true,
+          role: ""
         }
       ],
-      nameRules:[
-        v => !!v || "Name can't be empty"
-      ],
-      
+      nameRules: [v => !!v || "Name can't be empty"],
+
+      Roleradio: [],
       officedata: [],
       officename: [],
       userInfo: [],
@@ -122,7 +153,8 @@ export default {
           if (this.users[k] == this.userInfo[j].fullname) {
             this.members.push({
               id: this.userInfo[j].id,
-              isActive: true
+              isActive: true,
+              role: this.Roleradio
             });
           }
         }
@@ -142,6 +174,9 @@ export default {
       this.dialog = true;
       // console.log('user id '+ this.getuserid + ' office id ' + this.getofficeid);
     },
+    addRole() {
+      this.showrole = !this.showrole;
+    },
     getAllUsers() {
       api.getUserInformotion().then(response => {
         this.userInfo = response.data;
@@ -151,16 +186,18 @@ export default {
         }
       });
     },
-    getOrgRules(){
-        api.getorgRules(this.$store.getters.org_id).then(response =>{
-          
-      this.orgRule.max = response.max;
-      this.orgRule.min = response.min;
-      this.orgRule.parity = response.parity;
-      this.orgRule.description = "Members must be greater than or equal to "+this.orgRule.min+
-      " and less than "+this.orgRule.max;
-          console.log(this.orgRule);
-        })
+    getOrgRules() {
+      api.getorgRules(this.$store.getters.org_id).then(response => {
+        this.orgRule.max = response.max;
+        this.orgRule.min = response.min;
+        this.orgRule.parity = response.parity;
+        this.orgRule.description =
+          "Members must be greater than or equal to " +
+          this.orgRule.min +
+          " and less than " +
+          this.orgRule.max;
+        console.log(this.orgRule);
+      });
     },
     getOfficeData() {
       let id = this.$store.getters.org_id;
@@ -188,25 +225,25 @@ export default {
       ];
     }
   },
-   computed:{
-     isValid: function(){
-       var x= false;
-       //var y= true;
-       if(this.name == ""  || this.users.length < this.orgRule.min 
-       || this.users.length > this.orgRule.max  ){
-         return x;
-       }
+  computed: {
+    isValid: function() {
+      var x = false;
+      //var y= true;
+      if (
+        this.name == "" ||
+        this.users.length < this.orgRule.min ||
+        this.users.length > this.orgRule.max
+      ) {
+        return x;
+      }
       // elseif((this.users.length >= ) && (this.users.length <= this.orgRule.max)){
       //    return x;
       //  };
-       else{
-         return !x;
-       }
-       
-         
-       
-     },
-   },
+      else {
+        return !x;
+      }
+    }
+  },
   mounted() {
     this.getOfficeData();
     this.getAllUsers();

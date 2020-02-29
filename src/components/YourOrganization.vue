@@ -88,43 +88,42 @@ export default {
         }
       });
     },
-    getHighest(){
-      var x= [{
-        name:'',
-        id:''
-      }]
-      var y =[];
-      var children=[];
-      api.checkHigher(this.$store.getters.org_id).then((data)=>{
+    getHighest() {
+      var x = [
+        {
+          name: "",
+          id: ""
+        }
+      ];
+      var y = [];
+      var children = [];
+      api.checkHigher(this.$store.getters.org_id).then(data => {
         console.log(data);
-      api.getChildren(data.data.hasParent.id).then(response=>{
-        for(var i=0;i<response.length;i++){
-          x.push({
-            name:response[i].officeType,
-            id:response[i].id
-          });
-          
-        }
-        x.shift();
-        for(var s=0;s<x.length;s++){
-          api.getChildren(x[s].id).then(result =>{
-            y.push(result[0])
-          })
-        }
-        console.log(y);
-        console.log(x);
-        for(var j=0;j<x.length;j++){
-        children.push({
-          id:j+2,
-          name:x[j].name
-        })
-          
-        }
-      
-      console.log(children);
-      })
-      
-      
+        api.getChildren(data.data.hasParent.id).then(response => {
+          for (var i = 0; i < response.length; i++) {
+            x.push({
+              name: response[i].officeType,
+              id: response[i].id
+            });
+          }
+          x.shift();
+          for (var s = 0; s < x.length; s++) {
+            api.getChildren(x[s].id).then(result => {
+              y.push(result[0]);
+            });
+          }
+          console.log(y);
+          console.log(x);
+          for (var j = 0; j < x.length; j++) {
+            children.push({
+              id: j + 2,
+              name: x[j].name
+            });
+          }
+
+          console.log(children);
+        });
+
         this.choices.push({
           id: 1,
            name: data.data.hasParent.officeType,
