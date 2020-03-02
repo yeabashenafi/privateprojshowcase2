@@ -274,6 +274,7 @@ export default {
           console.log(response);
         });
        console.log(this.numerator);
+       console.log(this.increment);
        if(this.numerator >= this.denominator){
              this.show = true;
        }
