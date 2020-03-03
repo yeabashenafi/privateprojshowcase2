@@ -137,18 +137,21 @@
         </v-card>
       </v-card-actions>
       <v-layout>
-        
-        <v-text class="py-4">Progress of Endorsment:</v-text>
-        <v-text-field class="mx-2" v-model="percent">
-          <!-- <template v-slot:progress>
-            <v-progress-linear
-              :value="progress"
-              :color="color"
-              absolute
-              height="7"
-            ></v-progress-linear>
-          </template> -->
+        <v-text class="py-4 ml-7">Progress of Endorsment:</v-text>
+         <v-progress-circular
+                ref="progress"
+                width="10"
+                :value="numerator"
+                color="deep-orange lighten-2"
+                class="ml-5 mt-3"
+                ></v-progress-circular>
+         <v-flex width="40%" class="ml-5">
+            <v-text-field class="mx-2 text--red"
+         v-model="percent"
+         disabled>
         </v-text-field>
+       
+         </v-flex>
         <!-- <v-progress-linear class="py-3"></v-progress-linear> -->
       </v-layout>
       <v-container v-if= 'role == "Head" '>
@@ -190,7 +193,6 @@
           color="success white--text"
           align-self-left
           @click="checkConfirmation()"
-          :disabled="!commentedOn"
         >
           Endorse</v-btn
         >
@@ -261,17 +263,18 @@ const api = new apiservice();
 export default {
   data: () => {
     return {
+      currentcommId: "",
       custom: true,
       value: "",
-      numerator: "",
-      role:'',
-      denominator: "",
+      numerator: 0,
+      denominator: 0,
       percent: "",
       structure: {},
       visible: false,
       show: false,
       userName: [],
       comment: [],
+      reqData: {},
       comments: [],
       pcomittees: [],
       pcomnames: [],
@@ -287,7 +290,33 @@ export default {
     //     doc.pipe(createWriteStream('file.pdf'));
     //     doc.end();
     // },
-    checkConfirmation() {},
+    //  EndorseTest(){
+     
+    // },
+    checkConfirmation() {
+       
+      var reqid = this.$route.params.request;
+       reqid = reqid.substr(1);
+    
+         var increment = Math.floor((1/this.memLength)*100);
+   if(this.numerator + increment <=100){
+       this.numerator += increment;
+       this.incrPercent(this.numerator);
+      //  patch the percentage
+       api.patchRequestPersentage(reqid,this.numerator).then(response => {
+          console.log(response);
+        });
+       console.log(this.numerator);
+       console.log(this.increment);
+       if(this.numerator >= this.denominator){
+             this.show = true;
+       }
+     
+          }
+    },
+    incrPercent(per){
+       this.percent = per + "% /" + this.denominator + "%";    
+       },
     generatePdf() {
       var id = this.$route.params.id;
       id = id.substr(1);
@@ -338,23 +367,27 @@ export default {
     Endorse() {
       var parid;
       var reqid = this.$route.params.request;
+      
       for (var j = 0; j < this.pcomittees.length; j++) {
         if (this.selp == this.pcomittees[j].name) {
           parid = this.pcomittees[j].id;
         }
       }
+      console.log(parid);
       reqid = reqid.substr(1);
-      console.log(this.gComment);
+      console.log(reqid);
+      console.log(this.gComment + 'general comment');
       api.Endorse(reqid, parid).then(data => {
-        api
-          .createComment(reqid, this.$store.getters.User_id, this.gComment)
-          .then(response => {
-            console.log(response);
-          });
+        // api
+        //   .createComment(reqid, this.$store.getters.User_id, this.gComment)
+        //   .then(response => {
+        //     console.log(response);
+        //   });
         console.log(data);
         this.show = false;
       });
     },
+  
     getComments() {
       var user_id = this.$route.params.id;
       var id = user_id.substr(1);
@@ -382,12 +415,13 @@ export default {
       });
     },
     parentCommittes() {
-      api.getparentcomitees(this.$store.getters.works_inDep).then(response => {
-        this.pcomittees = response;
-        for (var j = 0; j < this.pcomittees.length; j++) {
-          this.pcomnames.push(this.pcomittees[j].name);
-        }
-      });
+      // $store.getters.works_inDep
+      // api.getparentcomitees(this.currentcommId).then(response => {
+      //   this.pcomittees = response;
+      //   for (var j = 0; j < this.pcomittees.length; j++) {
+      //     this.pcomnames.push(this.pcomittees[j].name);
+      //   }
+      // });
     },
     submitGeneralComment() {
       var user_id = this.$route.params.id;
@@ -399,37 +433,81 @@ export default {
       };
       console.log(data);
     },
+    /// Working completion persentage !!
     get_progress() {
-      var tokenR = this.$store.getters.token;
-      api.getRequest(tokenR).then(response => {
-        console.log(response.data[0].percentage);
-        this.numerator = response.data[0].percentage;
-        var orgid = this.$store.getters.org_id;
-        api.getOrganization(orgid).then(response => {
+      // var tokenR = this.$store.getters.token;
+      var reqid = this.$route.params.request;
+      reqid = reqid.substr(1);
+      var orgid = this.$store.getters.org_id;
+      api.getRequestData(reqid).then(response => {
+        console.log("this From RequestData arry");
+        //  this.reqData = response.data;
+        console.log(response);
+
+         this.numerator = response.data.persentage;
+         console.log( 'Persentage : ' + this.numerator);
+         let comId = response.data.RecieverComiteeId;
+         this.currentcommId = response.data.RecieverComiteeId;
+         console.log("This is from committee id");
+         console.log(comId);
+          api.getCommitteeById(comId).then( res => {
+               console.log(res);
+               console.log("From getCommitteeById llllllll");
+              //  console.log(res.data.members);
+               this.memLength = res.data.members.length;
+               console.log(this.memLength);
+       
+          });
+          api.getparentcomitees(this.currentcommId).then(response => {
+              this.pcomittees = response;
+              for (var j = 0; j < this.pcomittees.length; j++) {
+                this.pcomnames.push(this.pcomittees[j].name);
+              }
+            });
+           api.getOrganization(orgid).then(response => {
+             console.log("From persentage_for_endorsement");
           console.log(response.percentage_for_endorsment);
-          this.denominator = response.percentage_for_endorsment;
-          this.percent = this.numerator + "/" + this.denominator + "%";
-        });
+             this.denominator = response.percentage_for_endorsment;
+            //  this.percent = this.numerator + "/" + this.denominator + "%";
+            this.incrPercent(this.numerator);
+            });
       });
+    },
+    // get the request 
+    getRequest(){
+      var reqid = this.$route.params.request;
+        reqid = reqid.substr(1);
+      console.log("this is from getRequest request Id" + reqid);
+      api.getRequestData(reqid).then(response => {
+        console.log("from get requestData result ");
+        console.log(response);
+      })
     }
   },
   computed: {
     commentedOn: function() {
       var x = false;
-      if (this.gComment == "") {
+      if (this.gComment == "" || this.numerator >100) {
         return x;
       } else {
         return !x;
       }
     },
-    progress() {
-      return Math.min(100, this.value.length * 10);
-    },
+    // progress() {
+    //   // return Math.min(100, this.value.length * 10);
+     
+    // },
+     persent: function() {
+        // return this.numerator;
+        return this.numerator + "/" + this.denominator + "%";
+      },
     color() {
       return ["error", "warning", "success"][Math.floor(this.progress / 40)];
     }
   },
-  mounted() {
+  mounted(){
+     this.get_progress();
+    this.getRequest();
     this.getStructure();
     console.log(this.$route.params.role)
     //this.parentCommittes();

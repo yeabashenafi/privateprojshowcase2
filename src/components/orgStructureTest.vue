@@ -95,8 +95,8 @@
   </v-container>
 </template>
 <script>
-import { apiservice } from "../apiservice";
 //import func from '../../vue-temp/vue-editor-bridge';
+import { apiservice } from "../apiservice";
 const api = new apiservice();
 export default {
   data() {
