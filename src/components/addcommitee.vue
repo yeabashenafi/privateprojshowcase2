@@ -25,6 +25,7 @@
                 :hint="orgRule.description"
                 multiple
                 chips
+                @blur="createUserRoles"
                 persistent-hint
                 class="px-12"
                 v-model="users"
@@ -80,11 +81,11 @@
                   <v-card-text>Members</v-card-text>
                   <v-card-text>Roles</v-card-text>
                 </v-layout>
-                <template v-for="user in users">
+                <template v-for="(user,index) in users">
                   <v-flex v-bind:key="user">
                     <v-layout>
                       <v-card-text>{{ user }}</v-card-text>
-                      <v-radio-group row v-model="Roleradio">
+                      <v-radio-group row v-model="roles[index]">
                         <v-radio value="Head" label="Head"></v-radio>
                         <v-radio value="Secretary" label="Secretary"></v-radio>
                         <v-radio
@@ -122,6 +123,7 @@ export default {
         parity: "odd"
       },
       users: [],
+      roles:[""],
       members: [
         {
           id: "",
@@ -141,6 +143,9 @@ export default {
     };
   },
   methods: {
+    createUserRoles(){
+      console.log(this.roles.length);
+    },
     addCommitee() {
       for (var i = 0; i < this.officedata.length; i++) {
         if (this.office == this.officedata[i].officeType) {
@@ -154,7 +159,7 @@ export default {
             this.members.push({
               id: this.userInfo[j].id,
               isActive: true,
-              role: this.Roleradio
+              role: this.roles[k]
             });
           }
         }
@@ -176,6 +181,11 @@ export default {
     },
     addRole() {
       this.showrole = !this.showrole;
+      
+      for(var i=0;i<this.users.length;i++){
+        this.roles.push('')
+      }
+      this.roles.shift();
     },
     getAllUsers() {
       api.getUserInformotion().then(response => {

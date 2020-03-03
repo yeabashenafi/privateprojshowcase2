@@ -282,6 +282,7 @@ export class apiservice {
     let response = await axios.get(`${API_URL}/Accounts/${user_id}`);
     return response.data.fullname;
   }
+  //getting comments for curriculum
   async getCommentforCurr(currId) {
     let response = await axios.get(
       `${API_URL}/comments/{id}/getComment?curr_id=${currId}`

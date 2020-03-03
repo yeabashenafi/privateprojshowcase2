@@ -137,6 +137,7 @@
         </v-card>
       </v-card-actions>
       <v-layout>
+        
         <v-text class="py-4">Progress of Endorsment:</v-text>
         <v-text-field class="mx-2" v-model="percent">
           <!-- <template v-slot:progress>
@@ -150,6 +151,39 @@
         </v-text-field>
         <!-- <v-progress-linear class="py-3"></v-progress-linear> -->
       </v-layout>
+      <v-container v-if= 'role == "Head" '>
+        <v-card class=" mx-10">
+          <v-card-title class="white darken">
+            <v-flex class="text-center headline">
+              Your Committee activities
+            </v-flex>
+             </v-card-title>
+          <v-card-actions>
+              <v-flex class="mx-5">
+                <p>Endoresd By:</p>
+                <p class="my-5">Rejected By:</p>
+              </v-flex>
+          </v-card-actions>
+        </v-card>
+      </v-container>
+      <v-container v-if='role == "Secretary"'>
+        <v-card class="mx-10">
+          <v-card-title>
+            <v-flex class="text-center headline">
+              Hold meeting agenda
+            </v-flex>
+          </v-card-title>
+          <v-card-actions>
+            <v-text-area 
+            label="Enter the agenda of the meeting"
+            placheholder="The agenda of the meeting">
+            </v-text-area>
+            <v-flex class="text-center">
+              <v-btn color="Success">Submit</v-btn>
+            </v-flex>
+          </v-card-actions>
+        </v-card>
+      </v-container>
       <hr />
       <v-layout class="mx-12 mb-12 pb-12 mt-6">
         <v-btn
@@ -230,6 +264,7 @@ export default {
       custom: true,
       value: "",
       numerator: "",
+      role:'',
       denominator: "",
       percent: "",
       structure: {},
@@ -275,6 +310,7 @@ export default {
         //var token = this.$store.getters.token;
         var user_id = this.$route.params.id;
         var params = this.$route.params;
+        this.role = this.$route.params.role.substr(1);
         console.log(params);
         var id = user_id.substr(1);
         api.getStructure(id).then(response => {
@@ -395,6 +431,7 @@ export default {
   },
   mounted() {
     this.getStructure();
+    console.log(this.$route.params.role)
     //this.parentCommittes();
     this.get_progress();
     this.getComments();
