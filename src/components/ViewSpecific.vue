@@ -151,6 +151,45 @@
         </v-flex>
         <!-- <v-progress-linear class="py-3"></v-progress-linear> -->
       </v-layout>
+      <v-container v-if= 'role == "Head" '>
+        <v-card class=" mx-10">
+          <v-card-title class="white darken">
+            <v-flex class="text-center headline">
+              Your Committee activities
+            </v-flex>
+             </v-card-title>
+          <v-card-actions>
+              <v-flex class="mx-5">
+                <p>Endoresd By:</p>
+                <p class="my-5">Rejected By:</p>
+              </v-flex>
+          </v-card-actions>
+        </v-card>
+      </v-container>
+      <v-container v-if='(role == "Secretary") && showMinute'>
+        <v-card class="mx-10">
+          <v-card-title>
+            <v-flex class="text-center headline">
+              <p>Record meeting minute</p>
+            </v-flex>
+          </v-card-title>
+          <v-card-actions>
+            <v-container>
+              <v-textarea 
+              label="Enter the minute of the meeting"
+              placheholder="The minute of the meeting"
+              v-model="minute"
+              >
+            </v-textarea>
+            </v-container>
+            
+            
+          </v-card-actions>
+          <v-container class="text-center">
+              <v-btn color="Success" @click="submitMinute">Submit</v-btn>
+            </v-container>
+        </v-card>
+      </v-container>
       <hr />
       <v-layout class="mx-12 mb-12 pb-12 mt-6">
         <v-btn
@@ -222,12 +261,12 @@
 // const doc = new PDFDocument();
 import { apiservice } from "../apiservice";
 const api = new apiservice();
-//const PDFDocument = require('pdfkit');
 
 export default {
   data: () => {
     return {
       currentcommId: "",
+      showMinute:true,
       custom: true,
       value: "",
       numerator: 0,
@@ -242,6 +281,7 @@ export default {
       comments: [],
       pcomittees: [],
       pcomnames: [],
+      minute:"",
       general: "",
       gComment: "",
       receipant: "",
@@ -257,6 +297,27 @@ export default {
     //  EndorseTest(){
 
     // },
+    submitMinute(){
+      
+      api.getCommitteeId(this.$route.params.request.substr(1)).then(response => {
+        
+        let data={
+        Details:this.minute,
+        forcurriculumId:this.$route.params.id.substr(1),
+        writtenById:this.$store.getters.User_id,
+        committeeId:response
+      }
+      api.addMinute(data).then(()=>{
+        this.showMinute = !this.showMinute
+      }
+        
+      )
+      
+      })
+     
+      
+      
+    },
     checkConfirmation() {
       var reqid = this.$route.params.request;
       reqid = reqid.substr(1);
@@ -301,6 +362,7 @@ export default {
         //var token = this.$store.getters.token;
         var user_id = this.$route.params.id;
         var params = this.$route.params;
+        this.role = this.$route.params.role.substr(1);
         console.log(params);
         var id = user_id.substr(1);
         api.getStructure(id).then(response => {
@@ -469,7 +531,9 @@ export default {
     this.get_progress();
     this.getRequest();
     this.getStructure();
-    // this.parentCommittes();
+    console.log(this.$route.params.role)
+    //this.parentCommittes();
+    this.get_progress();
     this.getComments();
   }
 };

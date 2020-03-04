@@ -79,7 +79,7 @@ const routes = [
     beforeEnter: guardRoute
   },
   {
-    path: "/view:id/request/:request",
+    path: "/view:id/request/:request/role/:role",
     name: "viewStructure",
     component: () => import("../components/ViewSpecific.vue"),
     beforeEnter: guardRoute

@@ -21,7 +21,7 @@
           <v-card-actions>
             <v-container>
               <p>Name: {{ comittee.name }}</p>
-
+              <p>Your role:{{comittee.role}}</p>
               <!-- <p>gradreqs: {{ frameworks.program_name }}</p> -->
             </v-container>
           </v-card-actions>
@@ -46,34 +46,42 @@
             </v-btn>
             <v-toolbar-title>Notifications</v-toolbar-title>
             <v-spacer></v-spacer>
+            <p class="title  text--darken-3">
+            {{ comName }}
+          </p>
           </v-toolbar>
         </v-card-title>
         <v-card-text>
-          <p class="title ">
-            Programs which requested for Approval---- (Waits for approval )
-          </p>
-          <p class="title cyan--text text--darken-3">
-            Comittee Name : {{ comName }}
-          </p>
-
+          
           <v-flex
-            class="mx-5"
+            class="mx-5 my-3"
             v-for="(request, index) in notInfo"
             :key="request.index"
           >
             <v-card
-              color="cyan lighten-2"
-              @click="seeDetail(request.frameworkid, request.req_id)"
+              color="cyan lighten-4"
+              @click="seeDetail(request.frameworkid, request.req_id, request.userRole)"
             >
               <v-card-title>{{ index + 1 }}</v-card-title>
               <v-card-actions>
-                <p class="font-weight-bold">
+                <p >
                   You have recieved an approval request from
-                  <strong>{{ request.senderName }}</strong> for the framework
-                  <strong>{{ request.frameworkname }}</strong>
+                  <strong class="font-weight-bold">{{ request.senderName }}</strong> for  framework
+                  <strong class="font-weight-bold">{{ request.frameworkname }}</strong>
                 </p>
+                <v-divider></v-divider>
+                
               </v-card-actions>
+              <p class="mx-5 title">Your Role:{{request.userRole }}</p>
+               <v-container class="mx-5">
+                  <p class="title">Comments:</p>
+                  <v-flex v-for="comment in comments[index]" :key="comment" >
+                    <p class="mx-3">{{comment.body}}</p>
+                    <!-- <p class="mx-3">{{getAccountName(comment.accountsId)}}</p> -->
+                  </v-flex>
+               </v-container>
             </v-card>
+            
           </v-flex>
         </v-card-text>
       </v-card>
@@ -99,6 +107,7 @@ export default {
       comittees: [],
       no: [],
       comName: "",
+      role:"",
       req: [],
       requests: [],
       yourComittee: [],
@@ -111,6 +120,7 @@ export default {
           req_id: ""
         }
       ],
+      comments:[],
       sent: []
     };
   },
@@ -138,6 +148,7 @@ export default {
       console.log("View Notification");
       this.dialog = !this.dialog;
       this.comName = this.comittees[index].name;
+      this.role = this.comittees[index].role;
       this.req = this.no[index];
       console.log(this.comName);
       console.log(this.req.length);
@@ -151,6 +162,7 @@ export default {
             //this.notInfo[i].frameworkname = response.program_name;
 
             this.notInfo.push({
+              userRole:this.role,
               senderName: response,
               frameworkname: data.program_name,
               frameworkid: data.id,
@@ -161,18 +173,48 @@ export default {
         });
       }
 
+      for(var j=0 ; j < this.notInfo.length;j++){
+        api.getCommentforCurr(this.notInfo[j].frameworkid).then(response => {
+          this.comments.push(response);
+        })
+        // api.getAccountName(this.comments[j].accountsId).then(data => {
+        //  console.log(data);
+        //  })
+
+      }
+      // for(var q=0; q < this.notInfo.length;q++){
+      //   for(var s=0;s < this.comments[q].length;s++){
+      //     // console.log(this.comments[q]);
+      //   }
+      // } 
+      // for(var q=0; q<this.comments[index].length;q++){
+      //   api.getAccountName(this.comments[q].accountsId).then(data => {
+      //    console.log(data);
+         
+      // })
+      // }
+      // console.log(this.comments)
+      this.comments.shift();
       this.notInfo.shift();
+      
     },
 
-    seeDetail(id, req_id) {
+    seeDetail(id, req_id,role) {
       console.log(req_id);
       this.$router.push({
         name: "viewStructure",
-        params: { id: ":" + id, request: ":" + req_id }
+        params: { id: ":" + id, request: ":" + req_id,role:":" + role }
       });
       console.log(id + "program Id");
       //  viewStructure(id) {
-    }
+    },
+    // getAccountName(id){
+    //   //var response;
+      
+     
+      
+    // }
+    
   },
   mounted() {
     this.getUserComittes();

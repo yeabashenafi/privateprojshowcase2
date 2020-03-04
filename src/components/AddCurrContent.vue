@@ -1,10 +1,14 @@
 <template>
   <span width="70%">
-    <v-container text-md-center elevation-12>
+    <v-container text-md-center >
       <v-form width="50%" ref="form">
         <v-card width="100%" ref="cardref">
+          
           <v-card-title class="display-1">
-            Add a Curriculum Structure
+            <v-flex class="text-center">
+              Add a Curriculum Framework
+            </v-flex>
+            
           </v-card-title>
           <v-card-actions class="ml-5">
             <v-flex raised>

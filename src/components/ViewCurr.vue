@@ -7,12 +7,13 @@
             <v-card-actions class="teal">
               <v-flex>
                 <v-text class="headline">Framework{{ index + 1 }}</v-text>
+                <p class="ml-2" >{{ frameworks.ownerCommittee}}</p>
               </v-flex>
             </v-card-actions>
             <v-card-actions>
               <v-flex>
                 <v-container>
-                  <p>Name: {{ frameworks.program_name }}</p>
+                  <p class="title ">Name: {{ frameworks.program_name }}</p>
                   <p>Type: {{ frameworks.program_type }}</p>
                   <p>gradreqs: {{ frameworks.gradreqs }}</p>
                   <p>
@@ -188,7 +189,7 @@ export default {
     },
     getCurriculums() {
       api.getusersFrameworks(this.$store.getters.User_id).then(response => {
-        this.currfr = response[0];
+        this.currfr = response;
         console.log(this.currfr);
       });
     },

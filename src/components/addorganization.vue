@@ -72,26 +72,27 @@ export default {
   methods: {
     add() {
       // const files = e.target.files;
-      // let data = {
-      //   Name: this.name,
-      //   location: this.location,
-      //   background: this.background,
-
-      //   year_of_establishment: this.year_of_establishment,
-      //   Motto: this.Motto
-      // };
+      let data = {
+        Name: this.name,
+        location: this.location,
+        background: this.background,
+        logo:this.image.name,
+        year_of_establishment: this.year_of_establishment,
+        Motto: this.Motto
+      };
+      console.log(data," ",this.image)
       api.uploadImage(this.image);
-      // console.log(this.image);
-      // api.addOrganization(data).then(response => {
-      //   console.log(response);
-      // });
-      // const req = {
-      //   fullname: this.name + 'admin',
-      //   password: this.name + 'pass45'
-      // }
-      // api.setAdminTo(req).then(res => {
-      //  console.log(res);
-      // })
+      console.log(this.image);
+      api.addOrganization(data).then(response => {
+        console.log(response);
+      });
+      const req = {
+        fullname: this.name + 'admin',
+        password: this.name + 'pass45'
+      }
+      api.setAdminTo(req).then(res => {
+       console.log(res);
+      })
     }
   }
 };
