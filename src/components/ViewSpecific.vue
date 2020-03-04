@@ -138,20 +138,17 @@
       </v-card-actions>
       <v-layout>
         <v-text class="py-4 ml-7">Progress of Endorsment:</v-text>
-         <v-progress-circular
-                ref="progress"
-                width="10"
-                :value="numerator"
-                color="deep-orange lighten-2"
-                class="ml-5 mt-3"
-                ></v-progress-circular>
-         <v-flex width="40%" class="ml-5">
-            <v-text-field class="mx-2 text--red"
-         v-model="percent"
-         disabled>
-        </v-text-field>
-       
-         </v-flex>
+        <v-progress-circular
+          ref="progress"
+          width="10"
+          :value="numerator"
+          color="deep-orange lighten-2"
+          class="ml-5 mt-3"
+        ></v-progress-circular>
+        <v-flex width="40%" class="ml-5">
+          <v-text-field class="mx-2 text--red" v-model="percent" disabled>
+          </v-text-field>
+        </v-flex>
         <!-- <v-progress-linear class="py-3"></v-progress-linear> -->
       </v-layout>
       <hr />
@@ -258,32 +255,30 @@ export default {
     //     doc.end();
     // },
     //  EndorseTest(){
-     
+
     // },
     checkConfirmation() {
-       
       var reqid = this.$route.params.request;
-       reqid = reqid.substr(1);
-    
-         var increment = Math.floor((1/this.memLength)*100);
-   if(this.numerator + increment <=100){
-       this.numerator += increment;
-       this.incrPercent(this.numerator);
-      //  patch the percentage
-       api.patchRequestPersentage(reqid,this.numerator).then(response => {
+      reqid = reqid.substr(1);
+
+      var increment = Math.floor((1 / this.memLength) * 100);
+      if (this.numerator + increment <= 100) {
+        this.numerator += increment;
+        this.incrPercent(this.numerator);
+        //  patch the percentage
+        api.patchRequestPersentage(reqid, this.numerator).then(response => {
           console.log(response);
         });
-       console.log(this.numerator);
-       console.log(this.increment);
-       if(this.numerator >= this.denominator){
-             this.show = true;
-       }
-     
-          }
+        console.log(this.numerator);
+        console.log(this.increment);
+        if (this.numerator >= this.denominator) {
+          this.show = true;
+        }
+      }
     },
-    incrPercent(per){
-       this.percent = per + "% /" + this.denominator + "%";    
-       },
+    incrPercent(per) {
+      this.percent = per + "% /" + this.denominator + "%";
+    },
     generatePdf() {
       var id = this.$route.params.id;
       id = id.substr(1);
@@ -333,7 +328,7 @@ export default {
     Endorse() {
       var parid;
       var reqid = this.$route.params.request;
-      
+
       for (var j = 0; j < this.pcomittees.length; j++) {
         if (this.selp == this.pcomittees[j].name) {
           parid = this.pcomittees[j].id;
@@ -342,7 +337,7 @@ export default {
       console.log(parid);
       reqid = reqid.substr(1);
       console.log(reqid);
-      console.log(this.gComment + 'general comment');
+      console.log(this.gComment + "general comment");
       api.Endorse(reqid, parid).then(data => {
         // api
         //   .createComment(reqid, this.$store.getters.User_id, this.gComment)
@@ -353,7 +348,7 @@ export default {
         this.show = false;
       });
     },
-  
+
     getComments() {
       var user_id = this.$route.params.id;
       var id = user_id.substr(1);
@@ -410,50 +405,49 @@ export default {
         //  this.reqData = response.data;
         console.log(response);
 
-         this.numerator = response.data.persentage;
-         console.log( 'Persentage : ' + this.numerator);
-         let comId = response.data.RecieverComiteeId;
-         this.currentcommId = response.data.RecieverComiteeId;
-         console.log("This is from committee id");
-         console.log(comId);
-          api.getCommitteeById(comId).then( res => {
-               console.log(res);
-               console.log("From getCommitteeById llllllll");
-              //  console.log(res.data.members);
-               this.memLength = res.data.members.length;
-               console.log(this.memLength);
-       
-          });
-          api.getparentcomitees(this.currentcommId).then(response => {
-              this.pcomittees = response;
-              for (var j = 0; j < this.pcomittees.length; j++) {
-                this.pcomnames.push(this.pcomittees[j].name);
-              }
-            });
-           api.getOrganization(orgid).then(response => {
-             console.log("From persentage_for_endorsement");
+        this.numerator = response.data.persentage;
+        console.log("Persentage : " + this.numerator);
+        let comId = response.data.RecieverComiteeId;
+        this.currentcommId = response.data.RecieverComiteeId;
+        console.log("This is from committee id");
+        console.log(comId);
+        api.getCommitteeById(comId).then(res => {
+          console.log(res);
+          console.log("From getCommitteeById llllllll");
+          //  console.log(res.data.members);
+          this.memLength = res.data.members.length;
+          console.log(this.memLength);
+        });
+        api.getparentcomitees(this.currentcommId).then(response => {
+          this.pcomittees = response;
+          for (var j = 0; j < this.pcomittees.length; j++) {
+            this.pcomnames.push(this.pcomittees[j].name);
+          }
+        });
+        api.getOrganization(orgid).then(response => {
+          console.log("From persentage_for_endorsement");
           console.log(response.percentage_for_endorsment);
-             this.denominator = response.percentage_for_endorsment;
-            //  this.percent = this.numerator + "/" + this.denominator + "%";
-            this.incrPercent(this.numerator);
-            });
+          this.denominator = response.percentage_for_endorsment;
+          //  this.percent = this.numerator + "/" + this.denominator + "%";
+          this.incrPercent(this.numerator);
+        });
       });
     },
-    // get the request 
-    getRequest(){
+    // get the request
+    getRequest() {
       var reqid = this.$route.params.request;
-        reqid = reqid.substr(1);
+      reqid = reqid.substr(1);
       console.log("this is from getRequest request Id" + reqid);
       api.getRequestData(reqid).then(response => {
         console.log("from get requestData result ");
         console.log(response);
-      })
+      });
     }
   },
   computed: {
     commentedOn: function() {
       var x = false;
-      if (this.gComment == "" || this.numerator >100) {
+      if (this.gComment == "" || this.numerator > 100) {
         return x;
       } else {
         return !x;
@@ -461,18 +455,18 @@ export default {
     },
     // progress() {
     //   // return Math.min(100, this.value.length * 10);
-     
+
     // },
-     persent: function() {
-        // return this.numerator;
-        return this.numerator + "/" + this.denominator + "%";
-      },
+    persent: function() {
+      // return this.numerator;
+      return this.numerator + "/" + this.denominator + "%";
+    },
     color() {
       return ["error", "warning", "success"][Math.floor(this.progress / 40)];
     }
   },
-  mounted(){
-     this.get_progress();
+  mounted() {
+    this.get_progress();
     this.getRequest();
     this.getStructure();
     // this.parentCommittes();

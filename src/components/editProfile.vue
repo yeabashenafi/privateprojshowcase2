@@ -17,7 +17,7 @@
         <v-flex>
           <v-layout>
             <v-text-field
-              v-model="user.Username"
+              v-model="user.username"
               label="username"
             ></v-text-field>
             <!-- <v-icon>mdi-account-edit</v-icon>
@@ -68,7 +68,7 @@
             <!-- <v-text-field v-model="user[o].Nationality"></v-text-field> -->
           </v-layout>
           <v-flex class="text-center">
-            <v-btn round color="success text-white" rounded @click="update()"
+            <v-btn color="success text-white" rounded @click="update()"
               >Submit changes</v-btn
             >
           </v-flex>
@@ -89,23 +89,20 @@ export default {
     };
   },
   methods: {
-    // update() {
-    //   let data = {
-    //     Username: this.user.Username,
-    //     fullname: this.user.fullname,
-    //     email: this.user.email,
-    //     organizationId: this.$store.getters.org_id,
-    //     password: this.user.password,
-    //     Educational_status: this.user.Educational_status,
-    //     gender:this.user.gender,
-    //     registered_inId: this.user.registered_inId,
-    //     works_inDepId:this.user.works_inDepId,
-    //     id: this.$store.getters.User_id
-    //   };
-    //   api.updateUserData(data).then(response => {
-    //     console.log(response);
-    //   });
-    // },
+    update() {
+      let data = {
+        username: this.user.username,
+        Username: this.user.Username,
+        fullname: this.user.fullname,
+        email: this.user.email
+      };
+      // var id = this.$store.getters.User_id;
+      // var token = this.$store.getters.token;
+      console.log(data);
+      // api.updateUserdata(id, token, data).then(response => {
+      //   console.log(response);
+      // });
+    },
     getUserData() {
       var userId = this.$store.getters.User_id;
       api.getUser(userId).then(response => {

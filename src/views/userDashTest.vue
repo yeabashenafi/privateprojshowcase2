@@ -55,9 +55,7 @@
       <v-tab-item>
         <v-card flat>
           <v-card-text>
-            <view-curr
-            @Refresh='refresh()'
-            v-if="view"></view-curr>
+            <view-curr @Refresh="refresh()" v-if="view"></view-curr>
           </v-card-text>
         </v-card>
       </v-tab-item>
@@ -74,13 +72,13 @@ export default {
   data() {
     return {
       name: "userDashTest",
-      view: true,
+      view: true
     };
   },
-  methods:{
-    refresh(){
-      this.view = ! this.view;
-      this.view = ! this.view
+  methods: {
+    refresh() {
+      this.view = !this.view;
+      this.view = !this.view;
     }
   },
   components: {

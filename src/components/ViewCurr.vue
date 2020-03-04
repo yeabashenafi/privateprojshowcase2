@@ -15,24 +15,34 @@
                   <p>Name: {{ frameworks.program_name }}</p>
                   <p>Type: {{ frameworks.program_type }}</p>
                   <p>gradreqs: {{ frameworks.gradreqs }}</p>
-                  <p>Endorsement Percentage:{{getCurrEndPerc(index)}}/{{endPer}}</p>
+                  <p>
+                    Endorsement Percentage:{{ getCurrEndPerc(index) }}/{{
+                      endPer
+                    }}
+                  </p>
                 </v-container>
                 <v-layout>
-                   <v-btn
-                  color="success white--text"
-                  :disabled="!checkValidity(index)"
-                  @click="
-                    sendForApproval(index,frameworks.id, frameworks.program_name,frameworks.committeeId,getCurrEndPerc(index))
-                  "
-                  >Endorse</v-btn
-                >
-                <v-progress-circular
-                ref="progress"
-                width="10"
-                :value="frameworks.endorsePercentage"
-                color="deep-orange lighten-2"
-                class="ml-5 "
-                ></v-progress-circular>
+                  <v-btn
+                    color="success white--text"
+                    :disabled="!checkValidity(index)"
+                    @click="
+                      sendForApproval(
+                        index,
+                        frameworks.id,
+                        frameworks.program_name,
+                        frameworks.committeeId,
+                        getCurrEndPerc(index)
+                      )
+                    "
+                    >Endorse</v-btn
+                  >
+                  <v-progress-circular
+                    ref="progress"
+                    width="10"
+                    :value="frameworks.endorsePercentage"
+                    color="deep-orange lighten-2"
+                    class="ml-5 "
+                  ></v-progress-circular>
                 </v-layout>
 
                 <!-- <v-btn color="red" disabled v-if="!sent(frameworks.id)">Sent for approval</v-btn> -->
@@ -84,13 +94,10 @@
 </template>
 
 <script>
-
 import { apiservice } from "../apiservice";
 const api = new apiservice();
 export default {
-  components: {
-  
-  },
+  components: {},
   data() {
     return {
       currfr: [
@@ -101,9 +108,9 @@ export default {
       show: false,
       num: 10,
       name: "",
-      endPer:0,
-      endorsedValue:0,
-      senderCommitteeId:'',
+      endPer: 0,
+      endorsedValue: 0,
+      senderCommitteeId: "",
       comittees: [],
       pcomittees: [],
       chosenframeid: "",
@@ -114,33 +121,37 @@ export default {
     };
   },
   methods: {
-    sendForApproval(index,id, name,senderCommitteId,endPerc) {
+    sendForApproval(index, id, name, senderCommitteId, endPerc) {
       this.chosenframeid = id;
       this.senderCommitteeId = senderCommitteId;
       this.name = name;
       var value;
-      api.getCommittelength(senderCommitteId).then((response) =>{
+      api.getCommittelength(senderCommitteId).then(response => {
         value = response;
-        var num = (1/value)*100 + endPerc;
-        this.increasecurrEndorse(this.chosenframeid,num);
+        var num = (1 / value) * 100 + endPerc;
+        this.increasecurrEndorse(this.chosenframeid, num);
         this.getCurriculums();
         // var value;
-        
-        this.currfr[index].endorsedBy.push(this.$store.getters.User_id)
-        api.addEndorsingUser(this.currfr[index].endorsedBy,this.currfr[index].id).then((resp) => {
-          console.log(resp)
-          this.$emit('Refresh')
-        })
+
+        this.currfr[index].endorsedBy.push(this.$store.getters.User_id);
+        api
+          .addEndorsingUser(
+            this.currfr[index].endorsedBy,
+            this.currfr[index].id
+          )
+          .then(resp => {
+            console.log(resp);
+            this.$emit("Refresh");
+          });
         //console.log(this.currfr[index].endorsedBy.find(this.$store.getters.User_id))
-        api.getCurrPercById(this.chosenframeid).then((data) => {
+        api.getCurrPercById(this.chosenframeid).then(data => {
           let val = data;
-          if(val >= this.endPer){
-             this.show = true;
-             this.getUserComittes();
-           }
-        })       
-      }
-      )      
+          if (val >= this.endPer) {
+            this.show = true;
+            this.getUserComittes();
+          }
+        });
+      });
     },
     Confirm() {
       // var childid;
@@ -164,16 +175,16 @@ export default {
         this.show = !this.show;
       });
     },
-    checkValidity(i){
+    checkValidity(i) {
       //var x = "yes queen"
-      var y = this.currfr[i].endorsedBy.find(x => x == this.$store.getters.User_id)
-      if(y){
+      var y = this.currfr[i].endorsedBy.find(
+        x => x == this.$store.getters.User_id
+      );
+      if (y) {
         return false;
-      }
-      else{
+      } else {
         return true;
       }
-      
     },
     getCurriculums() {
       api.getusersFrameworks(this.$store.getters.User_id).then(response => {
@@ -217,27 +228,25 @@ export default {
         console.log(this.endPer);
       });
     },
-    increasecurrEndorse(curr,val){
-      console.log(val)
-      api.perToEndorse(curr,val).then((resp) =>{
-        
-        this.endorsedValue = resp.data.endorsePercentage
+    increasecurrEndorse(curr, val) {
+      console.log(val);
+      api.perToEndorse(curr, val).then(resp => {
+        this.endorsedValue = resp.data.endorsePercentage;
         console.log(this.endorsedValue);
-      })
+      });
     },
     getCurrEndPerc(index) {
       return this.currfr[index].endorsePercentage;
     }
   },
   computed: {
-      validator:function(yes){
-        if(yes == 0){
-          return true;
-        }
-        else{
-          return false;
-        }
+    validator: function(yes) {
+      if (yes == 0) {
+        return true;
+      } else {
+        return false;
       }
+    }
   },
   mounted() {
     this.getCurriculums();

@@ -77,6 +77,14 @@ export class apiservice {
     console.log(response);
     return response;
   }
+  //update user data with patch
+  async updateUserdata(id, token, data) {
+    let response = await axios.patch(
+      `${API_URL}/Accounts/${id}?access_token=${token}`,
+      data
+    );
+    return response;
+  }
   async updateAdminData(adminid, data) {
     let find = {
       where: { id: adminid }
@@ -245,8 +253,8 @@ export class apiservice {
     return response;
   }
   //Get curriculum endorsement percentage by id
-  async getCurrPercById(id){
-    let response = await axios.get(`${API_URL}/y/${id}`)
+  async getCurrPercById(id) {
+    let response = await axios.get(`${API_URL}/y/${id}`);
     return response.data.endorsePercentage;
   }
   //Get Request data
@@ -294,40 +302,42 @@ export class apiservice {
     return response.data.percentage_for_endorsment;
   }
 
-  async getCommittelength(comm_id){
-    let response = await axios.get(`${API_URL}/committees/${comm_id}`)
-    return response.data.members.length
+  async getCommittelength(comm_id) {
+    let response = await axios.get(`${API_URL}/committees/${comm_id}`);
+    return response.data.members.length;
   }
-  async perToEndorse(id,val){
-    let data= {
-      endorsePercentage:val
-    }
-    let response = await axios.patch(`${API_URL}/y/${id}`,data);
+  async perToEndorse(id, val) {
+    let data = {
+      endorsePercentage: val
+    };
+    let response = await axios.patch(`${API_URL}/y/${id}`, data);
     return response;
   }
   // patch request persentage..
-  async patchRequestPersentage(id,persent){
+  async patchRequestPersentage(id, persent) {
     let data = {
-      persentage:persent
-    }
+      persentage: persent
+    };
     let response = await axios.patch(`${API_URL}/requests/${id}`, data);
     console.log(response);
     return response;
   }
-  async getRequestData(id){
+  async getRequestData(id) {
     let response = await axios.get(`${API_URL}/requests/${id}`);
     console.log(response);
     return response;
   }
-  async addEndorsingUser(data,curr_id){ 
+  async addEndorsingUser(data, curr_id) {
     let value = {
-      endorsedBy:data
-    }
-    let response = await axios.patch(`${API_URL}/y/${curr_id}`,value );
+      endorsedBy: data
+    };
+    let response = await axios.patch(`${API_URL}/y/${curr_id}`, value);
     return response;
   }
-  async getFullStruct(org_id){
-    let response = await axios.get(`${API_URL}/AccadamicOffices/getfullstruct?off_id=${org_id}`)
+  async getFullStruct(org_id) {
+    let response = await axios.get(
+      `${API_URL}/AccadamicOffices/getfullstruct?off_id=${org_id}`
+    );
     return response.data.office;
   }
   // async setAdminTo(data){
