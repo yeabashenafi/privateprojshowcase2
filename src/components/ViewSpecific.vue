@@ -169,22 +169,28 @@
           </v-card-actions>
         </v-card>
       </v-container>
-      <v-container v-if='role == "Secretary"'>
+      <v-container v-if='(role == "Secretary") && showMinute'>
         <v-card class="mx-10">
           <v-card-title>
             <v-flex class="text-center headline">
-              Hold meeting agenda
+              <p>Record meeting minute</p>
             </v-flex>
           </v-card-title>
           <v-card-actions>
-            <v-text-area 
-            label="Enter the agenda of the meeting"
-            placheholder="The agenda of the meeting">
-            </v-text-area>
-            <v-flex class="text-center">
-              <v-btn color="Success">Submit</v-btn>
-            </v-flex>
+            <v-container>
+              <v-textarea 
+              label="Enter the minute of the meeting"
+              placheholder="The minute of the meeting"
+              v-model="minute"
+              >
+            </v-textarea>
+            </v-container>
+            
+            
           </v-card-actions>
+          <v-container class="text-center">
+              <v-btn color="Success" @click="submitMinute">Submit</v-btn>
+            </v-container>
         </v-card>
       </v-container>
       <hr />
@@ -258,12 +264,12 @@
 // const doc = new PDFDocument();
 import { apiservice } from "../apiservice";
 const api = new apiservice();
-//const PDFDocument = require('pdfkit');
 
 export default {
   data: () => {
     return {
       currentcommId: "",
+      showMinute:true,
       custom: true,
       value: "",
       numerator: 0,
@@ -278,6 +284,7 @@ export default {
       comments: [],
       pcomittees: [],
       pcomnames: [],
+      minute:"",
       general: "",
       gComment: "",
       receipant: "",
@@ -293,6 +300,27 @@ export default {
     //  EndorseTest(){
      
     // },
+    submitMinute(){
+      
+      api.getCommitteeId(this.$route.params.request.substr(1)).then(response => {
+        
+        let data={
+        Details:this.minute,
+        forcurriculumId:this.$route.params.id.substr(1),
+        writtenById:this.$store.getters.User_id,
+        committeeId:response
+      }
+      api.addMinute(data).then(()=>{
+        this.showMinute = !this.showMinute
+      }
+        
+      )
+      
+      })
+     
+      
+      
+    },
     checkConfirmation() {
        
       var reqid = this.$route.params.request;

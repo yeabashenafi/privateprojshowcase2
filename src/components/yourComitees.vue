@@ -77,6 +77,7 @@
                   <p class="title">Comments:</p>
                   <v-flex v-for="comment in comments[index]" :key="comment" >
                     <p class="mx-3">{{comment.body}}</p>
+                    <!-- <p class="mx-3">{{getAccountName(comment.accountsId)}}</p> -->
                   </v-flex>
                </v-container>
             </v-card>
@@ -176,9 +177,24 @@ export default {
         api.getCommentforCurr(this.notInfo[j].frameworkid).then(response => {
           this.comments.push(response);
         })
+        // api.getAccountName(this.comments[j].accountsId).then(data => {
+        //  console.log(data);
+        //  })
 
       }
-      console.log(this.comments)
+      // for(var q=0; q < this.notInfo.length;q++){
+      //   for(var s=0;s < this.comments[q].length;s++){
+      //     // console.log(this.comments[q]);
+      //   }
+      // } 
+      // for(var q=0; q<this.comments[index].length;q++){
+      //   api.getAccountName(this.comments[q].accountsId).then(data => {
+      //    console.log(data);
+         
+      // })
+      // }
+      // console.log(this.comments)
+      this.comments.shift();
       this.notInfo.shift();
       
     },
@@ -191,7 +207,14 @@ export default {
       });
       console.log(id + "program Id");
       //  viewStructure(id) {
-    }
+    },
+    // getAccountName(id){
+    //   //var response;
+      
+     
+      
+    // }
+    
   },
   mounted() {
     this.getUserComittes();
