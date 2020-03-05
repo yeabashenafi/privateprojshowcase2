@@ -206,8 +206,8 @@
   </v-flex>
 </template>
 <script>
-import { apiservice } from "../apiservice";
-const api = new apiservice();
+// import { apiservice } from "../apiservice";
+// const api = new apiservice();
 export default {
   data() {
     return {
@@ -246,11 +246,7 @@ export default {
       ],
       chap_name: "",
       reference: "",
-      learning_methods: [
-        {
-          learn_method: ""
-        }
-      ],
+      learning_methods: "",
       assessment: [
         {
           method: "",
@@ -263,37 +259,39 @@ export default {
     };
   },
   props: {
-    name: String
+    name: String,
+    curr_id: String
   },
   methods: {
     finish_courseD() {
-      let data = [
-        {
-          title: this.course_title,
-          code: this.course_code,
-          contactHour: this.course_hour,
-          classYear: this.academic_year,
-          semister: this.semister,
-          pre_requisites: this.pre_requisite,
-          assessment: this.assessment,
-          coursePolicies: this.course_policies,
-          gradingScale: this.grade_scale,
-          outlines: this.course_outlines,
-          learningMethod: this.learning_methods,
-          tools: this.tool
-        }
-      ];
+      let data = {
+        title: this.course_title,
+        code: this.course_code,
+        contactHour: this.course_hour,
+        classYear: this.academic_year,
+        semister: this.semister,
+        pre_requisites: this.pre_requisite,
+        assessment: this.assessment,
+        coursePolicies: this.course_policies,
+        gradingScale: this.grade_scale,
+        outlines: this.course_outlines,
+        learningMethod: this.learning_methods,
+        tools: this.tool
+      };
+
       console.log(data);
-      var token = this.$store.getters.token;
-      api.addCourse(token, data).then(response => {
-        console.log(response);
-      });
+      console.log(this.curr_id);
+      // var token = this.$store.getters.token;
+      // api.addCourse(token, data).then(response => {
+      //   console.log(response);
+      // });
+
       this.show_courseD = !this.show_courseD;
       window.alert("Successfully Added");
       // this.$root.$emit("finishcd");
     },
     show_clo_dialog() {
-      console.log("Welcome");
+      //console.log("Welcome");
       this.show_clo = !this.show_clo;
     },
     shut_dialog() {
@@ -340,7 +338,7 @@ export default {
       this.show_tools = !this.show_tools;
     },
     show() {
-      console.log(name);
+      //console.log(name);
       this.show_courseD = true;
       //console.log(this.show_courseD)
     }

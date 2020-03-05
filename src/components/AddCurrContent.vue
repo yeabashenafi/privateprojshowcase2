@@ -1,14 +1,12 @@
 <template>
   <span width="70%">
-    <v-container text-md-center >
+    <v-container text-md-center>
       <v-form width="50%" ref="form">
         <v-card width="100%" ref="cardref">
-          
           <v-card-title class="display-1">
             <v-flex class="text-center">
               Add a Curriculum Framework
             </v-flex>
-            
           </v-card-title>
           <v-card-actions class="ml-5">
             <v-flex raised>
@@ -204,12 +202,17 @@
                                 ></v-text-field>
                                 <v-layout>
                                   <v-icon @click="showcd">mdi-cogs</v-icon>
-                                  <v-icon class="ml-5">mdi-check</v-icon>
+                                  <!-- <v-icon class="ml-5">mdi-check</v-icon> -->
                                   <v-dialog>
                                     <v-card></v-card>
                                   </v-dialog>
                                 </v-layout>
                               </v-layout>
+                              <CourseDetails
+                                v-if="show_courseD"
+                                :name="course.name"
+                                :curr_id="course.curriculumManagementId"
+                              />
                             </v-flex>
                           </template>
                         </v-flex>
@@ -225,7 +228,7 @@
                           >
                         </v-layout>
                       </v-flex>
-                      <CourseDetails v-if="show_courseD" :name="courses.name" />
+
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn class="ml-12 mt-5 red--text" @click="el = 1"
@@ -428,6 +431,7 @@ export default {
           name: ""
         }
       ],
+      curr_id: "",
       clo: [
         {
           name: "",

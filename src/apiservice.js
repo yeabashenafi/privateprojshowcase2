@@ -17,33 +17,30 @@ export class apiservice {
     return response.data.name;
   }
   //add need assesment for a curriculum
-  async addNeedAssesment(data){
-    let response = await axios.post(`${API_URL}/needAssesments`,data)
+  async addNeedAssesment(data) {
+    let response = await axios.post(`${API_URL}/needAssesments`, data);
     return response.data;
   }
-  //add need assesment attachements 
-  async addAttachements(data){
+  //add need assesment attachements
+  async addAttachements(data) {
     const url = API_URL + "/Container/remoteMethod/upload";
-    return new Promise((resolve,reject) => {
-     
+    return new Promise((resolve, reject) => {
       var xhr = new XMLHttpRequest();
       var fd = new FormData();
 
       xhr.open("POST", url, true);
-      xhr.onreadystatechange = function(){
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
           resolve(JSON.parse(xhr.responseText));
         } else {
           reject("error");
         }
-      }
+      };
 
-      fd.append("file",data);
+      fd.append("file", data);
       xhr.send(fd);
-
     });
-      
-  } 
+  }
   async getusersFrameworks(id) {
     let response = await axios.get(`${API_URL}/Accounts/${id}/getFrameworks`);
     return response.data.frameworks;
@@ -371,19 +368,27 @@ export class apiservice {
   }
 
   //GET user name by id
-  async getAccountName(id){
-    let response = await axios.get(`${API_URL}/Accounts/${id}`)
+  async getAccountName(id) {
+    let response = await axios.get(`${API_URL}/Accounts/${id}`);
     return response.data.fullname;
   }
   // Add minute of meetings for secreatry role of committees
-  async addMinute(data){
-    let response= await axios.post(`${API_URL}/Agendas`,data)
+  async addMinute(data) {
+    let response = await axios.post(`${API_URL}/Agendas`, data);
     return response;
   }
   //Get reciever committee id from request id
-  async getCommitteeId(req_id){
-    let response = await axios.get(`${API_URL}/requests/${req_id}`)
+  async getCommitteeId(req_id) {
+    let response = await axios.get(`${API_URL}/requests/${req_id}`);
     return response.data.RecieverComiteeId;
+  }
+  //Adding course using curr id
+  async addcourses(curr_id, token, data) {
+    let response = await axios.post(
+      `${API_URL}/y/${curr_id}/courses?access_token=${token}`,
+      data
+    );
+    return response;
   }
   // async setAdminTo(data){
   //   let response = await axios.post(`${API_URL}/Accounts/setAdmin`,data);

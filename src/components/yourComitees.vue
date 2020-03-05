@@ -21,7 +21,7 @@
           <v-card-actions>
             <v-container>
               <p>Name: {{ comittee.name }}</p>
-              <p>Your role:{{comittee.role}}</p>
+              <p>Your role:{{ comittee.role }}</p>
               <!-- <p>gradreqs: {{ frameworks.program_name }}</p> -->
             </v-container>
           </v-card-actions>
@@ -47,12 +47,11 @@
             <v-toolbar-title>Notifications</v-toolbar-title>
             <v-spacer></v-spacer>
             <p class="title  text--darken-3">
-            {{ comName }}
-          </p>
+              {{ comName }}
+            </p>
           </v-toolbar>
         </v-card-title>
         <v-card-text>
-          
           <v-flex
             class="mx-5 my-3"
             v-for="(request, index) in notInfo"
@@ -60,28 +59,33 @@
           >
             <v-card
               color="cyan lighten-4"
-              @click="seeDetail(request.frameworkid, request.req_id, request.userRole)"
+              @click="
+                seeDetail(request.frameworkid, request.req_id, request.userRole)
+              "
             >
               <v-card-title>{{ index + 1 }}</v-card-title>
               <v-card-actions>
-                <p >
+                <p>
                   You have recieved an approval request from
-                  <strong class="font-weight-bold">{{ request.senderName }}</strong> for  framework
-                  <strong class="font-weight-bold">{{ request.frameworkname }}</strong>
+                  <strong class="font-weight-bold">{{
+                    request.senderName
+                  }}</strong>
+                  for framework
+                  <strong class="font-weight-bold">{{
+                    request.frameworkname
+                  }}</strong>
                 </p>
                 <v-divider></v-divider>
-                
               </v-card-actions>
-              <p class="mx-5 title">Your Role:{{request.userRole }}</p>
-               <v-container class="mx-5">
-                  <p class="title">Comments:</p>
-                  <v-flex v-for="comment in comments[index]" :key="comment" >
-                    <p class="mx-3">{{comment.body}}</p>
-                    <!-- <p class="mx-3">{{getAccountName(comment.accountsId)}}</p> -->
-                  </v-flex>
-               </v-container>
+              <p class="mx-5 title">Your Role:{{ request.userRole }}</p>
+              <v-container class="mx-5">
+                <p class="title">Comments:</p>
+                <v-flex v-for="comment in comments[index]" :key="comment">
+                  <p class="mx-3">{{ comment.body }}</p>
+                  <!-- <p class="mx-3">{{getAccountName(comment.accountsId)}}</p> -->
+                </v-flex>
+              </v-container>
             </v-card>
-            
           </v-flex>
         </v-card-text>
       </v-card>
@@ -107,7 +111,7 @@ export default {
       comittees: [],
       no: [],
       comName: "",
-      role:"",
+      role: "",
       req: [],
       requests: [],
       yourComittee: [],
@@ -120,7 +124,7 @@ export default {
           req_id: ""
         }
       ],
-      comments:[],
+      comments: [],
       sent: []
     };
   },
@@ -160,9 +164,8 @@ export default {
         api.getComiteeName(this.req[i].SenderComitteeId).then(response => {
           api.getStructure(x).then(data => {
             //this.notInfo[i].frameworkname = response.program_name;
-
             this.notInfo.push({
-              userRole:this.role,
+              userRole: this.role,
               senderName: response,
               frameworkname: data.program_name,
               frameworkid: data.id,
@@ -173,48 +176,43 @@ export default {
         });
       }
 
-      for(var j=0 ; j < this.notInfo.length;j++){
+      for (var j = 0; j < this.notInfo.length; j++) {
         api.getCommentforCurr(this.notInfo[j].frameworkid).then(response => {
           this.comments.push(response);
-        })
+        });
         // api.getAccountName(this.comments[j].accountsId).then(data => {
         //  console.log(data);
         //  })
-
       }
       // for(var q=0; q < this.notInfo.length;q++){
       //   for(var s=0;s < this.comments[q].length;s++){
       //     // console.log(this.comments[q]);
       //   }
-      // } 
+      // }
       // for(var q=0; q<this.comments[index].length;q++){
       //   api.getAccountName(this.comments[q].accountsId).then(data => {
       //    console.log(data);
-         
+
       // })
       // }
       // console.log(this.comments)
       this.comments.shift();
       this.notInfo.shift();
-      
     },
 
-    seeDetail(id, req_id,role) {
+    seeDetail(id, req_id, role) {
       console.log(req_id);
       this.$router.push({
         name: "viewStructure",
-        params: { id: ":" + id, request: ":" + req_id,role:":" + role }
+        params: { id: ":" + id, request: ":" + req_id, role: ":" + role }
       });
       console.log(id + "program Id");
       //  viewStructure(id) {
-    },
+    }
     // getAccountName(id){
     //   //var response;
-      
-     
-      
+
     // }
-    
   },
   mounted() {
     this.getUserComittes();

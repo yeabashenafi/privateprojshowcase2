@@ -7,7 +7,7 @@
             <v-card-actions class="teal">
               <v-flex>
                 <v-text class="headline">Framework{{ index + 1 }}</v-text>
-                <p class="ml-2" >{{ frameworks.ownerCommittee}}</p>
+                <p class="ml-2">{{ frameworks.ownerCommittee }}</p>
               </v-flex>
             </v-card-actions>
             <v-card-actions>
