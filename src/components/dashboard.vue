@@ -1,89 +1,161 @@
 <template>
-  <v-layout row>
-    <v-card width="256" height="100%">
-      <v-navigation-drawer permanent height="100%">
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title class="title">
-              Profile
+  <v-container fluid>
+  <v-layout wrap row>
+    
+      <!-- <v-app-bar color="grey lighten-4 hidden-md-and-up">
+        
+        
+         <v-btn text></v-btn> -->
+        <!--
+        <v-btn text></v-btn>
+        <v-btn text></v-btn>
+        <v-btn text></v-btn>  -->
+      <!-- </v-app-bar> --> 
+    <v-flex x12 class="hidden-md-and-up" justify-end> 
+      <v-app-bar >
+        <v-toolbar-title class=" hidden-xs-only">{{$store.getters.Username}}</v-toolbar-title>
+        <v-divider vertical></v-divider>
+        <v-layout></v-layout>
+        <v-btn text to="/yourOrganization" small>
+          <v-icon>mdi-navigation</v-icon>
+        </v-btn>
+        <v-btn text to="/editProfile" small>
+          <v-icon>mdi-account</v-icon>
+        </v-btn>
+        <v-btn text to="/addCurriculum" small>
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+        <v-btn text to="/yourCommittees" small>
+          <v-icon>mdi-account-multiple</v-icon>
+        </v-btn>
+        <v-btn text to="/viewCurriculums" small>
+          <v-icon>mdi-folder</v-icon>
+        </v-btn>
+        <v-btn text to="/addassessment" small>
+          <v-icon>mdi-file-plus</v-icon>
+        </v-btn>
+      </v-app-bar>
+     </v-flex>
+    
+    <v-flex fill-height sm2 class="grey hidden-sm-and-down">
+      
+      <v-card  class=""  >
+        <v-navigation-drawer
+          width="100%"
+          :height="h"
+          v-model="drawer"
+          color="grey lighten-4"
+          permanent
+          class=""
+        >
+          <v-list-item class="text-center ">
+            <v-list-icon class="">
+              <v-icon>mdi-view-dashboard</v-icon>
+            </v-list-icon>
+            <v-list-item-title class="headline  text-center hidden-sm-and-down">
+              {{$store.getters.Username}}
             </v-list-item-title>
-            <v-list-item-subtitle>
-              subtext
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
+          </v-list-item>
 
-        <v-divider></v-divider>
+          <v-divider></v-divider>
 
-        <a
-          ><v-container row class="mx-2" @click="edit_visibility">
-            <v-icon class="my-1">mdi-view-dashboard</v-icon>
-            <v-text class="mt-1 black--text">Account Setting</v-text>
-          </v-container></a
-        >
-        <v-divider></v-divider>
-        <a
-          ><v-container row class="mx-2" @click="addc_visibility">
-            <v-icon>mdi-help-box</v-icon>
-            <v-text class="black--text">Add Curriculum</v-text>
-          </v-container></a
-        >
-        <v-divider></v-divider>
-        <v-container row class="mx-2">
-          <v-icon>mdi-image</v-icon>
-          <a><v-text class="black--text" link>Edit</v-text></a>
+          <v-list shaped nav>
+            <v-list-item link to="/yourOrganization">
+              <v-list-item-icon class="hidden-md-and-up">
+                <v-icon>mdi-navigation</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content class="hidden-sm-and-down ">
+                <v-list-item-title class="text-center font-weight-bold"
+                  >
+                  <v-flex>
+                    Your Organization
+                  </v-flex> </v-list-item-title
+                >
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item link to="/editProfile">
+              <v-list-item-icon  class="hidden-md-and-up">
+                <v-icon>mdi-account</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content class="hidden-sm-and-down ">
+                <v-list-item-title class="text-center font-weight-bold">Profile </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item link to="/addCurriculum">
+              <v-list-item-icon  class="hidden-md-and-up">
+                <v-icon>mdi-plus</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content class="hidden-sm-and-down ">
+                <v-list-item-title class="text-center font-weight-bold"
+                  >Your curriculum
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item link to="/yourCommittees">
+              <v-list-item-icon  class="hidden-md-and-up">
+                <v-icon>mdi-account-multiple</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content class="hidden-sm-and-down ">
+                <v-list-item-title class="text-center font-weight-bold"
+                  >Your Committees</v-list-item-title
+                >
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item link to="/viewCurriculums">
+              <v-list-item-icon  class="hidden-md-and-up">
+                <v-icon>mdi-folder</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content class="hidden-sm-and-down ">
+                <v-list-item-title class="text-center font-weight-bold"
+                  >View Curricculums</v-list-item-title
+                >
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item link to="/addassessment">
+              <v-list-item-icon  class="hidden-md-and-up">
+                <v-icon>mdi-file-plus</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content class="hidden-sm-and-down ">
+                <v-list-item-title class="text-center font-weight-bold"
+                  >Add new assesement</v-list-item-title
+                >
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-navigation-drawer>
+      </v-card>
+    </v-flex>
+    
+    <v-flex md9 xs12 class="mt-2">
+      <v-content>
+        <v-container fluid>
+          <router-view></router-view>
         </v-container>
-        <v-divider> </v-divider>
-        <v-container row class="mx-2" @click="view_Curr">
-          <v-layout link>
-            <v-icon class="my-1">mdi-view-dashboard</v-icon>
-            <a
-              ><v-text class="black--text"
-                >View your curriculum frameworks</v-text
-              ></a
-            >
-          </v-layout>
-        </v-container>
-        <v-divider></v-divider>
-        <v-container @click="yourorg">
-          <v-layout link>
-            <v-icon>mdi-account</v-icon>
-            <v-text class="black-text">Your organization</v-text>
-          </v-layout>
-        </v-container>
-        <v-divider></v-divider>
-        <v-container @click="yourCom" link>
-          <v-layout link>
-            <v-icon>mdi-check</v-icon>
-            <v-text class="black-text">Your comittees</v-text>
-          </v-layout>
-        </v-container>
-      </v-navigation-drawer>
-    </v-card>
-    <v-flex>
-      <editProfile v-if="editp" />
-      <add-currContent v-if="addc"></add-currContent>
-      <view-curr v-if="vcurr"></view-curr>
-      <your-organization v-if="yorg"></your-organization>
-      <your-comitees v-if="ycomm" class="ml-10"></your-comitees>
+      </v-content>
     </v-flex>
   </v-layout>
+</v-container>
 </template>
 
 <script>
-import yourComitees from "../components/yourComitees";
-import YourOrganization from "../components/YourOrganization.vue";
-import ViewCurr from "../components/ViewCurr.vue";
-import editProfile from "../components/editProfile.vue";
-import AddCurrContent from "../components/AddCurrContent.vue";
+// import yourComitees from "../components/yourComitees";
+// import YourOrganization from "../components/YourOrganization.vue";
+// import ViewCurr from "../components/ViewCurr.vue";
+// import editProfile from "../components/editProfile.vue";
+// import AddCurrContent from "../components/AddCurrContent.vue";
 export default {
-  components: {
-    YourOrganization,
-    editProfile,
-    AddCurrContent,
-    yourComitees,
-    ViewCurr
-  },
+  // components: {
+  //   YourOrganization,
+  //   editProfile,
+  //   AddCurrContent,
+  //   yourComitees,
+  //   ViewCurr
+  // },
   data() {
     return {
       editp: false,
@@ -91,48 +163,17 @@ export default {
       isMenu: false,
       vcurr: false,
       yorg: true,
-      ycomm: false
+      ycomm: false,
+      drawer: true,
+      h:window.innerHeight,
       // items: [
       //   { title: "Edit", icon: "mdi-image", route: "/addCurriculumStructure" }
       // ]
     };
   },
-  methods: {
-    edit_visibility() {
-      this.editp = true;
-      this.addc = false;
-      this.vcurr = false;
-      this.yorg = false;
-      this.ycomm = false;
-    },
-    addc_visibility() {
-      this.editp = false;
-      this.addc = true;
-      this.vcurr = false;
-      this.yorg = false;
-      this.ycomm = false;
-    },
-    view_Curr() {
-      this.editp = false;
-      this.addc = false;
-      this.vcurr = true;
-      this.yorg = false;
-      this.ycomm = false;
-    },
-    yourorg() {
-      this.editp = false;
-      this.addc = false;
-      this.vcurr = false;
-      this.yorg = true;
-      this.ycomm = false;
-    },
-    yourCom() {
-      this.editp = false;
-      this.addc = false;
-      this.vcurr = false;
-      this.yorg = false;
-      this.ycomm = true;
-    }
-  }
+  methods: {}
 };
 </script>
+<style>
+
+</style>

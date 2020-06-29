@@ -81,7 +81,7 @@
                   <v-card-text>Members</v-card-text>
                   <v-card-text>Roles</v-card-text>
                 </v-layout>
-                <template v-for="(user,index) in users">
+                <template v-for="(user, index) in users">
                   <v-flex v-bind:key="user">
                     <v-layout>
                       <v-card-text>{{ user }}</v-card-text>
@@ -123,7 +123,7 @@ export default {
         parity: "odd"
       },
       users: [],
-      roles:[""],
+      roles: [""],
       members: [
         {
           id: "",
@@ -143,7 +143,7 @@ export default {
     };
   },
   methods: {
-    createUserRoles(){
+    createUserRoles() {
       console.log(this.roles.length);
     },
     addCommitee() {
@@ -181,9 +181,9 @@ export default {
     },
     addRole() {
       this.showrole = !this.showrole;
-      
-      for(var i=0;i<this.users.length;i++){
-        this.roles.push('')
+
+      for (var i = 0; i < this.users.length; i++) {
+        this.roles.push("");
       }
       this.roles.shift();
     },

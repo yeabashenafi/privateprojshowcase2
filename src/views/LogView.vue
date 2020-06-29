@@ -1,7 +1,7 @@
 <template>
-  <v-container>
+  <v-container fill-height fluid>
     <!-- <h1 style="margin-left=90px">Conntainer</h1> -->
-    <login />
+    <login class="" />
   </v-container>
 </template>
 

@@ -5,11 +5,15 @@
       <v-toolbar-title>User Profile</v-toolbar-title>
     </v-toolbar> -->
       <v-tabs vertical class="float-left">
-        <v-card class="float-left ml-3 mb-4" flat min-height="100%">
+        <v-card class="float-left ml-3 my-4" flat min-height="100%">
           <!-- <v-list>
       <v-list-item> -->
-          <v-card-title class="cyan lighten-2" style="margin-left= -20">
-            <p title class="align-center">{{ $store.getters.Username }}</p>
+          <v-card-title class="cyan darken-3">
+            <v-flex class="text-center">
+              <p title class="headline white--text">
+                {{ $store.getters.Username }}
+              </p>
+            </v-flex>
           </v-card-title>
           <!-- <v-card align="left" class="py-9 cyan darken-2" flat>
             <p title class="align-center">{{ $store.getters.Username }}</p>
@@ -151,7 +155,7 @@ import training from "../components/training";
 // import addComponent from "../components/addComponent";
 import addcommitee from "../components/addcommitee";
 import MyAccount from "../components/MyAccount";
-import addOrganization from "../components/addorganization.vue";
+import addOrganization from "../components/platform/addorganization.vue";
 import orgStructureTest from "../components/orgStructureTest.vue";
 import allUser from "../components/allUser";
 import register from "../components/register.vue";

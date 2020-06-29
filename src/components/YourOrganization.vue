@@ -1,44 +1,51 @@
 <template>
   <span>
     <v-cantainer>
-      <v-layout>
-        <v-card color="white" width="60%" elevation="12">
-          <v-card-title
-            >Curriculum approval structure of the Organization</v-card-title
-          >
+      <v-layout wrap>
+        <v-flex md4 xs12 class="mb-xs-10">
+          <!-- class="mr-md-3" -->
+          <v-card elevation="12" class="mr-md-10 mr-sm-5 mx-xs-10">
+            <v-card-title>
+              <v-container class="text-center">
+                <v-btn class="mx-2 display-4" fab dark large color="primary">
+                  <v-img :src="img" aspect-ratio="1.7"></v-img>
+                </v-btn>
+              </v-container>
+              <v-flex class="text-center">
+                <p class="headline font-weight-bold">{{ orgName }}</p>
+                <v-divider></v-divider>
+                <p class="font-weight-italic">{{ org.Motto }}</p>
+                <p>Since {{ org.year_of_establishment }}</p>
+              </v-flex>
+              <p class="font-weight-thin">{{ org.background }}</p>
+            </v-card-title>
+          </v-card>
+        </v-flex>
 
-          <v-card-actions>
-            <!-- <v-treeview :items="choices"></v-treeview> -->
-            <v-timeline
-            reverse
-            class="ml-5"
-            align-top
+        <v-flex md8 xs12 class="mt-xs-10">
+          <v-card color="white" elevation="12" class="ml-md-10  mt-10">
+            <v-card-title class="font-weight-bold"
+              >Curriculum approval structure of the Organization</v-card-title
             >
-              <v-timeline-item
-              v-for="office in structure"
-              :key="office"
-              >
-              <p class="title">{{office.officeType }}</p></v-timeline-item>
-            </v-timeline>
-          </v-card-actions>
-        </v-card>
+
+            <v-card-actions>
+              <!-- <v-treeview :items="choices"></v-treeview> -->
+              <v-timeline reverse class="ml-10" align-top>
+                <v-timeline-item
+                  v-for="office in structure"
+                  class="text-center"
+                  :key="office"
+                >
+                  <v-flex class="text-center">
+                    <p class="title">{{ office.officeType }}</p>
+                  </v-flex>
+                </v-timeline-item>
+              </v-timeline>
+            </v-card-actions>
+          </v-card>
+        </v-flex>
+
         <v-spacer></v-spacer>
-        <v-card width="30%" max-height="30%" class="mt-12" elevation="12">
-          <v-card-title>
-            <v-container class="text-center">
-              <v-btn class="mx-2 display-4" fab dark large color="primary">
-                <v-img :src="img" aspect-ratio="1.7"></v-img>
-              </v-btn>
-            </v-container>
-            <v-flex class="text-center">
-              <p class="headline">{{ orgName }}</p>
-              <v-divider></v-divider>
-              <p>{{ org.Motto }}</p>
-              <p>Since {{ org.year_of_establishment }}</p>
-            </v-flex>
-            <p class="font-weight-thin">{{ org.background }}</p>
-          </v-card-title>
-        </v-card>
       </v-layout>
     </v-cantainer>
   </span>
@@ -126,18 +133,18 @@ export default {
 
         this.choices.push({
           id: 1,
-           name: data.data.hasParent.officeType,
-           
-           children: children
-        })
-      })
+          name: data.data.hasParent.officeType,
+
+          children: children
+        });
+      });
       this.choices.shift();
       console.log(this.choices);
     },
-    getStructure(){      
-      api.getFullStruct(this.$store.getters.works_inDep).then((data) => {
-        this.structure = data
-      })
+    getStructure() {
+      api.getFullStruct(this.$store.getters.works_inDep).then(data => {
+        this.structure = data;
+      });
     },
     getOrganization() {
       api.getOrganization(this.$store.getters.org_id).then(data => {

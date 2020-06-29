@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import addorganization from "../components/addorganization.vue";
+import addorganization from "../components/platform/addorganization.vue";
 export default {
   components: {
     addorganization

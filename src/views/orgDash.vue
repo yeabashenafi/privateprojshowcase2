@@ -1,4 +1,5 @@
 <template>
+  
   <v-layout height="100%">
     <v-card width="256">
       <v-navigation-drawer permanent>
@@ -65,7 +66,7 @@
 <script>
 import viewUsers from "../components/viewUsers";
 import MyAccount from "../components/MyAccount";
-import addOrganization from "../components/addorganization.vue";
+import addOrganization from "../components/platform/addorganization.vue";
 import register from "../components/register.vue";
 import addOrgStructure from "../components/addOrgStructure.vue";
 export default {

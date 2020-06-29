@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { apiservice } from "../apiservice";
+import { apiservice } from "../../apiservice";
 const api = new apiservice();
 export default {
   data: () => {
@@ -76,23 +76,23 @@ export default {
         Name: this.name,
         location: this.location,
         background: this.background,
-        logo:this.image.name,
+        logo: this.image.name,
         year_of_establishment: this.year_of_establishment,
         Motto: this.Motto
       };
-      console.log(data," ",this.image)
+      console.log(data, " ", this.image);
       api.uploadImage(this.image);
       console.log(this.image);
       api.addOrganization(data).then(response => {
         console.log(response);
       });
-      const req = {
-        fullname: this.name + 'admin',
-        password: this.name + 'pass45'
-      }
-      api.setAdminTo(req).then(res => {
-       console.log(res);
-      })
+      // const req = {
+      //   fullname: this.name + "admin",
+      //   password: this.name + "pass45"
+      // };
+      // api.setAdminTo(req).then(res => {
+      //   console.log(res);
+      // });
     }
   }
 };

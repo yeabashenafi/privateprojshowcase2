@@ -59,7 +59,6 @@ const routes = [
   },
   {
     path: "/orgDashboard",
-
     name: "orgdashboard",
     component: () => import("../views/orgDash.vue")
   },
@@ -72,7 +71,7 @@ const routes = [
     path: "/AdminDash",
     name: "AdminDash",
     component: () => import("../views/AdminDash.vue"),
-    beforeEnter: guardRoute,
+    beforeEnter: guardRoute
     // meta: {
     //   permision : 'admin'
     // }
@@ -83,15 +82,9 @@ const routes = [
     component: () => import("../components/orgTest.vue")
   },
   {
-    path: "/userDashTest",
-    name: "userDashTest",
-    component: () => import("../views/userDashTest.vue"),
-    beforeEnter: guardRoute
-  },
-  {
     path: "/view:id/request/:request/role/:role",
     name: "viewStructure",
-    component: () => import("../components/ViewSpecific.vue"),
+    component: () => import("../components/ViewSpecific/ViewSpecific.vue"),
     beforeEnter: guardRoute
   },
   {
@@ -102,7 +95,46 @@ const routes = [
   {
     path: "/dashboard",
     name: "dashboard",
-    component: dashboard
+    component: dashboard,
+    beforeEnter: guardRoute,
+    children: [
+      {
+        path: "/yourOrganization",
+        name: "yourOrganization",
+        component: () => import("../components/YourOrganization.vue"),
+        beforeEnter: guardRoute
+      },
+      {
+        path: "/editProfile",
+        name: "editProfile",
+        component: () => import("../components/editProfile.vue"),
+        beforeEnter: guardRoute
+      },
+      {
+        path: "/addCurriculum",
+        name: "addCurriculum",
+        component: () => import("../components/AddCurrContent.vue"),
+        beforeEnter: guardRoute
+      },
+      {
+        path: "/yourCommittees",
+        name: "yourCommittees",
+        component: () => import("../components/committees/yourComitees.vue"),
+        beforeEnter: guardRoute
+      },
+      {
+        path: "/ViewCurriculums",
+        name: "yourCurriculums",
+        component: () => import("../components/ViewCurr.vue"),
+        beforeEnter: guardRoute
+      },
+      {
+        path: "/addAssessment",
+        name: "addAssesment",
+        component: () => import("../components/needAssesment.vue"),
+        beforeEnter: guardRoute
+      }
+    ]
   },
   {
     path: "/about",
@@ -122,6 +154,11 @@ const routes = [
     path: "/addCurriculumStructure",
     name: "addCurriculum",
     component: () => import("../views/AddCurriculum.vue")
+  },
+  {
+    path:'/platformAdmin',
+    name:'platformAdmin',
+    component:() => import("../views/platform.vue")
   }
 ];
 

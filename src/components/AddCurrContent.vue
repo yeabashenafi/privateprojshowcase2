@@ -1,14 +1,12 @@
 <template>
   <span width="70%">
-    <v-container text-md-center >
+    <v-container text-md-center>
       <v-form width="50%" ref="form">
         <v-card width="100%" ref="cardref">
-          
-          <v-card-title class="display-1">
-            <v-flex class="text-center">
-              Add a Curriculum Framework
+          <v-card-title class="display-1 cyan darken-3">
+            <v-flex class="text-center white--text">
+              <p>Add a Curriculum Framework</p>
             </v-flex>
-            
           </v-card-title>
           <v-card-actions class="ml-5">
             <v-flex raised>
@@ -47,9 +45,13 @@
                           ></v-select>
                           <v-spacer></v-spacer>
                         </v-layout>
-                        <v-btn @click="getCommId()" color="primary"
-                          >Begin</v-btn
-                        >
+                        <v-card-actions>
+                          <v-flex class="text-xs-center">
+                            <v-btn @click="getCommId()" color="primary">
+                              Begin
+                            </v-btn>
+                          </v-flex>
+                        </v-card-actions>
                       </v-flex>
                     </v-card>
                   </v-stepper-content>
