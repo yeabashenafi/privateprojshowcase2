@@ -5,9 +5,10 @@
         >Curriculum Management</v-toolbar-title
       >
       <v-toolbar-title class="hidden-md-and-up">CMP</v-toolbar-title>
-      <v-btn text rounded class="mx-3" v-show="checkLogging" to="/Dashboard"
+      <v-btn text rounded class="mx-3" v-show="$store.getters.usertype == 'User'" to="/Dashboard"
         >Dashboard</v-btn
       >
+      <v-btn text rounded v-show ="$store.getters.usertype == 'Admin'" to="/adminDash">Dashboard</v-btn>
       <v-btn text rounded v-show="!checkLogging" to="/">HOME</v-btn>
       <!-- <v-btn text rounded to="/addcurriculumstructure" v-show="checkLogging"
         >ADD</v-btn
@@ -62,44 +63,73 @@
     <v-content xs12>
       <!-- <v-flex xs12><v-card max-width="100%" color="blue">Hey</v-card></v-flex> -->
 
-      <v-container fluid>
+      
         <router-view></router-view>
-      </v-container>
+      
     </v-content>
 
     <!-- font-weight-medium cyan darken-3 -->
-    <!-- <v-footer class="">
-      <v-card width="100%">
-        <v-card-title class="grey darken-1 white--text">
-          <v-flex class="text-center">
-            <p>Get our details</p>
-          </v-flex>
-        </v-card-title>
-        <v-card-actions class="grey  white--text">
-          <v-container grid-list-md text-center>
-            <v-layout wrap>
-              <v-flex xs4>
-                <p class="blue--text title">Information</p>
-                <p>E-mail</p>
-                <p>Facebook</p>
-                <p>Instagram</p>
-                <p>Twitter</p>
+    <v-footer class="grey darken-4">
+      <v-card width="100%" class="grey darken-4 mb-5" flat>
+        
+        
+            <v-layout wrap class="ml-12 mt-12 white--text">
+              <v-flex xs6 sm4 class="">
+                <p class="title ">Information</p>
+                <p class="mt-10 grey--text ">About Us</p>
+                <p class="grey--text">Partners</p>
+                <p class="grey--text">Enrolled Organizations</p>
+                <p class="grey--text">Work </p>
               </v-flex>
-              <v-flex xs4>
-                <p class="blue--text title">Contact Us</p>
-                <v-text-field
-                  label="
-                E-mail"
-                  class="white--text"
-                  color="white"
-                ></v-text-field>
-                <v-btn>Submit</v-btn>
+              <v-flex xs6 sm4>
+                <p class="title">Contact Us</p>
+                <p class="mt-10 grey--text">Email</p>
+                <p class="grey--text">Facebook</p>
+                <p class="grey--text">Linked-in</p>
+                <p class="grey--text">Twitter </p>
+              </v-flex>
+              <v-flex xs6 sm4 
+              :class="{'mt-10':$vuetify.breakpoint.xsOnly}"
+              >
+                <p class="title">Join us</p>
+                <p class="mt-10 grey--text">Add Your Organization</p>
+                <p class="grey--text">Register</p>
+                <p class="grey--text">Log-in</p>
+                <p></p>
               </v-flex>
             </v-layout>
-          </v-container>
-        </v-card-actions>
+            
+          <!-- </v-container> -->
+        
+        <v-divider class="grey mt-5"></v-divider>
+        <v-layout class="ml-12 white--text row mt-12">
+          <v-flex class=" grey--text">  Copyright &copy; 2019-2020. EMy,All rights reserved</v-flex>
+          <v-flex class="">Terms of use</v-flex>
+          <v-flex class="grey--text">
+            <v-layout wrap>
+              <v-flex>
+                <v-icon color="white">mdi-facebook</v-icon>
+              </v-flex>
+              <v-flex>
+                <v-icon color="white">mdi-instagram</v-icon>
+              </v-flex>
+              <v-flex>
+                <v-icon color="white">mdi-email</v-icon>
+              </v-flex>
+              <v-flex>
+                <v-icon color="white">mdi-twitter</v-icon>
+              </v-flex>
+              <v-flex>
+                <v-icon color="white">mdi-youtube</v-icon>
+              </v-flex>
+              <v-flex>
+                <v-icon color="white">mdi-linkedin</v-icon>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+        </v-layout>
       </v-card>
-    </v-footer> -->
+    </v-footer>
   </v-app>
 </template>
 
@@ -130,6 +160,7 @@ export default {
       this.$store.commit("setUserID", "");
       this.$store.commit("setOrgid", "");
       this.$store.commit("setOffice", "");
+      this.$store.commit("setUserType", "");
       this.$router.push({ name: "home" });
     }
   },

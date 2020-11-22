@@ -17,7 +17,7 @@
               </v-card-actions>
               <v-card-actions>
                 <v-container>
-                  <p class="title ">Name: {{ frameworks.program_name }}</p>
+                  <p class="title">Name: {{ frameworks.program_name }}</p>
                   <p>Type: {{ frameworks.program_type }}</p>
                   <p>gradreqs: {{ frameworks.gradreqs }}</p>
                   <p>
@@ -72,7 +72,10 @@
                           v-model="selp"
                         ></v-select>
                         <v-flex class="text-center">
-                          <v-btn class="align-center" @click="Confirm()"
+                          <v-btn 
+                          class="align-center" 
+                          @click="Confirm()"
+                          :disabled="selp == ''"
                             >Endorse</v-btn
                           >
                         </v-flex>
@@ -155,7 +158,10 @@ export default {
           this.getParentComittes(senderCommitteId);
           // console.log(this.show)
         } else {
+          this.status[index] = false;
+          console.log(this.status[index]);
           this.$emit("Refresh");
+          this.$router.go(0);
           console.log("just a little bit");
         }
 
@@ -203,6 +209,7 @@ export default {
         console.log(response);
         this.show = !this.show;
         this.$emit("Refresh");
+        this.$router.go(0);
       });
     },
     checkValidity(i) {

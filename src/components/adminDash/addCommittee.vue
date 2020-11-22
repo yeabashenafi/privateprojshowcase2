@@ -1,80 +1,100 @@
 <template>
   <v-container>
-    <v-flex>
-      <v-layout column align-center>
-        <v-card width="80%" height="100%" class="mt-8">
-          <v-flex>
-            <v-title>
-              <p class="title cyan darken-3 text-md-center white--text pa-7">
+    
+      
+        <v-card raised>
+          <v-card-title class="cyan darken-3">
+            <v-flex class="text-center">
+              <p class="white--text font-weight-bold">
                 Add Commitee
               </p>
-            </v-title>
-          </v-flex>
+            </v-flex>
+          </v-card-title>
+          
           <v-card-text>
             <v-form ref="form">
-              <v-text-field
-                label="Commitee Name"
-                class="px-12"
-                :rules="nameRules"
-                v-model="name"
-              >
-              </v-text-field>
-              <v-select
-                label="Add users to commitee"
-                :items="username"
-                :hint="orgRule.description"
-                multiple
-                chips
-                @blur="createUserRoles"
-                persistent-hint
-                class="px-12"
-                v-model="users"
-              ></v-select>
-              <v-flex class="py-5">
-                <v-btn class="mx-8" text color="grey" @click="addRole"
-                  >Add Roles to Members</v-btn
-                >
-              </v-flex>
-              <v-select
-                label="Select Offices"
-                :items="officename"
-                class="px-12"
-                v-model="office"
-              ></v-select>
-              <v-select
-                label="Select Committee level"
-                v-model="position"
-                :items="level"
-                class="px-12"
-              ></v-select>
+              <v-layout wrap>
+                <v-flex sm6 md4>
+                  <v-text-field
+                    label="Commitee Name"
+                    class="px-sm-8"
+                    :rules="nameRules"
+                    v-model="name"
+                    solo
+                  >
+                  </v-text-field>
+                </v-flex>
+                <v-flex sm6 md4>
+                    <v-select
+                      label="Add users to commitee"
+                      :items="username"
+                      :hint="orgRule.description"
+                      multiple
+                      chips
+                      solo
+                      @blur="createUserRoles"
+                      persistent-hint
+                      class="px-sm-6"
+                      v-model="users"
+                    ></v-select>
+                </v-flex>
+                <v-flex xs6 md4>
+                  <v-btn class="mx-lg-8" text color="grey" @click="addRole">
+                      Add Roles to Members
+                  </v-btn>
+                </v-flex>
+                <v-flex sm6 md4>
+                  <v-select
+                    label="Select Offices"
+                    :items="officename"
+                    class="px-sm-6"
+                    v-model="office"
+                    solo
+                  ></v-select>
+                </v-flex>
+                <v-flex sm6 md5>
+                  <v-select
+                  label="Select Committee level"
+                  v-model="position"
+                  :items="level"
+                  class="px-sm-6"
+                  solo>
+                  </v-select>
+                </v-flex>
+              </v-layout>
+              
+              
+              
+              
+              
+              
             </v-form>
           </v-card-text>
-          <v-flex class="text-center pa-9">
-            <div class="mx-5">
+          <v-flex class="text-center px-9">
+            
               <v-btn
                 @click="addCommitee()"
                 class="mx-5 cyan darken-3 white--text"
                 rounded
                 :disabled="!isValid"
               >
-                <v-dialog v-model="dialog">
+                
+                Add
+              </v-btn>
+            
+            <v-dialog v-model="dialog">
                   <v-card>
                     <v-card-title
                       >You have succesfully added a comittee</v-card-title
                     >
                     <v-card-actions>
                       <v-flex class="text-center">
-                        <v-btn color="green lighten-3" @click="Confirm()"
-                          >ok</v-btn
-                        >
+                        <v-btn color="green lighten-3" @click="Confirm()">Ok</v-btn>
                       </v-flex>
                     </v-card-actions>
                   </v-card>
                   have succesfully added a commitee
-                </v-dialog>
-                Add
-              </v-btn>
-            </div>
+            </v-dialog>
             <v-dialog v-model="showrole" width="50%">
               <v-card>
                 <v-layout>
@@ -101,12 +121,12 @@
             </v-dialog>
           </v-flex>
         </v-card>
-      </v-layout>
-    </v-flex>
+      
+    
   </v-container>
 </template>
 <script>
-import { apiservice } from "../apiservice";
+import { apiservice } from "../../apiservice";
 const api = new apiservice();
 export default {
   data() {

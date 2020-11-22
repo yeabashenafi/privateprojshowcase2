@@ -2,113 +2,171 @@
   <v-flex>
     <v-dialog v-model="show_courseD" width="600px">
       <v-card color="white" class="pa-6 text-center">
-        <v-text>Course Name: {{ name }}</v-text>
+        <p class="font-weight-bold">Course details{{index}}</p>
         <v-text-field
+          solo
           label="Course Title"
           v-model="course_title"
         ></v-text-field>
-        <v-text-field label="Course Code" v-model="course_code"></v-text-field>
-        <v-text-field label="Contact Hour" v-model="course_hour"></v-text-field>
-        <v-select
-          :items="item"
-          label="Acadamic Year"
-          v-model="academic_year"
-        ></v-select>
-        <v-text-field label="Semister" v-model="semister"></v-text-field>
-        <v-text-field
-          label="Pre-requisite"
-          v-model="pre_requisite"
-        ></v-text-field>
-        <v-flex row>
-          <v-text-field
-            label="Add Course Learning Outcome (CLO)"
-            disabled
-            class="mx-3"
-          ></v-text-field>
-          <a @click="show_clo_dialog"
-            ><v-icon right class="py-6">mdi-plus</v-icon></a
-          >
-        </v-flex>
-        <v-flex row>
-          <v-text-field
-            label="Add Course Out-Line"
-            disabled="true"
-            class="mx-3"
-          ></v-text-field>
-          <a @click="show_outline = !show_outline"
-            ><v-icon right class="py-6">mdi-plus</v-icon></a
-          >
-        </v-flex>
-        <v-text-field label="References" v-model="reference"></v-text-field>
-        <v-flex row>
-          <v-text-field
-            label="Add Learning Methods"
-            disabled="true"
-            class="mx-3"
-          ></v-text-field>
-          <a @click="show_method = !show_method"
-            ><v-icon right class="py-6">mdi-plus</v-icon></a
-          >
-        </v-flex>
-        <v-text-field
-          label="Course Policies"
-          v-model="course_policies"
-        ></v-text-field>
-        <v-text-field
-          label="Grading Scale"
-          v-model="grade_scale"
-        ></v-text-field>
-        <v-flex row>
-          <v-text-field
-            label="Add Learning Tools"
-            disabled="true"
-            class="mx-3"
-          ></v-text-field>
-          <a @click="show_tools = !show_tools"
-            ><v-icon right class="py-6">mdi-plus</v-icon></a
-          >
-        </v-flex>
-        <v-flex row class="ma-1">
-          <v-text-field placeholder="Assessment" disabled></v-text-field>
-          <v-icon @click="show_assess = !show_assess">mdi-plus</v-icon>
-        </v-flex>
-        <v-flex color="red">
-          <v-dialog v-model="show_outline" width="600px">
-            <v-card color="white" class="pa-6">
+        <v-layout wrap>
+          <v-flex sm4>
+            <v-text-field solo 
+              label="Course Code" v-model="course_code"
+            ></v-text-field>
+          </v-flex>
+          <v-flex sm4>
+            <v-text-field 
+              solo 
+              class="mx-5"
+              label="Contact Hour" v-model="course_hour"
+            ></v-text-field>
+          </v-flex>
+          <v-flex sm4>
+            <v-select
+              :items="item"
+              solo
+              class="ml-5"
+              label="Acadamic Year"
+              v-model="academic_year"
+            ></v-select>
+          </v-flex>
+          <v-flex sm4>
+            <v-text-field 
+            solo
+            label="Semister" v-model="semister"
+            ></v-text-field>
+          </v-flex>
+          <v-flex sm8>
+            <v-text-field
+              solo
+              class="ml-5"
+              label="Pre-requisite"
+              v-model="pre_requisite"
+            ></v-text-field>
+          </v-flex>
+          <v-flex row sm12>
+            <v-text-field
+              label="Add Course Learning Outcome (CLO)"
+              disabled
+              class="mx-3"
+            ></v-text-field>
+            <v-icon @click="show_clo_dialog" right class="py-6">mdi-plus</v-icon>
+
+          </v-flex>
+          <v-flex row sm12>
+            <v-text-field
+              label="Add Course Out-Line"
+              disabled="true"
+              class="mx-3"
+            ></v-text-field>
+            <v-icon  @click="show_outline = !show_outline" right class="py-6">mdi-plus</v-icon>
+          </v-flex>
+          <v-flex sm12>
+              <v-text-field 
+                solo
+                label="References" v-model="reference"
+              ></v-text-field>
+          </v-flex>
+          <v-flex row>
+            <v-text-field
+              label="Add Learning Methods"
+              disabled="true"
+              class="mx-3"
+            ></v-text-field>
+            <a @click="show_method = !show_method"
+              ><v-icon right class="py-6">mdi-plus</v-icon></a
+            >
+          </v-flex>
+          <v-flex sm12>
+            <v-text-field
+              solo
+              label="Course Policies"
+              v-model="course_policies"
+            ></v-text-field>
+          </v-flex>
+          <v-flex sm12>
+            <v-text-field
+              solo
+              label="Grading Scale"
+              v-model="grade_scale"
+            ></v-text-field>
+          </v-flex>
+          <v-flex sm12>
+            <v-textarea
+                solo
+                placeholder="Enter the Learning tools needed here."
+                v-model="tool"
+            ></v-textarea>
+            
+          </v-flex>
+          <v-flex row sm12 class="ma-1">
+            <v-text-field 
+            placeholder="Assessment" disabled
+            ></v-text-field>
+            <v-icon @click="show_assess = !show_assess">mdi-plus</v-icon>
+          </v-flex>
+        </v-layout>
+
+                                    <!-- Dialogs  -->
+        <!-- Course Outline dialog -->
+        <v-flex >
+          <v-dialog v-model="show_outline" width="45%">
+            <v-card color="white" class="px-6">
+              <v-card-title>
+                <v-flex class="text-center">
+                  <p class="title font-weight-bold">Course Outline</p>
+                </v-flex>
+              </v-card-title>
               <template v-for="(outline, index) in course_outlines">
                 <v-flex v-bind:key="outline.index">
                   <v-layout row>
-                    <v-text class="py-11" v-model="chap_name"
-                      >Chapter-{{ index + 1 }} :</v-text
+                    <v-text class="py-2" 
+                      >Chapter {{ index + 1 }} :</v-text
                     >
-                    <v-text-field
-                      placeholder="Chapter-Name"
-                      class="ma-6"
-                      width="1px"
-                      v-model="course_outlines[index].chap_name"
-                    ></v-text-field>
-                    <a @click="change_chapter"
-                      ><v-icon right class="py-12">mdi-plus</v-icon></a
-                    >
+                    <v-spacer></v-spacer>
+                    <v-icon right @click="change_chapter" class="">mdi-plus</v-icon>
                   </v-layout>
-                  <v-flex>
-                    <v-text-field
-                      label="Details"
-                      v-model="outline.detail"
-                    ></v-text-field>
-                  </v-flex>
+                    <v-layout wrap>
+                      <v-flex xs12>
+                        <v-text-field
+                          solo
+                          placeholder="Chapter Name"
+                          class="mx-6"
+                          width="1px"
+                          v-model="course_outlines[index].chap_name"
+                        ></v-text-field>
+
+                      </v-flex>
+                      <v-flex xs12>
+                        <v-text-field
+                          solo
+                          class="mx-6"
+                          label="Details"
+                          v-model="outline.detail"
+                        ></v-text-field>
+                      </v-flex>
+                    </v-layout>
+                  
                 </v-flex>
               </template>
-              <v-flex class="text-center">
+              <v-flex class="text-center py-5">
                 <v-btn color="primary" @click="finish_outline">Done</v-btn>
               </v-flex>
             </v-card>
           </v-dialog>
         </v-flex>
+
+        <!-- Add learning methods dialog -->
         <v-flex>
-          <v-dialog v-model="show_method" width="600px">
+          <v-dialog v-model="show_method" width="45%">
             <v-card color="white" class="pa-6">
+              <v-card-title>
+                <v-flex class="text-center">
+                  <p class="title font-weight-bold">Learning Methods</p>
+                </v-flex>
+              </v-card-title>
               <v-textarea
+                solo
                 placeholder="Enter the Methods(Steps) here."
                 v-model="learning_methods.learn_method"
               ></v-textarea>
@@ -126,88 +184,114 @@
         <v-flex>
           <v-dialog v-model="show_tools" width="600px">
             <v-card color="white" class="pa-6">
-              <v-textarea
-                placeholder="Enter the tools needed here."
-                v-model="tool"
-              ></v-textarea>
+              
               <v-flex class="text-center">
                 <v-btn color="primary" @click="finish_courseT">Done</v-btn>
               </v-flex>
             </v-card>
           </v-dialog>
         </v-flex>
+
+        <!-- Course Assesement Methods -->
         <v-flex>
-          <v-dialog v-model="show_assess" width="600px">
+          <v-dialog v-model="show_assess" width="45%">
             <v-card>
-              <v-flex class="text-center" row>
-                <v-btn color="primary" @click="add_assess">Add</v-btn>
-              </v-flex>
+              <v-card-title>
+                <v-flex class="text-center">
+                  <p class="title font-weight-bold">Course Assessment</p>
+                </v-flex>
+              </v-card-title>
+              
               <template v-for="(assess, index) in assessment">
-                <v-card v-bind:key="assess.index">
-                  <v-layout>
+                <v-flex v-bind:key="assess.index">
+                  <v-layout row class="mx-2">
+                    <p class="subtitle-1">
+                      Assessment {{index+1}}
+                    </p>
+                    <v-spacer></v-spacer>
+                    <v-icon  @click="add_assess">mdi-plus</v-icon>
+                  </v-layout>
+                  <v-layout class="mx-5" wrap>
                     <v-text-field
+                      solo
                       placeholder="Method"
                       v-model="assessment[index].method"
                     ></v-text-field>
                     <v-spacer></v-spacer>
                     <v-text-field
+                      solo
                       placeholder="Weight"
                       v-model="assessment[index].weight"
                     ></v-text-field>
                   </v-layout>
-                </v-card>
+                </v-flex>
               </template>
-              <v-flex class="text-center" flat>
+              <v-flex class="text-center py-5" >
                 <v-btn color="primary" @click="finish_assessment">Done</v-btn>
               </v-flex>
             </v-card>
           </v-dialog>
         </v-flex>
-        <v-dialog v-model="show_clo">
-          <v-card color="white">
-            <v-flex text-center>
-              <p class="headline">
-                Curriculum Learning Outcome/s
-              </p>
-            </v-flex>
-            <template v-for="(CLO, index) in clo">
-              <v-flex v-bind:key="CLO.index">
-                <v-layout>
-                  <p class="title">CLO{{ index + 1 }}</p>
-                  <v-spacer></v-spacer>
-                  <v-icon @click="reduceClo()">mdi-minus</v-icon>
-                  <v-icon @click="addCLO()">mdi-plus</v-icon>
-                </v-layout>
-                <v-text-field
-                  outlined
-                  label="Name of Educational Outcome"
-                  v-model="CLO.name"
-                ></v-text-field>
-                <v-text-field
-                  outlined
-                  label="Description"
-                  v-model="CLO.details"
-                ></v-text-field>
-                <v-select
-                  multiple
-                  :items="PEOS"
-                  label="Mapped PEO/PEOs"
-                  v-model="CLO.mappedPEO"
-                ></v-select>
+
+        <!-- Course learning outcome dialog -->
+        <v-flex>
+          <v-dialog v-model="show_clo" width="45%">
+            <v-card  class="my-2">
+              <v-flex text-center>
+                <p class="title font-weight-bold">
+                  Curriculum Learning Outcome/s
+                </p>
               </v-flex>
-            </template>
-            <v-flex text-center
-              ><v-btn color="primary" @click="shut_dialog">Done</v-btn></v-flex
-            >
-          </v-card>
-        </v-dialog>
+              <v-flex class="mx-5">
+                <template v-for="(CLO, index) in clo" >
+                  <v-flex v-bind:key="CLO.index" class="mx-3">
+                    <v-layout >
+                      <p class="subtitle-1">CLO{{ index + 1 }}</p>
+                      <v-spacer></v-spacer>
+                      <v-icon @click="reduceClo()">mdi-minus</v-icon>
+                      <v-icon @click="addCLO()">mdi-plus</v-icon>
+                    </v-layout>
+                    <v-text-field
+                      solo
+                      label="Name of Educational Outcome"
+                      v-model="CLO.name"
+                      class="mx-5"
+                    ></v-text-field>
+                    <v-text-field
+                      solo
+                      label="Description"
+                      v-model="CLO.details"
+                      class="mx-5"
+
+                    ></v-text-field>
+                    <v-select
+                      solo
+                      multiple
+                      :items="PEOS"
+                      label="Mapped PEO/PEOs"
+                      v-model="CLO.mappedPEO"
+                      class="mx-5"
+
+                    ></v-select>
+                  </v-flex>
+                </template>
+              </v-flex>
+              
+              <!-- Submit button -->
+              <v-flex text-center class="py-5">
+                <v-btn color="primary" @click="shut_dialog">Done</v-btn>
+              </v-flex>
+
+            </v-card>
+          </v-dialog>
+        </v-flex>
       </v-card>
     </v-dialog>
   </v-flex>
 </template>
 <script>
-import { apiservice } from "../apiservice";
-const api = new apiservice();
+// import { apiservice } from "../apiservice";
+// const api = new apiservice();
 export default {
   data() {
     return {
@@ -263,7 +347,8 @@ export default {
     };
   },
   props: {
-    name: String
+    peoLength: [Number],
+    index:[Number]
   },
   methods: {
     finish_courseD() {
@@ -271,6 +356,7 @@ export default {
         {
           title: this.course_title,
           code: this.course_code,
+          course_learning_outcome: this.clo,
           contactHour: this.course_hour,
           classYear: this.academic_year,
           semister: this.semister,
@@ -283,14 +369,14 @@ export default {
           tools: this.tool
         }
       ];
-      console.log(data);
-      var token = this.$store.getters.token;
-      api.addCourse(token, data).then(response => {
-        console.log(response);
-      });
+      // console.log(data[0]);
+      // var token = this.$store.getters.token;
+      // api.addCourse(token, data).then(response => {
+      //   console.log(response);
+      // });
       this.show_courseD = !this.show_courseD;
       window.alert("Successfully Added");
-      // this.$root.$emit("finishcd");
+      this.$emit("finishcd",data[0],this.index);
     },
     show_clo_dialog() {
       console.log("Welcome");
@@ -340,7 +426,7 @@ export default {
       this.show_tools = !this.show_tools;
     },
     show() {
-      console.log(name);
+      console.log(this.peoLength);
       this.show_courseD = true;
       //console.log(this.show_courseD)
     }
@@ -348,7 +434,7 @@ export default {
   computed: {
     PEOS: function() {
       var y = [];
-      for (var j = 1; j <= this.peo.length; j++) {
+      for (var j = 1; j <= this.peoLength; j++) {
         y.push("PEO" + j);
       }
       return y;

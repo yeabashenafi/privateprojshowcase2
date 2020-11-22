@@ -1,44 +1,66 @@
 <template>
-  <v-flex justify-center>
-    <v-card width="50%" class="xs12 sm6 md6 float-center ml-12 px-8">
-      <v-card-title>
-        ADD NEW COMPONENTS
+  <v-container>
+    <v-card raised>
+      <v-card-title class="cyan darken-3">
+        <v-flex class="text-center">
+          <p class="white--text font-weight-bold">Add New Curriculum Components</p>
+        </v-flex>
+        
       </v-card-title>
       <v-card-text>
-        <v-text-field
-          label="Add New Component"
-          v-model="data.name"
-        ></v-text-field>
-        <v-text-field
-          label="provide Description"
-          v-model="data.desc"
-        ></v-text-field>
-        <v-btn @click="addComponent()">Add component</v-btn>
+        <v-layout wrap>
+          <v-flex md4 sm5 >
+            <v-text-field
+              label="Add New Component"
+              v-model="data.name"
+              solo
+            ></v-text-field>
+          </v-flex>
+          <v-flex md8 sm7 xs12>
+            <v-text-field
+              class="mx-sm-3"
+              label="Provide description"
+              v-model="data.desc"
+              solo
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
+        
+        <v-flex class="text-center">
+          <v-btn class="text-center" @click="addComponent()">Add component</v-btn>
+        </v-flex>
+        
       </v-card-text>
-      <v-card-text>
-        <div class="cyan--text text--darken-3">
+      <v-layout wrap>
+        <v-flex class="mx-10 my-3">
+          <v-card-text >
+        <div class="cyan--text text--darken-3 text-center">
           ADD DESCRIPTION TO THE EXISTING COMPONENTS
-          <hr />
         </div>
         <v-select
-          label="Add Desctioption to the existing components"
+          label="Choose component"
+          solo
           :items="comp"
           v-model="revise.name"
         ></v-select>
         <v-text-field
+          solo
           label="Provide Description to the selected component"
           v-model="revise.desc"
         ></v-text-field>
-        <v-layout>
+        <v-flex class="text-center">
           <v-btn @click="addExistingComp()"> Add Description</v-btn>
-          <v-btn @click="getComp()"> Refresh</v-btn>
-        </v-layout>
+          <!-- <v-btn @click="getComp()"> Refresh</v-btn> -->
+        </v-flex>
       </v-card-text>
+        </v-flex>
+      </v-layout>
+      
     </v-card>
-  </v-flex>
+  </v-container>
 </template>
 <script>
-import { apiservice } from "../apiservice";
+import { apiservice } from "../../apiservice";
 const api = new apiservice();
 export default {
   data() {

@@ -147,15 +147,20 @@ export default {
         };
         api.login(data).then(response => {
           console.log(response);
-          this.$store.commit("setOffice", response.data.works_inDep);
-          this.$store.commit("setUserID", response.data.id);
-          this.$store.commit("change");
-          this.$store.commit("setusername", response.data.username);
-          this.$store.commit("setToken", response.data.token);
-          this.$store.commit("setOrgid", response.data.org_id);
-          this.$store.commit("setemail", response.data.email);
-          this.$store.commit("setrole", response.data.role);
-          this.$router.push({ name: "yourOrganization" });
+          if(response.data && response.data != "Incorrect username or password" ){
+            this.$store.commit("setOffice", response.data.works_inDep);
+            this.$store.commit("setUserID", response.data.id);
+            this.$store.commit("change");
+            this.$store.commit("setusername", response.data.username);
+            this.$store.commit("setToken", response.data.token);
+            this.$store.commit("setOrgid", response.data.org_id);
+            this.$store.commit("setemail", response.data.email);
+            this.$store.commit("setrole", response.data.role);
+            this.$store.commit("setUserType", "User");
+            this.$router.push({ name: "yourOrganization" });
+          }
+          
+          
         });
       }
     },

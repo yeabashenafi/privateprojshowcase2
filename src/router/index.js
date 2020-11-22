@@ -1,16 +1,36 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import dashboard from "../components/dashboard.vue";
+import dashboard from "../components/UserDashboard.vue";
 import store from "../store";
 
 Vue.use(VueRouter);
 function guardRoute(to, from, next) {
-  if (store.getters.logged) {
+  if (store.getters.logged && store.getters.usertype == "User") {
     next();
   } else {
     next({
       name: "login"
+    });
+  }
+}
+function isLoggedAdmin(to,from,next){
+  if(store.getters.logged && store.getters.usertype == "Admin"){
+    next();
+  }
+  else{
+    next({
+      name: "home"
+    })
+  }
+}
+function notLogged(to,from,next){
+  if(!store.getters.logged){
+    next();
+  }
+  else{
+    next({
+      name:"home"
     });
   }
 }
@@ -42,11 +62,11 @@ const routes = [
     name: "viewUsers",
     component: () => import("../components/viewUsers.vue")
   },
-  {
-    path: "/addcommitee",
-    name: "addcommitee",
-    component: () => import("../components/addcommitee.vue")
-  },
+  // {
+  //   path: "/addcommitee",
+  //   name: "addcommitee",
+  //   component: () => import("../components/addcommitee.vue")
+  // },
   {
     path: "/testRegister",
     name: "testRegister",
@@ -57,11 +77,11 @@ const routes = [
     name: "addnewsturcture",
     component: () => import("../components/addFramework.vue")
   },
-  {
-    path: "/orgDashboard",
-    name: "orgdashboard",
-    component: () => import("../views/orgDash.vue")
-  },
+  // {
+  //   path: "/orgDashboard",
+  //   name: "orgdashboard",
+  //   component: () => import("../views/orgDash.vue")
+  // },
   {
     path: "/addOrgStructure",
     name: "addOrgStructure",
@@ -71,7 +91,51 @@ const routes = [
     path: "/AdminDash",
     name: "AdminDash",
     component: () => import("../views/AdminDash.vue"),
-    beforeEnter: guardRoute
+    beforeEnter: isLoggedAdmin,
+    children:[
+      {
+        path:'/addCommittee',
+        name:"AddCommittee",
+        component: () => import("../components/adminDash/addCommittee"),
+        beforeEnter:isLoggedAdmin
+      },
+      {
+        path:'/AddRules',
+        name:"addrules",
+        component: () => import("../components/adminDash/addRules.vue"),
+        beforeEnter:isLoggedAdmin
+      },
+      {
+        path:'/registerUsers',
+        name:"addrules",
+        component: () => import("../components/adminDash/registerUser.vue"),
+        beforeEnter:isLoggedAdmin
+      },
+      {
+        path:'/AllUsers',
+        name:"allusers",
+        component: () => import("../components/adminDash/allUser.vue"),
+        beforeEnter:isLoggedAdmin
+      },
+      {
+        path:'/OrgStructure',
+        name:"editstrurcture",
+        component: () => import("../components/adminDash/ManageStructure.vue"),
+        beforeEnter:isLoggedAdmin
+      },
+      {
+        path:'/MyAccount',
+        name:"myaccount",
+        component: () => import("../components/adminDash/MyAccount.vue"),
+        beforeEnter:isLoggedAdmin
+      },
+      {
+        path:'/AddNewComponent',
+        name:"addComponent",
+        component: () => import("../components/adminDash/addComponent.vue"),
+        beforeEnter:isLoggedAdmin
+      }
+    ]
     // meta: {
     //   permision : 'admin'
     // }
@@ -94,7 +158,7 @@ const routes = [
   },
   {
     path: "/dashboard",
-    name: "dashboard",
+    name: "UserDashboard",
     component: dashboard,
     beforeEnter: guardRoute,
     children: [
@@ -148,7 +212,8 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: () => import("../views/LogView.vue")
+    component: () => import("../views/LogView.vue"),
+    beforeEnter: notLogged
   },
   {
     path: "/addCurriculumStructure",

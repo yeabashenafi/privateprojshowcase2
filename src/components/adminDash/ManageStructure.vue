@@ -1,25 +1,25 @@
 <template>
-  <v-container>
-    <v-flex>
-      <v-card>
+  
+    <v-container >
+      <v-card raised  >
         <v-card-title class="cyan darken-3">
           <v-flex class="text-center">
-            <p class="headline">Add Organizational Structure</p>
+            <p class="white--text font-weight-bold">Add Organizational Structure</p>
           </v-flex>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-              <v-flex xs8>
+              <v-flex sm8 xs10>
                 <v-select
                   label="Available Offices"
                   v-model="selectedOffice"
                   @select="selectOffice"
                   :items="officeName"
-                  class="mx-10"
+                  :class="{'mx-10':$vuetify.breakpoint.smAndUp}"
                 ></v-select>
               </v-flex>
-              <v-flex xs4>
+              <v-flex sm4 xs4>
                 <v-btn
                   @click="selectOffice()"
                   color="green lighten-2"
@@ -74,7 +74,8 @@
           </v-container>
           <template v-for="(office, index) in coffices">
             <v-flex v-bind:key="office.index" v-show="Children">
-              <v-form class="mx-10  ">
+              <v-form 
+              :class="{'mx-10':$vuetify.breakpoint.smAndUp}">
                 <v-layout>
                   <v-text>Child:{{ index + 1 }}</v-text>
                   <v-spacer></v-spacer>
@@ -89,20 +90,18 @@
             </v-flex>
           </template>
         </v-card-text>
-        <v-actions>
           <v-layout class="text-center">
-            <v-btn @click="addChildren()" class="mx-auto" :disabled="check"
+            <v-btn @click="addChildren()" class="mx-auto mb-5" :disabled="check"
               >Add offices</v-btn
             >
           </v-layout>
-        </v-actions>
       </v-card>
-    </v-flex>
-  </v-container>
+    </v-container>
+  
 </template>
 <script>
 //import func from '../../vue-temp/vue-editor-bridge';
-import { apiservice } from "../apiservice";
+import { apiservice } from "../../apiservice";
 const api = new apiservice();
 export default {
   data() {

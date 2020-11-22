@@ -1,15 +1,15 @@
 <template>
   <span>
-    <dashboard></dashboard>
+    <user-dashboard></user-dashboard>
   </span>
 </template>
 
 <script>
-import dashboard from "../components/dashboard.vue";
+import dashboard from "../components/UserDashboard.vue";
 export default {
-  name: "dashboard",
+  name: "UserDashboard",
   components: {
-    dashboard
+    UserDashboard
   },
 
   data: () => {

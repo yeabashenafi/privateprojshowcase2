@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-flex>
-      <v-layout>
-        <v-card width="60%" class="md6 xs12 px-6">
+  
+      
+        <v-card raised>
           <v-card-title>
             <div class="cyan--text text--darken-3">
               ADD NEW COMPONENTS
@@ -73,8 +73,8 @@
             </v-layout>
           </v-actions>
         </v-card>
-      </v-layout>
-    </v-flex>
+      
+    
   </v-container>
 </template>
 <script>

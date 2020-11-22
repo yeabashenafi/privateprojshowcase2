@@ -63,6 +63,7 @@ export default {
           this.$store.commit("setOrgid", response.data.orgId);
           this.$store.commit("change");
           this.$store.commit("setemail", response.data.email);
+          this.$store.commit("setUserType", "Admin");
           this.$router.push({ name: "AdminDash" });
         })
         .catch(err => {

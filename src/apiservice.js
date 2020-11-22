@@ -170,8 +170,7 @@ export class apiservice {
   //Adding the course details
   async addCourse(token, course) {
     let response = await axios.post(
-      `${API_URL}/courses?access_token=${token}`,
-      course
+      `${API_URL}/courses?access_token=${token}`,course
     );
     return response;
   }

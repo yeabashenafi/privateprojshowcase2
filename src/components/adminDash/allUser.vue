@@ -1,9 +1,12 @@
 <template>
-  <v-flex class="align-center ml-12 mb-8">
-    <v-card width="90%" class="ml-12 pb-6">
+  <v-container>
+    <v-card raised>
       <!-- <v-title class="cyan darken-3 py-3" width="100%">jjjj</v-title> -->
-      <v-card-title class="display-1">
-        <p class="cyan--text text--darken-3">Available Users</p>
+      <v-card-title class="cyan darken-3" >
+        <v-flex class="text-center">
+          <p class="white--text font-weight-bold">Available Users</p>
+        </v-flex>
+        
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -13,33 +16,36 @@
           hide-details
           rounded
           filled
-          class="shrink"
+          class="shrink white"
         ></v-text-field>
       </v-card-title>
-      <v-data-table
+      <v-flex>
+        <v-data-table
         :headers="headers"
         :items="userInfo"
         :search="search"
         sort-by="fullname"
-      >
-        <template v-slot:header.fullname="{ header }">
-          {{ header.text.toUpperCase() }}
-        </template>
-        <template v-slot:header.email="{ header }">
-          {{ header.text.toUpperCase() }}
-        </template>
-        <template v-slot:header.status="{ header }">
-          {{ header.text.toUpperCase() }}
-        </template>
-        <template v-slot:header.org="{ header }">
-          {{ header.text.toUpperCase() }}
-        </template>
-      </v-data-table>
+        >
+          <template v-slot:header.fullname="{ header }">
+            {{ header.text.toUpperCase() }}
+          </template>
+          <template v-slot:header.email="{ header }">
+            {{ header.text.toUpperCase() }}
+          </template>
+          <template v-slot:header.status="{ header }">
+            {{ header.text.toUpperCase() }}
+          </template>
+          <template v-slot:header.org="{ header }">
+            {{ header.text.toUpperCase() }}
+          </template>
+        </v-data-table>
+      </v-flex>
+      
     </v-card>
-  </v-flex>
+  </v-container>
 </template>
 <script>
-import { apiservice } from "../apiservice";
+import { apiservice } from "../../apiservice";
 const api = new apiservice();
 export default {
   data() {

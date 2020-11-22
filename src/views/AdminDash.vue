@@ -1,181 +1,111 @@
 <template>
-  <v-flex>
-    <v-card flat min-height="100%">
-      <!-- <v-toolbar flat color="primary" dark>
-      <v-toolbar-title>User Profile</v-toolbar-title>
-    </v-toolbar> -->
-      <v-tabs vertical class="float-left">
-        <v-card class="float-left ml-3 my-4" flat min-height="100%">
-          <!-- <v-list>
-      <v-list-item> -->
-          <v-card-title class="cyan darken-3">
-            <v-flex class="text-center">
-              <p title class="headline white--text">
-                {{ $store.getters.Username }}
-              </p>
-            </v-flex>
-          </v-card-title>
-          <!-- <v-card align="left" class="py-9 cyan darken-2" flat>
-            <p title class="align-center">{{ $store.getters.Username }}</p>
-          </v-card> -->
-          <v-tab>
-            <v-icon left>mdi-account</v-icon>
-            My Account
-          </v-tab>
-          <!-- <v-divider></v-divider> -->
-          <!-- </v-list-item>
-      <v-list-item> -->
-          <v-tab>
-            <v-icon left>mdi-lock</v-icon>
-            Add Organization
-          </v-tab>
-          <!-- <v-divider></v-divider> -->
+  <v-container fluid>
+    <v-layout row wrap>
+      <v-flex fill-height sm2 class="grey hidden-sm-and-down">
+        <v-card>
+          <v-navigation-drawer
+          width="100%"
+          :height="h"
+          v-model="drawer"
+          color="grey lighten-4"
+          permanent
+          >
+            <v-list-item class="Text-center">
+              
+              <v-list-icon>
+                <v-icon>mdi-view-dashboard</v-icon>
+              </v-list-icon>
+              <v-list-item-title class="headline text-center hidden-sm-and-down">
+                Admin 
+              </v-list-item-title>    
+            </v-list-item>
 
-          <!-- </v-list-item> -->
-          <!-- <v-list-item> -->
-          <v-tab>
-            <v-icon left>mdi-access-point</v-icon>
-            Manage Structure
-          </v-tab>
-          <!-- <v-divider></v-divider> -->
-
-          <!-- </v-list-item>
-      <v-list-item> -->
-          <v-tab>
-            <v-icon left>mdi-account</v-icon>
-            All Users
-          </v-tab>
-          <!-- <v-divider></v-divider> -->
-
-          <!-- </v-list-item>
-      <v-list-item> -->
-          <v-tab>
-            <v-icon left>mdi-plus</v-icon>
-            Add Users
-          </v-tab>
-          <v-tab>
-            <v-icon left>mdi-plus</v-icon>
-            Add Committee
-          </v-tab>
-
-          <v-tab>
-            <v-icon left>mdi-plus</v-icon>
-            Add Rules
-            <!-- <v-tab>
-            <v-icon left> mdi-plus</v-icon>
-            Add Component
-          </v-tab> -->
-          </v-tab>
-          <v-tab>
-            <v-icon left> mdi-plus</v-icon>
-            Add New Component
-          </v-tab>
-          <!-- <v-tab>
-            <v-icon left> mdi-plus</v-icon>
-            Add Field
-          </v-tab> -->
+            <v-divider></v-divider>
+            
+            <v-list shaped nav>
+              <v-list-item link to="/MyAccount">
+                <v-list-item-content class="">
+                  <v-list-item-title class="text-center font-weight-bold">My Account</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item link to="/OrgStructure">
+                <v-list-item-content>
+                  <v-list-item-title class="text-center font-weight-bold">Manage Structure</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item link to="/AllUsers">
+                <v-list-item-content>
+                  <v-list-item-title class="text-center font-weight-bold">All Users</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item link to="/registerUsers">
+                <v-list-item-content>
+                  <v-list-item-title class="text-center font-weight-bold">Register Users</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item link to="/addCommittee">
+                <v-list-item-content>
+                  <v-list-item-title class="text-center font-weight-bold">Add Committees</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item link to="/AddRules">
+                <v-list-item-content >
+                  <v-list-item-title class="text-center font-weight-bold">Add Rules</v-list-item-title>
+                  
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item link to="/AddnewComponent">
+                <v-list-item-content>
+                  <v-list-item-title class="text-center font-weight-bold">Add New Components</v-list-item-title>
+                  
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-navigation-drawer>
         </v-card>
-        <v-tab-item>
-          <v-card flat>
-            <v-card-text>
-              <my-account></my-account>
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-        <v-tab-item>
-          <v-card flat>
-            <v-card-text>
-              <add-organization></add-organization>
-              <!-- <all-user></all-user> -->
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-        <v-tab-item>
-          <v-flex class="text-center" align-self-center>
-            <v-card flat>
-              <v-card-text>
-                <org-structure-test></org-structure-test>
-              </v-card-text>
-            </v-card>
-          </v-flex>
-        </v-tab-item>
-        <v-tab-item>
-          <v-flex class="text-center" align-self-center>
-            <v-card flat>
-              <v-card-text>
-                <all-user></all-user>
-              </v-card-text>
-            </v-card>
-          </v-flex>
-        </v-tab-item>
-        <v-tab-item>
-          <v-card flat>
-            <v-card-text>
-              <register class="ml-3"></register>
-              <!-- <add-organization></add-organization> -->
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-        <v-tab-item>
-          <v-card flat>
-            <v-card-text>
-              <addcommitee class="ml-3"></addcommitee>
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-        <v-tab-item>
-          <v-card flat>
-            <v-card-text>
-              <set-rules></set-rules>
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-        <!-- <v-tab-item>
-          <v-card-text>
-            <add-component class="ml-3"></add-component>
-          </v-card-text>
-        </v-tab-item> -->
-        <v-tab-item>
-          <v-card-text>
-            <training class="ml-3"></training>
-          </v-card-text>
-        </v-tab-item>
-        <!-- <v-tab-item>
-          <v-card-text>
-            <dfieldtrain class="ml-3"></dfieldtrain>
-          </v-card-text>
-        </v-tab-item> -->
-      </v-tabs>
-    </v-card>
-  </v-flex>
+      </v-flex>
+
+      <v-flex md9 xs12 fill-height class="mx-md-5">
+        <v-content>
+          
+            <router-view></router-view>
+          
+        </v-content>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 <script>
-// import dfieldtrain from "../components/dfieldtrain";
-import training from "../components/training";
-// import addComponent from "../components/addComponent";
-import addcommitee from "../components/addcommitee";
-import MyAccount from "../components/MyAccount";
-import addOrganization from "../components/platform/addorganization.vue";
-import orgStructureTest from "../components/orgStructureTest.vue";
-import allUser from "../components/allUser";
-import register from "../components/register.vue";
-import setRules from "../components/setRules.vue";
+// // import dfieldtrain from "../components/dfieldtrain";
+// import training from "../components/training";
+// // import addComponent from "../components/addComponent";
+// import addcommitee from "../components/addcommitee";
+// import MyAccount from "../components/MyAccount";
+// import addOrganization from "../components/platform/addorganization.vue";
+// import orgStructureTest from "../components/orgStructureTest.vue";
+// import allUser from "../components/allUser";
+// import register from "../components/register.vue";
+// import setRules from "../components/setRules.vue";
 
 export default {
-  data() {
-    return {};
-  },
+  
   components: {
-    addOrganization,
-    register,
-    MyAccount,
-    allUser,
-    setRules,
-    orgStructureTest,
-    addcommitee,
-    training
+    // addOrganization,
+    // register,
+    // MyAccount,
+    // allUser,
+    // setRules,
+    // orgStructureTest,
+    // addcommitee,
+    // training
     // addComponent,
     // dfieldtrain
+  },
+  data(){
+    return{
+      h:window.innerHeight,
+      drawer:true
+    }
   }
 };
 </script>

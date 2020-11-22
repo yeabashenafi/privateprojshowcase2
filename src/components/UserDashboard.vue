@@ -89,7 +89,7 @@
               </v-list-item-icon>
               <v-list-item-content class="hidden-sm-and-down ">
                 <v-list-item-title class="text-center font-weight-bold"
-                  >Your curriculum
+                  >Add a curriculum
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>

@@ -1,72 +1,114 @@
 <template>
-  <span>
-    <v-flex class="px-5 pb-10 mx-12 text-center">
-      <v-card raised class="mx-12" width="80%">
-        <v-card-title class="cyan darken-2 mb-3">
-          <v-layout>
-            <v-flex>
-              <v-layout>
-                <!-- indigo--text text--lighten-2 -->
-                <h2 class="my-3 white--text text-center">
+  <v-container>
+    
+      <v-card raised >
+        <v-card-title class="cyan darken-3 ">
+          
+            <v-flex class="text-center">
+              
+                
+                <p class="white--text font-weight-bold">
                   New User Registration Form
-                </h2>
-                <!-- <v -spacer></v-spacer> -->
-              </v-layout>
+                </p>
+                
 
-              <h4 class="ma-7 white--text"></h4>
+              
             </v-flex>
-          </v-layout>
+          
         </v-card-title>
         <v-card-text>
-          <v-form ref="form" class="pa-3" v-model="valid">
-            <v-text-field
-              label=" Full Name"
-              v-model="fullname"
-              :rules="nameRule"
-            ></v-text-field>
-            <v-text-field
-              label=" Username"
-              v-model="Username"
-              :rules="nameRule"
-            ></v-text-field>
-            <v-text-field
-              label=" email"
-              v-model="email"
-              :rules="emailRule"
-            ></v-text-field>
+          <v-form ref="form" class="mt-5"  v-model="valid">
+            <v-layout wrap>
+              <v-flex xs10 sm6 >
+                <v-text-field
+                label=" Full Name"
+                v-model="fullname"
+                :rules="nameRule"
+                class="mx-sm-3 mx-xs-12"
+                solo
+              ></v-text-field>
+              </v-flex>
+              <v-flex xs10 sm6>
+                <v-text-field
+                label=" Username"
+                v-model="Username"
+                :rules="nameRule"
+                class="mx-sm-3"
+                solo
+              ></v-text-field>
+              </v-flex>
+              <v-flex xs10 sm6>
+                <v-text-field
+                  label=" email"
+                  v-model="email"
+                  :rules="emailRule"
+                  class="mx-sm-3"
+                  solo
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs10 sm6>
+                <v-text-field
+                  label=" Password"
+                  v-model="password"
+                  :rules="passwordRule"
+                  class="mx-sm-3"
+                  solo
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs10 sm6>
+                <v-select
+                  :items="names"
+                  label="Office user Works in "
+                  v-model="office"
+                  solo
+                  class="mx-sm-3"
+                ></v-select>
+              </v-flex>
+              <v-flex xs10 sm6>
+                <v-text-field
+                  label="Nationality"
+                  v-model="Nationality"
+                  solo
+                  :rules="nationalRule"
+                  class="mx-sm-3"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs10>
 
-            <v-text-field
-              label=" Password"
-              v-model="password"
-              :rules="passwordRule"
-            ></v-text-field>
-            <v-select
-              :items="names"
-              label="Office user Works in "
-              v-model="office"
-            ></v-select>
+              </v-flex>
+              <v-flex xs10 sm6>
+                <p class="mx-3 title">Gender</p>
+                <v-radio-group v-model="gender" :mandatory="true" row class="mx-4">
+                  <v-radio label="Male" value="Male"></v-radio>
+                  <v-radio label="Female" value="Female"></v-radio>
+                </v-radio-group>
+              </v-flex>
+              <v-flex xs10 sm6>
+                <p class=" mx-3 title">Educational status</p>
+                <v-radio-group
+                  v-model="Educational_status"
+                  :mandatory="true"
+                  row
+                  class="mx-4"
+                >
+                  <v-radio label="Bsc" value="bachelor"></v-radio>
+                  <v-radio label="Msc" value="Masters"></v-radio>
+                  <v-radio label="PHD" value="phd"></v-radio>
+                </v-radio-group>
+              </v-flex>
+            </v-layout>
+            
+            <v-flex xs10>
+
+            </v-flex>
+            
+
+            
+            
             <!-- <v-select label="Role" :items="roles" v-model="role"> </v-select> -->
-            <v-text-field
-              label="Nationality"
-              v-model="Nationality"
-              :rules="nationalRule"
-            ></v-text-field>
-            <p class="mx-3 pt-3 title">Gender</p>
-            <v-radio-group v-model="gender" :mandatory="true" row class="mx-4">
-              <v-radio label="Male" value="Male"></v-radio>
-              <v-radio label="Female" value="Female"></v-radio>
-            </v-radio-group>
-            <p class="title">Educational status</p>
-            <v-radio-group
-              v-model="Educational_status"
-              :mandatory="true"
-              row
-              class="mx-4"
-            >
-              <v-radio label="Bsc" value="bachelor"></v-radio>
-              <v-radio label="Msc" value="Masters"></v-radio>
-              <v-radio label="PHD" value="phd"></v-radio>
-            </v-radio-group>
+            
+            
+            
             <!-- <div class="mb-3">
                       <v-file-input label="Upload Document" v-model="file"></v-file-input>
                   </div> -->
@@ -83,7 +125,7 @@
           </v-form>
         </v-card-text>
       </v-card>
-    </v-flex>
+    
     <v-dialog max-width="400px" v-model="ok">
       <v-card>
         <v-card-title>
@@ -97,10 +139,10 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </span>
+  </v-container>
 </template>
 <script>
-import { apiservice } from "../apiservice";
+import { apiservice } from "../../apiservice";
 const api = new apiservice();
 export default {
   data() {
