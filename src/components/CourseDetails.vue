@@ -330,11 +330,7 @@ export default {
       ],
       chap_name: "",
       reference: "",
-      learning_methods: [
-        {
-          learn_method: ""
-        }
-      ],
+      learning_methods: "",
       assessment: [
         {
           method: "",
@@ -379,7 +375,7 @@ export default {
       this.$emit("finishcd",data[0],this.index);
     },
     show_clo_dialog() {
-      console.log("Welcome");
+      //console.log("Welcome");
       this.show_clo = !this.show_clo;
     },
     shut_dialog() {

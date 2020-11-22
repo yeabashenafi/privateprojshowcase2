@@ -437,13 +437,11 @@ export class apiservice {
   }
 
   //GET user name by id
-
   async getAccountName(id) {
     let response = await axios.get(`${API_URL}/Accounts/${id}`);
     return response.data.fullname;
   }
   // Add minute of meetings for secreatry role of committees
-
   async addMinute(data) {
     let response = await axios.post(`${API_URL}/Agendas`, data);
     return response;
@@ -481,9 +479,18 @@ export class apiservice {
   async getfile(file) {
     let response = axios.get(
       `${API_URL}/Container/remoteMethod/download/${file}`
-    );
-    return response;
-  }
+    )
+  return response;
+}
+async addcourses(curr_id, token, data) {
+  let response = await axios.post(
+    `${API_URL}/y/${curr_id}/courses?access_token=${token}`,
+    data
+  );
+  return response;
+}  
+  //Adding course using curr id
+  
   // async setAdminTo(data){
   //   let response = await axios.post(`${API_URL}/Accounts/setAdmin`,data);
   //   console.log(response);.

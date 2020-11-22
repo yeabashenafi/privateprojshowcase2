@@ -226,6 +226,11 @@
                                    
                                 </v-layout>
                               </v-layout>
+                              <CourseDetails
+                                v-if="show_courseD"
+                                :name="course.name"
+                                :curr_id="course.curriculumManagementId"
+                              />
                             </v-flex>
                           </template>
                         </v-flex>
